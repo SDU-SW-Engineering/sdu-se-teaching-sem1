@@ -1,0 +1,25 @@
+\usepackage[english]{babel} % load typographical rules for the english language
+\usepackage{graphics} % for \scalebox
+\usepackage{hyperref} % for \href
+
+% https://github.com/latex3/babel/issues/51
+\makeatletter\AtBeginDocument{\let\@elt\relax}\makeatother
+
+% styling
+\setsecnumdepth{subsubsection} % how deep to number sections
+\setlength{\parindent}{0em} % horizontal indent for first line of paragraph
+\setlength{\parskip}{1em} % vertical space between paragraphs
+
+\newcommand{\textdesc}[1]{\textit{\textbf{#1}}}
+\newcommand{\descitem}[1]{\item \textdesc{#1}}
+
+\title{Project Description}
+\author{Aslak Johansen}
+
+\begin{document}
+
+\maketitle
+
+\setcounter{tocdepth}{2}
+\tableofcontents
+
