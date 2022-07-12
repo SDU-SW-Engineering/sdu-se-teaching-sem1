@@ -1,4 +1,0 @@
-\babel@toc {english}{}\relax 
-\contentsline {chapter}{Contents}{1}{section*.1}%
-\contentsline {chapter}{\chapternumberline {1}Introduction}{2}{chapter.1}%
-\contentsline {chapter}{\chapternumberline {2}Timeline}{3}{chapter.2}%
