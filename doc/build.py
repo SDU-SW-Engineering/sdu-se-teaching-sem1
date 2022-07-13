@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 
 from makeish import *
-from subprocess import Popen, STDOUT, PIPE
+from subprocess import Popen, STDOUT, PIPE, run
 import shutil
+import pdflatex
+import subprocess
 
 def system (command, logfile='makeish.log'):
     print('%s >> %s' % (command, logfile))
@@ -36,7 +38,15 @@ class RecipeTexDocument (Recipe):
     if retcode==0:
       shutil.move(self.build_filename, self.target_filename)
     return "new" if retcode==0 else "error"
-  
+
+  def build_windows(self):
+    try:
+     print(self.command)
+     subprocess.run(self.command)
+    except subprocess.CalledProcessError:
+     return "error"
+    return "new"
+
   def extract_deps (self, mo):
     basename = mo.group(1)
     elements = basename.split(" - ")
@@ -51,7 +61,8 @@ class RecipeTexDocument (Recipe):
     input_filename = entry["source"]
     self.target_filename = "%s.pdf" % basename
     self.build_filename  = "%s.pdf" % input_filename[:-4]
-    self.command = "pdflatex -shell-escape %s" % (input_filename)
+    #self.command = "pdflatex -shell-escape %s" % (input_filename)
+    self.command = ['pdflatex', '-interaction=nonstopmode', input_filename]
     return ["shared.tex", input_filename]
 
 add_recipe(RecipeTexDocument)
