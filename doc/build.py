@@ -17,6 +17,9 @@ def systempipe (command, logfile='makeish.log'):
 
 document_prefix = "SDU SEST 2022 Semester 1"
 document_names = {
+  "Bogliste": {
+    "source": "bogliste.tex",
+  },
   "Project Description": {
     "source": "projectdescription.tex",
   },
