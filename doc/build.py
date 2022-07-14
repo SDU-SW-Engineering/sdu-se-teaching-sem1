@@ -23,6 +23,10 @@ document_names = {
     "source": "bogliste.tex",
     "topic": "Semester Information"
   },
+  "Kontaktoplysninger": {
+    "source": "contact.tex",
+    "topic": "Semester Information"
+  },
   "Project Description": {
     "source": "projectdescription.tex",
   },
