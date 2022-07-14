@@ -30,6 +30,10 @@ document_names = {
   "Project Description": {
     "source": "projectdescription.tex",
   },
+  "Semesterhåndbog": {
+    "source": "handbook.tex",
+    "topic": "Semester Information"
+  },
 }
 
 class RecipeTexDocument (Recipe):
