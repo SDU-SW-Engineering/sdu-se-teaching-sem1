@@ -2,6 +2,10 @@
 \usepackage{graphics} % for \scalebox
 \usepackage{hyperref} % for \href
 
+% footnotes in tabular environments
+\usepackage{footnote}
+\makesavenoteenv{tabular}
+
 % https://github.com/latex3/babel/issues/51
 \makeatletter\AtBeginDocument{\let\@elt\relax}\makeatother
 
