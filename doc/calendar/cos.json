@@ -1,0 +1,12 @@
+{
+  "COS": [
+    {
+      "date": "2022 October 1",
+      "description": ["Pointgivende Aktivitet 1"],
+    },
+    {
+      "date": "2022 December 3",
+      "description": ["Pointgivende Aktivitet 2"],
+    },
+  ],
+}

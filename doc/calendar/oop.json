@@ -1,0 +1,23 @@
+{
+  "OOP": [
+    {
+      "date": "2022 September 22",
+      "description": ["Pointgivende Aktivitet 1"],
+    },
+    {
+      "date": "2022 October 27",
+      "description": ["Pointgivende Aktivitet 2"],
+    },
+    {
+      "date": [
+        "2022 November 14",
+        "2022 November 16"
+      ],
+      "description": ["Workshop"],
+    },
+    {
+      "date": "2022 November 24",
+      "description": ["Pointgivende Aktivitet 3"],
+    },
+  ],
+}
