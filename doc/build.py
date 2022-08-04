@@ -40,6 +40,9 @@ document_names = {
    "Semester project": {
     "source": "semesterprojekt.tex",
   },
+  "ProOnline Course Material": {
+    "source": "kursusmaterialer.tex",
+  },
 }
 
 class RecipeTexDocument (Recipe):
