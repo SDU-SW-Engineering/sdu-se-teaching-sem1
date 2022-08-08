@@ -43,6 +43,12 @@ document_names = {
   "ProOnline Course Material": {
     "source": "kursusmaterialer.tex",
   },
+  "ProOnline Course Explanation": {
+    "source": "kursusbeskrivelse.tex",
+  },
+  "ProOnline Course Handbook": {
+    "source": "kursushåndbog.tex",
+  },
 }
 
 class RecipeTexDocument (Recipe):
