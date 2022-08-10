@@ -3,7 +3,7 @@
 from makeish import *
 from subprocess import Popen, STDOUT, PIPE, run
 import shutil
-#import pdflatex
+import pdflatex
 import subprocess
 
 def system (command, logfile='makeish.log'):
@@ -19,20 +19,35 @@ def systempipe (command, logfile='makeish.log'):
 
 document_prefix = "SDU SEST 2022 Semester 1"
 document_names = {
-  "Bogliste": {
-    "source": "bogliste.tex",
-    "topic": "Semester Information"
-  },
-  "Kontaktoplysninger": {
-    "source": "contact.tex",
-    "topic": "Semester Information"
-  },
   "Project Description": {
     "source": "projectdescription.tex",
   },
-  "Semesterhåndbog": {
-    "source": "handbook.tex",
-    "topic": "Semester Information"
+  "Semester Plan": {
+    "source": "semesterplan.tex",
+  },
+  "Semester Handbook": {
+    "source": "semesterhåndbog.tex",
+  },
+  "Book List": {
+    "source": "bogliste.tex",
+  },  
+  "Contact Information": {
+    "source": "kontaktoplysninger.tex",
+  },
+   "ProOnline Literature": {
+    "source": "kursuslitteratur.tex",
+  },
+   "Semester project": {
+    "source": "semesterprojekt.tex",
+  },
+  "ProOnline Course Material": {
+    "source": "kursusmaterialer.tex",
+  },
+  "ProOnline Course Explanation": {
+    "source": "kursusbeskrivelse.tex",
+  },
+  "ProOnline Course Handbook": {
+    "source": "kursushåndbog.tex",
   },
 }
 
@@ -43,15 +58,15 @@ class RecipeTexDocument (Recipe):
     super(RecipeTexDocument, self).__init__(target)
   
   def build_linux(self):
-    retcode = system(self.command_linux)
+    retcode = system(self.command)
     if retcode==0:
       shutil.move(self.build_filename, self.target_filename)
     return "new" if retcode==0 else "error"
 
   def build_windows(self):
     try:
-#     print(self.command)
-     subprocess.run(self.command_windows)
+     print(self.command)
+     subprocess.run(self.command)
     except subprocess.CalledProcessError:
      return "error"
     return "new"
@@ -70,8 +85,8 @@ class RecipeTexDocument (Recipe):
     input_filename = entry["source"]
     self.target_filename = "%s.pdf" % basename
     self.build_filename  = "%s.pdf" % input_filename[:-4]
-    self.command_linux = "pdflatex -shell-escape %s" % (input_filename)
-    self.command_windows = ['pdflatex', '-interaction=nonstopmode', input_filename]
+    #self.command = "pdflatex -shell-escape %s" % (input_filename)
+    self.command = ['pdflatex', '-interaction=nonstopmode', input_filename]
     return ["shared.tex", input_filename]
 
 add_recipe(RecipeTexDocument)

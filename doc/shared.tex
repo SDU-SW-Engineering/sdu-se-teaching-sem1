@@ -1,10 +1,10 @@
 \usepackage[english]{babel} % load typographical rules for the english language
 \usepackage{graphics} % for \scalebox
 \usepackage{hyperref} % for \href
-
-% footnotes in tabular environments
-\usepackage{footnote}
-\makesavenoteenv{tabular}
+\usepackage{xcolor} % for text color
+\usepackage{enumitem} % for ordered and unordered list
+\usepackage{graphicx} % for images
+\usepackage{pdfpages} % for including pdfs
 
 % https://github.com/latex3/babel/issues/51
 \makeatletter\AtBeginDocument{\let\@elt\relax}\makeatother
@@ -23,7 +23,5 @@
 \begin{document}
 
 \maketitle
-
 \setcounter{tocdepth}{2}
 \tableofcontents
-
