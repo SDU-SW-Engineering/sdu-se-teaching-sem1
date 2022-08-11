@@ -3,7 +3,6 @@
 from makeish import *
 from subprocess import Popen, STDOUT, PIPE, run
 import shutil
-#import pdflatex
 import subprocess
 
 # local imports
