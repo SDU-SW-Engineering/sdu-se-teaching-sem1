@@ -3,8 +3,10 @@
 from makeish import *
 from subprocess import Popen, STDOUT, PIPE, run
 import shutil
-import pdflatex
 import subprocess
+
+# local imports
+import cal
 
 def system (command, logfile='makeish.log'):
     print('%s >> %s' % (command, logfile))
@@ -21,12 +23,16 @@ document_prefix = "SDU SEST 2022 Semester 1"
 document_names = {
   "Project Description": {
     "source": "projectdescription.tex",
+#    "dependencies": {
+#      "projectdescription-calendar.tex": lambda: ,
+#    },
   },
   "Semester Plan": {
     "source": "semesterplan.tex",
   },
   "Semester Handbook": {
     "source": "semesterhåndbog.tex",
+    "includetoc": True,
   },
   "Book List": {
     "source": "bogliste.tex",
@@ -58,15 +64,15 @@ class RecipeTexDocument (Recipe):
     super(RecipeTexDocument, self).__init__(target)
   
   def build_linux(self):
-    retcode = system(self.command)
+    retcode = system(self.command_linux)
     if retcode==0:
       shutil.move(self.build_filename, self.target_filename)
     return "new" if retcode==0 else "error"
 
   def build_windows(self):
     try:
-     print(self.command)
-     subprocess.run(self.command)
+     print(self.command_win)
+     subprocess.run(self.command_win)
     except subprocess.CalledProcessError:
      return "error"
     return "new"
@@ -85,8 +91,13 @@ class RecipeTexDocument (Recipe):
     input_filename = entry["source"]
     self.target_filename = "%s.pdf" % basename
     self.build_filename  = "%s.pdf" % input_filename[:-4]
-    #self.command = "pdflatex -shell-escape %s" % (input_filename)
-    self.command = ['pdflatex', '-interaction=nonstopmode', input_filename]
+    title = elements[1]
+    subtitle = elements[0]
+    includetoc = entry["includetoc"] if "includetoc" in entry else False
+    tocwrapper = "\\newcommand\\tableofcontentswrapper[0]{%s}" % ("\\tableofcontents" if includetoc else "")
+    latexcode = "\"\\newcommand\\documenttitle[0]{%s} \\newcommand\\documentsubtitle[0]{%s} %s \\input{%s}\"" % (title, subtitle, tocwrapper, input_filename)
+    self.command_linux = "pdflatex -shell-escape -interaction=nonstopmode %s" % (latexcode)
+    self.command_win = ['pdflatex', '-interaction=nonstopmode', latexcode]
     return ["shared.tex", input_filename]
 
 add_recipe(RecipeTexDocument)
