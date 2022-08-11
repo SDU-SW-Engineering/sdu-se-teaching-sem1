@@ -6,6 +6,9 @@ import shutil
 import pdflatex
 import subprocess
 
+# local imports
+import cal
+
 def system (command, logfile='makeish.log'):
     print('%s >> %s' % (command, logfile))
     p = Popen('%s >> %s' % (command, logfile), shell=True, stderr=STDOUT, stdout=PIPE)
@@ -21,6 +24,9 @@ document_prefix = "SDU SEST 2022 Semester 1"
 document_names = {
   "Project Description": {
     "source": "projectdescription.tex",
+#    "dependencies": {
+#      "projectdescription-calendar.tex": lambda: ,
+#    },
   },
   "Semester Plan": {
     "source": "semesterplan.tex",
