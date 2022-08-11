@@ -33,6 +33,7 @@ document_names = {
   },
   "Semester Handbook": {
     "source": "semesterhåndbog.tex",
+    "includetoc": True,
   },
   "Book List": {
     "source": "bogliste.tex",
@@ -91,8 +92,13 @@ class RecipeTexDocument (Recipe):
     input_filename = entry["source"]
     self.target_filename = "%s.pdf" % basename
     self.build_filename  = "%s.pdf" % input_filename[:-4]
-    self.command_linux = "pdflatex -shell-escape -interaction=nonstopmode %s" % (input_filename)
-    self.command_win = ['pdflatex', '-interaction=nonstopmode', input_filename]
+    title = elements[1]
+    subtitle = elements[0]
+    includetoc = entry["includetoc"] if "includetoc" in entry else False
+    tocwrapper = "\\newcommand\\tableofcontentswrapper[0]{%s}" % ("\\tableofcontents" if includetoc else "")
+    latexcode = "\"\\newcommand\\documenttitle[0]{%s} \\newcommand\\documentsubtitle[0]{%s} %s \\input{%s}\"" % (title, subtitle, tocwrapper, input_filename)
+    self.command_linux = "pdflatex -shell-escape -interaction=nonstopmode %s" % (latexcode)
+    self.command_win = ['pdflatex', '-interaction=nonstopmode', latexcode]
     return ["shared.tex", input_filename]
 
 add_recipe(RecipeTexDocument)
