@@ -6,6 +6,7 @@ import cal.projectdescription as projectdescription
 from subprocess import Popen, STDOUT, PIPE, run
 import shutil
 import subprocess
+import sys
 
 # local imports
 import cal
@@ -136,17 +137,15 @@ class RecipeTexDocument (Recipe):
     
     self.command_linux = "pdflatex -shell-escape -interaction=nonstopmode %s" % (latexcode)
     self.command_win = ['pdflatex', '-interaction=nonstopmode', latexcode]
-<<<<<<< HEAD
-    print(self.command_win)
-    print(latexcode)
-    print(latexcode.replace("\\\\", "\\"))
-    print(" ".join(self.command_win))
-    1/0
-    return ["shared.tex", input_filename]
-=======
+    
+    if sys.platform=="win32":
+      print(self.command_win)
+      print(latexcode)
+      print(latexcode.replace("\\\\", "\\"))
+      print(" ".join(self.command_win))
+      1/0
     
     return ["shared.tex", input_filename]+deps
->>>>>>> b1b35a89ebe98a712c1a104d3fca8b4817a5143a
 
 add_recipe(RecipeTexTable)
 add_recipe(RecipeTexDocument)
