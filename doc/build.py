@@ -64,6 +64,9 @@ document_names = {
   "ProOnline Course Handbook": {
     "source": "kursushandbook.tex",
   },
+  "ProOnline Agreement Example": {
+    "source": "samarbejdeEksempel.tex",
+  },
 }
 
 class RecipeTexTable (Recipe):
@@ -107,7 +110,8 @@ class RecipeTexDocument (Recipe):
   def build_windows (self):
     try:
      retcode = system_win(self.command_win)
-     print(self.command_win)
+     #print(self.command_win)
+     print(" ".join(self.command_win))
      #subprocess.run(self.command_win)
     except subprocess.CalledProcessError:
      return "error"
