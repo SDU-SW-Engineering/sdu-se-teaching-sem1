@@ -3,7 +3,7 @@
 ## Dependencies
 
 Python 3 and the following packages (install via `pip`):
-- [makeish](https://pypi.org/project/makeish/)
+- [makeish](https://pypi.org/project/makeish/) at least version 0.3
 - [json5](https://pypi.org/project/json5/)
 
 ## Building

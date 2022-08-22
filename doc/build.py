@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 from makeish import *
+import cal.projectdescription as projectdescription
+
 from subprocess import Popen, STDOUT, PIPE, run
 import shutil
 import subprocess
@@ -29,9 +31,9 @@ document_prefix = "SDU SEST 2022 Semester 1"
 document_names = {
   "Project Description": {
     "source": "projectdescription.tex",
-#    "dependencies": {
-#      "projectdescription-calendar.tex": lambda: ,
-#    },
+    "dependencies": {
+      projectdescription.filename: lambda: projectdescription.build(),
+    },
   },
   "Semester Plan": {
     "source": "semesterplan.tex",
@@ -63,19 +65,45 @@ document_names = {
   },
 }
 
+class RecipeTexTable (Recipe):
+  pattern = re.compile("tables/(.+).tex$")
+  
+  def __init__ (self, target):
+    super(RecipeTexTable, self).__init__(target)
+  
+  def extract_deps (self, mo):
+    filename = mo.group(0)
+    print("EXTRACT_DEPS filename="+filename)
+    for key in document_names:
+      entry = document_names[key]
+      if "dependencies" in entry and filename in entry["dependencies"]:
+        self.builder = entry["dependencies"][filename]
+        return []
+    
+    return None
+  
+  def build_python (self):
+    self.builder()
+  
+  def build_linux (self):
+    self.build_python()
+  
+  def build_windows (self):
+    self.build_python()
+
 class RecipeTexDocument (Recipe):
   pattern = re.compile("(.+).pdf$")
   
   def __init__ (self, target):
     super(RecipeTexDocument, self).__init__(target)
   
-  def build_linux(self):
+  def build_linux (self):
     retcode = system(self.command_linux)
     if retcode==0:
       shutil.move(self.build_filename, self.target_filename)
     return "new" if retcode==0 else "error"
-
-  def build_windows(self):
+  
+  def build_windows (self):
     try:
      retcode = system_win(self.command_win)
      print(self.command_win)
@@ -83,7 +111,7 @@ class RecipeTexDocument (Recipe):
     except subprocess.CalledProcessError:
      return "error"
     return "new"
-
+  
   def extract_deps (self, mo):
     basename = mo.group(1)
     elements = basename.split(" - ")
@@ -94,7 +122,9 @@ class RecipeTexDocument (Recipe):
     if not rhs in document_names:
       print("Error: Unknown entry '%s'. Returning None!" % rhs)
       return None
+    
     entry = document_names[rhs]
+    deps = list(entry["dependencies"].keys()) if "dependencies" in entry else []
     input_filename = entry["source"]
     self.target_filename = "%s.pdf" % basename
     self.build_filename  = "%s.pdf" % input_filename[:-4]
@@ -103,15 +133,22 @@ class RecipeTexDocument (Recipe):
     includetoc = entry["includetoc"] if "includetoc" in entry else False
     tocwrapper = "\\newcommand\\tableofcontentswrapper[0]{%s}" % ("\\tableofcontents" if includetoc else "")
     latexcode = "\"\\newcommand\\documenttitle[0]{%s} \\newcommand\\documentsubtitle[0]{%s} %s \\input{%s}\"" % (title, subtitle, tocwrapper, input_filename)
+    
     self.command_linux = "pdflatex -shell-escape -interaction=nonstopmode %s" % (latexcode)
     self.command_win = ['pdflatex', '-interaction=nonstopmode', latexcode]
+<<<<<<< HEAD
     print(self.command_win)
     print(latexcode)
     print(latexcode.replace("\\\\", "\\"))
     print(" ".join(self.command_win))
     1/0
     return ["shared.tex", input_filename]
+=======
+    
+    return ["shared.tex", input_filename]+deps
+>>>>>>> b1b35a89ebe98a712c1a104d3fca8b4817a5143a
 
+add_recipe(RecipeTexTable)
 add_recipe(RecipeTexDocument)
 set_default(list(map(lambda key: ("%s - %s.pdf"%(document_prefix, key)).replace(" ", " "), document_names)))
 
