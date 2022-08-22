@@ -3,7 +3,7 @@ import json5
 from datetime import datetime
 from functools import cmp_to_key
 
-datadir = "calendar"
+datadir = "cal"
 data = []
 
 #################################################################### query resolver
@@ -99,26 +99,26 @@ def init ():
 
 init()
 
-print(data)
+#print(data)
 
-cols = [
-  {
-    "alignment": "r",
-    "title":     "Date",
-    "extractor": lambda e: (e["date"][0] if type(e["date"])==list else e["date"]) if "date" in e else None,
-    "blank":     "",
-  },
-  {
-    "alignment": "c",
-    "title":     "Domain",
-    "extractor": lambda e: e["key"] if "key" in e else None,
-    "blank":     "",
-  },
-  {
-    "alignment": "l",
-    "title":     "Description",
-    "extractor": lambda e: e["description"][0] if "description" in e else None,
-    "blank":     "",
-  },
-]
-produce_table(cols, filterfun=None, filename="sample_calendar_output.tex")
+#cols = [
+#  {
+#    "alignment": "r",
+#    "title":     "Date",
+#    "extractor": lambda e: (e["date"][0] if type(e["date"])==list else e["date"]) if "date" in e else None,
+#    "blank":     "",
+#  },
+#  {
+#    "alignment": "c",
+#    "title":     "Domain",
+#    "extractor": lambda e: e["key"] if "key" in e else None,
+#    "blank":     "",
+#  },
+#  {
+#    "alignment": "l",
+#    "title":     "Description",
+#    "extractor": lambda e: e["description"][0] if "description" in e else None,
+#    "blank":     "",
+#  },
+#]
+#produce_table(cols, filterfun=None, filename="sample_calendar_output.tex")
