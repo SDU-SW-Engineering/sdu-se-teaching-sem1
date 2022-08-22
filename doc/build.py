@@ -143,7 +143,7 @@ class RecipeTexDocument (Recipe):
       print(latexcode)
       print(latexcode.replace("\\\\", "\\"))
       print(" ".join(self.command_win))
-      1/0
+    
     
     return ["shared.tex", input_filename]+deps
 
