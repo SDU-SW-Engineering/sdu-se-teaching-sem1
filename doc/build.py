@@ -14,6 +14,12 @@ def system (command, logfile='makeish.log'):
     return_code = p.wait()
     return return_code
 
+def system_win (command, logfile='makeish.log'):
+    #print('%s >> %s' % (command, logfile))
+    p = Popen(command, shell=False)
+    return_code = p.wait()
+    return return_code
+
 def systempipe (command, logfile='makeish.log'):
     p = Popen('%s >> %s 2>&1' % (command, logfile), shell=True, stderr=STDOUT, stdout=PIPE)
     return_code = p.wait()
@@ -43,7 +49,7 @@ document_names = {
    "ProOnline Literature": {
     "source": "kursuslitteratur.tex",
   },
-   "Semester project": {
+   "Semester Project": {
     "source": "semesterprojekt.tex",
   },
   "ProOnline Course Material": {
@@ -53,7 +59,7 @@ document_names = {
     "source": "kursusbeskrivelse.tex",
   },
   "ProOnline Course Handbook": {
-    "source": "kursushåndbog.tex",
+    "source": "kursushandbook.tex",
   },
 }
 
@@ -71,8 +77,9 @@ class RecipeTexDocument (Recipe):
 
   def build_windows(self):
     try:
+     retcode = system_win(self.command_win)
      print(self.command_win)
-     subprocess.run(self.command_win)
+     #subprocess.run(self.command_win)
     except subprocess.CalledProcessError:
      return "error"
     return "new"
@@ -98,6 +105,11 @@ class RecipeTexDocument (Recipe):
     latexcode = "\"\\newcommand\\documenttitle[0]{%s} \\newcommand\\documentsubtitle[0]{%s} %s \\input{%s}\"" % (title, subtitle, tocwrapper, input_filename)
     self.command_linux = "pdflatex -shell-escape -interaction=nonstopmode %s" % (latexcode)
     self.command_win = ['pdflatex', '-interaction=nonstopmode', latexcode]
+    print(self.command_win)
+    print(latexcode)
+    print(latexcode.replace("\\\\", "\\"))
+    print(" ".join(self.command_win))
+    1/0
     return ["shared.tex", input_filename]
 
 add_recipe(RecipeTexDocument)
