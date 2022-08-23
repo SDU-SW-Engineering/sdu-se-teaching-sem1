@@ -2,6 +2,7 @@
 
 from makeish import *
 import cal.projectdescription as projectdescription
+import cal.semesterplan as semesterplan
 
 from subprocess import Popen, STDOUT, PIPE, run
 import shutil
@@ -39,6 +40,9 @@ document_names = {
   },
   "Semester Plan": {
     "source": "semesterplan.tex",
+    "dependencies": {
+      semesterplan.filename: lambda: semesterplan.build(),
+    },
   },
   "Semester Handbook": {
     "source": "semesterhåndbog.tex",
