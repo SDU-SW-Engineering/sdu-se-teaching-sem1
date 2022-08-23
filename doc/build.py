@@ -15,6 +15,7 @@ def system (command, logfile='makeish.log'):
     print('%s >> %s' % (command, logfile))
     p = Popen('%s >> %s' % (command, logfile), shell=True, stderr=STDOUT, stdout=PIPE)
     return_code = p.wait()
+#    print("return code: "+str(return_code))
     return return_code
 
 def system_win (command, logfile='makeish.log'):
@@ -135,7 +136,7 @@ class RecipeTexDocument (Recipe):
     tocwrapper = "\\newcommand\\tableofcontentswrapper[0]{%s}" % ("\\tableofcontents" if includetoc else "")
     latexcode = "\"\\newcommand\\documenttitle[0]{%s} \\newcommand\\documentsubtitle[0]{%s} %s \\input{%s}\"" % (title, subtitle, tocwrapper, input_filename)
     
-    self.command_linux = "pdflatex -shell-escape -interaction=nonstopmode %s" % (latexcode)
+    self.command_linux = "pdflatex -shell-escape %s" % (latexcode) #  -interaction=nonstopmode
     self.command_win = ['pdflatex', '-interaction=nonstopmode', latexcode]
     
     if sys.platform=="win32":
