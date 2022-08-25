@@ -1,63 +1,77 @@
 {
-  "OOP": [
+  "Projekt": [
     {
       "date": "2022 September 6",
-      "description": ["Vejledningsseminar i klasserne: Projektstart"],
+      "description": ["\\textbf{Vejledningsseminar i klasserne:} Projektstart"],
+      "team": "Vejlederteam: briefing",
     },
     {
       "date": "2022 September 13",
-      "description": ["Vejledningsseminar i klasserne: Samarbejde i gruppen, og mwds vejleder"],
+      "description": ["\\textbf{Vejledningsseminar i klasserne:} Samarbejde i gruppen, og mwds vejleder"],
+      "team": "Vejlederteam: briefing",
     },
     {
       "date": "2022 September 20",
-      "description": ["Vejledning i projektgrupperne: Vejledermøde om samarbejdsaftale, vejlederaftale og projektgrundlag"],
+      "description": ["\\textbf{Vejledning i projektgrupperne:} Vejledermøde om samarbejdsaftale, vejlederaftale og projektgrundlag"],
+      "team": "Vejlederteam: briefing",
     },
     {
       "date": "2022 September 27",
       "description": ["Projektgruppe vejledermøde"],
+      "team": "Vejlederteam: briefing",
     },
     {
       "date": "2022 October 4",
-      "description": ["Vejledningsseminar i klasserne: Præsentation af projektgrundlag på postersession"],
+      "description": ["\\textbf{Vejledningsseminar i klasserne:} Præsentation af projektgrundlag på postersession"],
+      "team": "Vejlederteam: briefing",
     },
     {
       "date": "2022 October 7",
       "description": ["Aflevering af projektgrundlag på itslearning"],
+      "team": "Vejlederteam: briefing",
     },
     {
       "date": "2022 October 11",
       "description": ["Vejlederseminar + Projektvejledning i grupperne"],
+      "team": "Vejlederteam: briefing",
     },
     {
       "date": "2022 October 25",
       "description": ["Projektgruppe vejledermøde"],
+      "team": "Vejlederteam: briefing",
     },
     {
       "date": "2022 November 1",
       "description": ["Projektgruppe vejledermøde"],
+      "team": "Vejlederteam: briefing",
     },
     {
       "date": "2022 November 8",
       "description": [
-        "Midtvejsseminar i klasserne: Præsentation af projekt",
+        "\\textbf{Midtvejsseminar i klasserne:} Præsentation af projekt",
         "Aflevering af rapport samt kode efter iteration #1 på itslearning",
       ],
+      "team": "Vejlederteam: briefing",
     },
     {
       "date": "2022 November 15",
       "description": ["Projektgruppe vejledermøde"],
+      "team": "Vejlederteam: briefing",
     },
     {
       "date": "2022 November 22",
       "description": ["Projektgruppe vejledermøde"],
+      "team": "Vejlederteam: briefing",
     },
     {
       "date": "2022 November 29",
       "description": ["Projektgruppe vejledermøde"],
+      "team": "Vejlederteam: briefing",
     },
     {
       "date": "2022 December 6",
       "description": ["Projektgruppe vejledermøde"],
+      "team": "Vejlederteam: briefing",
     },
     {
       "date": "2022 December 6",
@@ -66,6 +80,7 @@
     {
       "date": "2022 December 13",
       "description": ["Projektgruppe vejledermøde"],
+      "team": "Vejlederteam: briefing",
     },
     {
       "date": "2022 December 16",

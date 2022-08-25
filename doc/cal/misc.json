@@ -1,0 +1,44 @@
+{
+  "Semester": [
+    {
+      "date": "2022 September 1",
+      "description": ["Stormøde (alle klasser): Introduktion til semester,  semesterprojektet og ProOnline ved semesterkoordinator"],
+      "team": "koordinering, klassedannelse",
+    },
+    {
+      "date": "2022 September 8",
+      "description": ["Justering af klasserne - gruppedannelse"],
+    },
+    {
+      "date": "2022 October 24",
+      "description": [
+        "Midtvejsevaluering i alle kurser",
+        "Midtvejsevaluering semester og projekt ved semesterkoordinator (Grupperepræsentantmøde)",
+      ],
+    },
+    {
+      "date": "2022 December 2",
+      "description": ["\\textbf{Stormøde:} Orientering om projektaflevering og eksamen ved semesterkoordinator"],
+    },
+  ],
+  "Studiestart\\footnote{Why is this \"studiestart\"?}": [
+    {
+      "date": "2022 September 26",
+      "description": ["Holdets time\\footnote{Is \"hold\" the righ unit here?}"],
+    },
+    {
+      "date": "2022 November 2",
+      "description": ["Holdets time\\footnote{Is \"hold\" the righ unit here?}"],
+    },
+    {
+      "date": "2022 November 16",
+      "description": ["Holdets time\\footnote{Is \"hold\" the righ unit here?}"],
+    },
+  ],
+  "Universitet": [
+    {
+      "date": "2022 October 28",
+      "description": ["Årsfest"],
+    },
+  ],
+}

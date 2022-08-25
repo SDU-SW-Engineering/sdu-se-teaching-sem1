@@ -6,14 +6,29 @@ from functools import cmp_to_key
 datadir = "cal"
 data = []
 
+#################################################################### helpers
+
+def parse_date (text):
+  return datetime.strptime(text, "%Y %B %d")
+
 #################################################################### query resolver
 
-def produce_table (cols, filterfun=None, filename=None):
+def produce_table (cols, filterfun=None, filename=None, headlines=None):
   lines = []
+  
+  colcount = len(cols)
   
   entries = data
   if not filterfun==None:
     entries = list(filter(filterfun, data))
+  
+  # preprocess headlines
+  if headlines != None:
+    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! pre")
+    for headline in headlines:
+      print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! - parsing '%s' -> '%s'" % (headline["date"], parse_date(headline["date"])))
+      headline["date"] = parse_date(headline["date"])
+    headlines.sort(key=cmp_to_key(lambda a, b: (a["date"] - b["date"]).total_seconds()))
   
   # construct alignment string
   alignment = ""
@@ -22,7 +37,7 @@ def produce_table (cols, filterfun=None, filename=None):
   alignment += "|"
   
   # produce contents: environment begin
-  lines.append("\\begin{tabular}{%s}" % alignment)
+  lines.append("\\begin{longtable}{%s}" % alignment)
   
   # produce contents: header
   lines.append("  \\hline")
@@ -34,6 +49,16 @@ def produce_table (cols, filterfun=None, filename=None):
   
   # produce contents: entries
   for entry in entries:
+    if headlines != None:
+      print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! entry size=%i %s %s" % (len(headlines), entry["fromdate"], headlines[0]["date"]))
+      while len(headlines)>0 and entry["fromdate"]>headlines[0]["date"]:
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! - iteration size=%i" % len(headlines))
+        headline = headlines[0]   # extract head
+        headlines = headlines[1:] # remove head
+        cellcolor = "\cellcolor{%s}" % headline["fillcolor"] if "fillcolor" in headline else ""
+        lines.append("  \\multicolumn{%i}{|l|}{%s%s} \\\\" % (colcount, cellcolor, headline["title"]))
+#        lines.append("  \\multicolumn{%i}*{%s%s} \\\\" % (colcount, headline["title"]))
+        lines.append("  \\hline")
     entryline = []
     for col in cols:
       extractor = col['extractor']
@@ -43,7 +68,7 @@ def produce_table (cols, filterfun=None, filename=None):
     lines.append("  \\hline")
   
   # produce contents: environment end
-  lines.append("\\end{tabular}")
+  lines.append("\\end{longtable}")
   
   # convert to string
   lines = list(map(lambda line: "%s\n"%line, lines))
@@ -76,10 +101,10 @@ def init ():
 #          print(entry)
           entry["key"] = key
           if type(entry["date"]) == list:
-            entry["fromdate"] = datetime.strptime(entry["date"][0], "%Y %B %d")
-            entry["todate"]   = datetime.strptime(entry["date"][1], "%Y %B %d")
+            entry["fromdate"] = parse_date(entry["date"][0])
+            entry["todate"]   = parse_date(entry["date"][1])
           else:
-            dt = datetime.strptime(entry["date"], "%Y %B %d")
+            dt = parse_date(entry["date"])
             entry["fromdate"] = dt
             entry["todate"]   = dt
           entry["fromweek"] = int(entry["fromdate"].strftime("%V"))
