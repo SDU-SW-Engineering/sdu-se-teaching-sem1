@@ -76,6 +76,7 @@
     {
       "date": "2022 December 6",
       "description": ["Aflevering af kode"],
+      "fillcolor": "orange",
     },
     {
       "date": "2022 December 13",
@@ -85,6 +86,7 @@
     {
       "date": "2022 December 16",
       "description": ["Aflevering af rapport"],
+      "fillcolor": "orange",
     },
   ],
 }

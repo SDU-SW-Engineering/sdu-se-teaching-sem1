@@ -62,17 +62,17 @@ def build ():
       "fillcolor": headercolor,
     },
     {
-      "date":  "2022 September 26",
+      "date":  "2022 September 25",
       "title": "Problemanalysefase (Uge 39-40)",
       "fillcolor": headercolor,
     },
     {
-      "date":  "2022 October 10",
+      "date":  "2022 October 9",
       "title": "Gennemførselsfase - programudvikling (41-48)",
       "fillcolor": headercolor,
     },
     {
-      "date":  "2022 December 5",
+      "date":  "2022 December 4",
       "title": "Afleveringsfase (49-50)",
       "fillcolor": headercolor,
     },

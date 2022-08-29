@@ -24,9 +24,7 @@ def produce_table (cols, filterfun=None, filename=None, headlines=None):
   
   # preprocess headlines
   if headlines != None:
-    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! pre")
     for headline in headlines:
-      print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! - parsing '%s' -> '%s'" % (headline["date"], parse_date(headline["date"])))
       headline["date"] = parse_date(headline["date"])
     headlines.sort(key=cmp_to_key(lambda a, b: (a["date"] - b["date"]).total_seconds()))
   
@@ -49,13 +47,14 @@ def produce_table (cols, filterfun=None, filename=None, headlines=None):
   
   # produce contents: entries
   for entry in entries:
+    rowcolor = "\\rowcolor{%s}" % entry["fillcolor"] if "fillcolor" in entry else ""
     if headlines != None:
-      print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! entry size=%i %s %s" % (len(headlines), entry["fromdate"], headlines[0]["date"]))
+
       while len(headlines)>0 and entry["fromdate"]>headlines[0]["date"]:
-        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! - iteration size=%i" % len(headlines))
+
         headline = headlines[0]   # extract head
         headlines = headlines[1:] # remove head
-        cellcolor = "\cellcolor{%s}" % headline["fillcolor"] if "fillcolor" in headline else ""
+        cellcolor = "\\cellcolor{%s}" % headline["fillcolor"] if "fillcolor" in headline else ""
         lines.append("  \\multicolumn{%i}{|l|}{%s%s} \\\\" % (colcount, cellcolor, headline["title"]))
 #        lines.append("  \\multicolumn{%i}*{%s%s} \\\\" % (colcount, headline["title"]))
         lines.append("  \\hline")
@@ -64,7 +63,7 @@ def produce_table (cols, filterfun=None, filename=None, headlines=None):
       extractor = col['extractor']
       extracted = extractor(entry)
       entryline.append(col['blank'] if extracted==None else extracted)
-    lines.append("  "+(" & ".join(entryline))+" \\\\")
+    lines.append(("  %s"%rowcolor)+(" & ".join(entryline))+" \\\\")
     lines.append("  \\hline")
   
   # produce contents: environment end
@@ -90,7 +89,6 @@ def init ():
   
   for filename in filenames:
     full_filename = "%s/%s"%(datadir, filename)
-    print("Loading '%s' ..." % full_filename)
     with open(full_filename) as fo:
       lines = "".join(fo.readlines())
       contents = json5.loads(lines)

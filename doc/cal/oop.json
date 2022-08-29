@@ -1,23 +1,115 @@
 {
   "OOP": [
     {
-      "date": "2022 September 22",
+      "date": "2022 September 5",
+      "description": ["Introduktion"],
+    },
+    {
+      "date": "2022 September 7",
+      "description": ["Primitive Typer"],
+    },
+    {
+      "date": "2022 September 12",
+      "description": ["Kontrol Flow"],
+    },
+    {
+      "date": "2022 September 14",
+      "description": ["Objekter og Klasser"],
+    },
+    {
+      "date": "2022 September 19",
+      "description": ["Arrays"],
+    },
+    {
+      "date": "2022 September 21",
+      "description": ["Metoder"],
+    },
+    {
+      "date": "2022 September 26",
       "description": ["Pointgivende Aktivitet 1"],
+      "fillcolor": "orange",
     },
     {
-      "date": "2022 October 27",
+      "date": "2022 September 28",
+      "description": ["Arv"],
+    },
+    {
+      "date": "2022 October 3",
+      "description": ["Naming"],
+    },
+    {
+      "date": "2022 October 5",
+      "description": ["Objektorienteret Programudvikling"],
+    },
+    {
+      "date": "2022 October 10",
+      "description": ["Polymorfi"],
+    },
+    {
+      "date": "2022 October 12",
+      "description": ["Abstrakte Klasser og Interfaces"],
+    },
+    {
+      "date": "2022 October 24",
       "description": ["Pointgivende Aktivitet 2"],
+      "fillcolor": "orange",
     },
     {
-      "date": [
-        "2022 November 14",
-        "2022 November 16"
-      ],
-      "description": ["Workshop"],
+      "date": "2022 October 31",
+      "description": ["Not scheduled!"],
     },
     {
-      "date": "2022 November 24",
+      "date": "2022 November 2",
+      "description": ["Exceptions"],
+    },
+    {
+      "date": "2022 November 7",
+      "description": ["Collections og Sortering"],
+    },
+    {
+      "date": "2022 November 9",
+      "description": ["Input og Output"],
+    },
+    {
+      "date": "2022 November 14",
+      "description": ["Softwarearkitektur"],
+    },
+    {
+      "date": "2022 November 16",
+      "description": ["Refactoring"],
+    },
+    {
+      "date": "2022 November 21",
+      "description": ["GUI 1/2"],
+    },
+    {
+      "date": "2022 November 23",
+      "description": ["GUI 2/2"],
+    },
+    {
+      "date": "2022 November 28",
+      "description": ["Workshop 1/2"],
+    },
+    {
+      "date": "2022 November 30",
+      "description": ["Workshop 2/2"],
+    },
+    {
+      "date": "2022 December 5",
       "description": ["Pointgivende Aktivitet 3"],
+      "fillcolor": "orange",
+    },
+    {
+      "date": "2022 December 7",
+      "description": ["Not scheduled!"],
+    },
+    {
+      "date": "2022 December 12",
+      "description": ["Afslutning"],
+    },
+    {
+      "date": "2022 December 14",
+      "description": ["Not scheduled!"],
     },
   ],
 }
