@@ -14,20 +14,20 @@
     },
     {
       "date": "2022 September 14",
-      "description": ["Objekter og Klasser"],
-    },
-    {
-      "date": "2022 September 19",
       "description": ["Arrays"],
     },
     {
-      "date": "2022 September 21",
+      "date": "2022 September 19",
       "description": ["Metoder"],
     },
     {
-      "date": "2022 September 26",
+      "date": "2022 September 21",
       "description": ["Pointgivende Aktivitet 1"],
       "fillcolor": "orange",
+    },
+    {
+      "date": "2022 September 26",
+      "description": ["Objekter og Klasser"],
     },
     {
       "date": "2022 September 28",
