@@ -51,8 +51,8 @@ document_names = {
   "Book List": {
     "source": "bogliste.tex",
   },  
-  "Contact Information": {
-    "source": "kontaktoplysninger.tex",
+  "Kontaktoplysninger": {
+    "source": "contact.tex",
   },
    "ProOnline Literature": {
     "source": "kursuslitteratur.tex",
