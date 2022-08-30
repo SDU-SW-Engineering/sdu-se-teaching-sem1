@@ -45,8 +45,8 @@ document_names = {
     },
   },
   "Semester Handbook": {
-    "source": "semesterhåndbog.tex",
-    "includetoc": True,
+    "source": "handbook.tex",
+    "includetoc": False,
   },
   "Book List": {
     "source": "bogliste.tex",
