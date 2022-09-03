@@ -39,7 +39,7 @@ document_names = {
       projectdescription.filename: lambda: projectdescription.build(),
     },
   },
-  "Krav til Projectaflevering": {
+  "Krav til Projektaflevering": {
     "source": "project_handin_requirements.tex",
   },
   "Semester Plan": {
