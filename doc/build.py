@@ -39,6 +39,9 @@ document_names = {
       projectdescription.filename: lambda: projectdescription.build(),
     },
   },
+  "Krav til Projectaflevering": {
+    "source": "project_handin_requirements.tex",
+  },
   "Semester Plan": {
     "source": "semesterplan.tex",
     "dependencies": {
@@ -118,7 +121,8 @@ class RecipeTexDocument (Recipe):
       retcode = system(self.command_linux)
       if retcode==0:
         shutil.move(self.build_filename, self.target_filename)
-      return "new" if retcode==0 else "error"
+      if retcode!=0: return "error"
+    return "new"
   
   def build_windows (self):
     for _ in range(2):
@@ -129,7 +133,7 @@ class RecipeTexDocument (Recipe):
        #subprocess.run(self.command_win)
       except subprocess.CalledProcessError:
        return "error"
-      return "new"
+    return "new"
   
   def extract_deps (self, mo):
     basename = mo.group(1)
