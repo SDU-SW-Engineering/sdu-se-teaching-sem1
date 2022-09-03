@@ -3,6 +3,7 @@
 from makeish import *
 import cal.projectdescription as projectdescription
 import cal.semesterplan as semesterplan
+import cal.project_phase1_start as project_phase1_start
 
 from subprocess import Popen, STDOUT, PIPE, run
 import shutil
@@ -60,6 +61,12 @@ document_names = {
    "Semester Project": {
     "source": "semesterprojekt.tex",
   },
+   "Semester Project Fase 1 Projektstart": {
+    "source": "project_phase1_start.tex",
+    "dependencies": {
+      project_phase1_start.filename: lambda: project_phase1_start.build(),
+    },
+  },
   "ProOnline Course Material": {
     "source": "kursusmaterialer.tex",
   },
@@ -107,20 +114,22 @@ class RecipeTexDocument (Recipe):
     super(RecipeTexDocument, self).__init__(target)
   
   def build_linux (self):
-    retcode = system(self.command_linux)
-    if retcode==0:
-      shutil.move(self.build_filename, self.target_filename)
-    return "new" if retcode==0 else "error"
+    for _ in range(2):
+      retcode = system(self.command_linux)
+      if retcode==0:
+        shutil.move(self.build_filename, self.target_filename)
+      return "new" if retcode==0 else "error"
   
   def build_windows (self):
-    try:
-     retcode = system_win(self.command_win)
-     #print(self.command_win)
-     print(" ".join(self.command_win))
-     #subprocess.run(self.command_win)
-    except subprocess.CalledProcessError:
-     return "error"
-    return "new"
+    for _ in range(2):
+      try:
+       retcode = system_win(self.command_win)
+       #print(self.command_win)
+       print(" ".join(self.command_win))
+       #subprocess.run(self.command_win)
+      except subprocess.CalledProcessError:
+       return "error"
+      return "new"
   
   def extract_deps (self, mo):
     basename = mo.group(1)
