@@ -67,6 +67,21 @@ document_names = {
   "ProOnline Agreement Example": {
     "source": "samarbejdeEksempel.tex",
   },
+  "ProOnline Problem Formulation": {
+    "source": "problemformuleringer.tex",
+  },
+  "ProOnline Project Problems": {
+    "source": "projektproblemer.tex",
+  },
+  "ProOnline Project Foundation": {
+    "source": "projektgrundlag.tex",
+  },
+   "ProOnline Reference Technique": {
+    "source": "referatteknik.tex",
+  },
+   "ProOnline Rubric Example": {
+    "source": "rubriceksempel.tex",
+  },
 }
 
 class RecipeTexTable (Recipe):
