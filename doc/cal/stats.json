@@ -1,12 +1,12 @@
 {
-  "COS": [
+  "STAT": [
     {
-      "date": "2022 September 30",
+      "date": "2022 October 13",
       "description": ["Pointgivende Aktivitet 1"],
       "fillcolor": "orange",
     },
     {
-      "date": "2022 December 2",
+      "date": "2022 November 24",
       "description": ["Pointgivende Aktivitet 2"],
       "fillcolor": "orange",
     },

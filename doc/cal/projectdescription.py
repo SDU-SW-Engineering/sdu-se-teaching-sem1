@@ -2,6 +2,9 @@ import cal
 
 filename = "tables/projectdescription.tex"
 
+def escape (text):
+  return text.replace("#", "\\#")
+
 def build ():
   cols = [
   {
@@ -17,9 +20,9 @@ def build ():
     "blank":     "",
   },
   {
-    "alignment": "l",
-    "title":     "Description",
-    "extractor": lambda e: e["description"][0] if "description" in e else None,
+    "alignment": "p{.6\\textwidth}",
+    "title":     "Beskrivelse",
+    "extractor": lambda e: escape("\n\n".join(e["description"])) if "description" in e else None,
     "blank":     "",
   },
 ]

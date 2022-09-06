@@ -1,0 +1,73 @@
+{
+  "ProOnline": [
+    {
+      "date": "2022 September 5",
+      "description": [
+        "\\begin{itemize}[noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt]",
+        "  \\item 01 Introduktion til online kursus i problemorienteret projektarbejde",
+        "  \\item 02 Projekter på ingeniøruddannelserne",
+        "\\end{itemize}",
+      ],
+    },
+    {
+      "date": "2022 September 9",
+      "description": [
+        "\\begin{itemize}[noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt]",
+        "  \\item 03 Samarbejde",
+        "\\end{itemize}",
+      ],
+    },
+    {
+      "date": "2022 September 16",
+      "description": [
+        "\\begin{itemize}[noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt]",
+        "  \\item 04 Problemorienteret projektarbejde",
+        "  \\item 05 Problemanalyse og problemformulering",
+        "\\end{itemize}",
+      ],
+    },
+    {
+      "date": "2022 September 23",
+      "description": [
+        "\\begin{itemize}[noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt]",
+        "  \\item 06 Projektets faglige vidensgrundlag",
+        "  \\item 07 Metoder og planlægning i projektarbejdet",
+        "\\end{itemize}",
+      ],
+    },
+    {
+      "date": "2022 September 30",
+      "description": [
+        "\\begin{itemize}[noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt]",
+        "  \\item 08 Skrivning og Feedback",
+        "\\end{itemize}",
+      ],
+    },
+    {
+      "date": "2022 October 14",
+      "description": [
+        "\\begin{itemize}[noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt]",
+        "  \\item 09 Projektrapporten og professionel formidling",
+        "\\end{itemize}",
+      ],
+    },
+    {
+      "date": "2022 November 8",
+      "description": [
+        "Midtvejsseminar i klasserne:",
+        "\\begin{itemize}[noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt]",
+        "  \\item Præsentation af projekt ",
+        "  \\item Aflevering af report samt kode efter iteration #1 på itslearning",
+        "\\end{itemize}",
+      ],
+    },
+    {
+      "date": "2022 November 25",
+      "description": [
+        "\\begin{itemize}[noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt]",
+        "  \\item 10 Projekteksamen\\footnote{This gives the impression of being an exam, yet Aslak doesn't think it is}",
+        "\\end{itemize}",
+      ],
+    },
+  ],
+}
