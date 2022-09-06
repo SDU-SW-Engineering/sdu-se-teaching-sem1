@@ -43,6 +43,28 @@ teacher2class = {
   "Aslak": [1, 3, 5],
   "Peter": [2, 4, 6],
 }
+group2room = {
+  "1.1": "Ø27-507-2",
+  "1.2": "Ø27-508-2",
+  "1.3": "Ø27-512a-2",
+  "1.4": "Ø27-512-2",
+  "1.5": "Ø27-601a-2",
+  "2.1": "Ø30-508-2",
+  "2.2": "Ø30-508a-2",
+  "2.3": "Ø31-508-2",
+  "2.4": "Ø31-508a-2",
+  "2.5": "Ø31-508b-2",
+  "3.1": "Ø27-605-2",
+  "3.2": "Ø32-511-2",
+  "3.3": "Ø32-512-2",
+  "3.4": "Ø32-512a-2",
+  "3.5": "Ø32-600-2",
+  "4.1": "Ø32-600a-2",
+  "4.2": "Ø32-601-2",
+  "4.3": "Ø32-602-2",
+  "4.4": "Ø32-602a-2",
+  "4.5": "Ø32-603-2",
+}
 
 # load
 wb = load_workbook(filename=input_filename)
@@ -110,6 +132,9 @@ texlines.append("\\usepackage[utf8]{inputenc}")
 texlines.append("\\title{Software Educations 1st Semester Grouping}")
 texlines.append("\\begin{document}")
 texlines.append("\\maketitle")
+texlines.append("Hver gruppe er blevet tildelt et grupperum alle Tirsdage kl 8-18 fra uge 37 (2022) til og med uge 4 (2023).")
+texlines.append("")
+texlines.append("\\textbf{Bemærk:} Hvis jeres gruppe ikke er repræsenteret i grupperummet senest 8:30 giver I afkald på grupperumsgarantien og andre har ret til at tage det i brug. På dette tidspunkt er det op til tilfældigheder om I får adgang til det i løbet af dagen.")
 for education in classes:
   if education=="Spiludvikling og Læringsteknolo": continue
   texlines.append("\\section{%s}"%education)
@@ -127,7 +152,8 @@ for education in classes:
     
     groups = sorted(group2students.keys())
     for groupname in groups:
-      texlines.append("\\subsubsection{Gruppe %s}"%groupname)
+      grouproom = group2room[groupname]
+      texlines.append("\\subsubsection{Gruppe %s (grupperum %s)}"% (groupname,grouproom))
       texlines.append("\\begin{enumerate}")
       for studentname in group2students[groupname]:
         texlines.append("  \\item %s" % studentname)
