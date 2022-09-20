@@ -4,6 +4,7 @@ from makeish import *
 import cal.projectdescription as projectdescription
 import cal.semesterplan as semesterplan
 import cal.project_phase1_start as project_phase1_start
+import cal.project_phase2_analyse as project_phase2_analyse
 
 from subprocess import Popen, STDOUT, PIPE, run
 import shutil
@@ -68,6 +69,12 @@ document_names = {
     "source": "project_phase1_start.tex",
     "dependencies": {
       project_phase1_start.filename: lambda: project_phase1_start.build(),
+    },
+  },
+   "Semester Project Fase 2 Problemanalyse": {
+    "source": "project_phase2_analyse.tex",
+    "dependencies": {
+      project_phase2_analyse.filename: lambda: project_phase2_analyse.build(),
     },
   },
   "ProOnline Course Material": {
