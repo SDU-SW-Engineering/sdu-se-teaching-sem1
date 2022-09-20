@@ -44,16 +44,19 @@
     },
     {
       "date": "2022 September 27",
+      "description.summary": ["\\textbf{Vejledning i projektgrupperne:} Vejledermøde"],
       "description": ["Projektgruppe vejledermøde"],
       "team": "Vejlederteam: briefing",
     },
     {
       "date": "2022 October 4",
+      "description.summary": ["\\textbf{Vejledningsseminariklasserne:} Præsentation af projektgrundlag på poster-session"],
       "description": ["\\textbf{Vejledningsseminar i klasserne:} Præsentation af projektgrundlag på postersession"],
       "team": "Vejlederteam: briefing",
     },
     {
       "date": "2022 October 7",
+      "description.summary": ["Aflevering af opdateret poster og  projektgrundlag på ItsLearning"],
       "description": ["Aflevering af projektgrundlag på itslearning"],
       "team": "Vejlederteam: briefing",
     },
