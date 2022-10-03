@@ -55,7 +55,7 @@ document_names = {
   },
   "Book List": {
     "source": "bogliste.tex",
-  },  
+  },
   "Kontaktoplysninger": {
     "source": "contact.tex",
   },
