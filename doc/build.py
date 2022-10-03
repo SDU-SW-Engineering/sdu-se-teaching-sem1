@@ -56,6 +56,9 @@ document_names = {
   "Book List": {
     "source": "bogliste.tex",
   },
+  "Indkaldelse til Midtvejsevaluering (Grupperepræsentantmøde)": {
+    "source": "midwayeval.tex",
+  },
   "Kontaktoplysninger": {
     "source": "contact.tex",
   },
