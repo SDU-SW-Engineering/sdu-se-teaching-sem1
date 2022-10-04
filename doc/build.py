@@ -62,19 +62,19 @@ document_names = {
   "Kontaktoplysninger": {
     "source": "contact.tex",
   },
-   "ProOnline Literature": {
+  "ProOnline Literature": {
     "source": "kursuslitteratur.tex",
   },
-   "Semester Project": {
+  "Semester Project": {
     "source": "semesterprojekt.tex",
   },
-   "Semester Project Fase 1 Projektstart": {
+  "Semester Project Fase 1 Projektstart": {
     "source": "project_phase1_start.tex",
     "dependencies": {
       project_phase1_start.filename: lambda: project_phase1_start.build(),
     },
   },
-   "Semester Project Fase 2 Problemanalyse": {
+  "Semester Project Fase 2 Problemanalyse": {
     "source": "project_phase2_analyse.tex",
     "dependencies": {
       project_phase2_analyse.filename: lambda: project_phase2_analyse.build(),
