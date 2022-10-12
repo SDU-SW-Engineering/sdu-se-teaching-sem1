@@ -5,6 +5,7 @@ import cal.projectdescription as projectdescription
 import cal.semesterplan as semesterplan
 import cal.project_phase1_start as project_phase1_start
 import cal.project_phase2_analyse as project_phase2_analyse
+import cal.project_phase3_programudvikling as project_phase3_programudvikling
 
 from subprocess import Popen, STDOUT, PIPE, run
 import shutil
@@ -78,6 +79,12 @@ document_names = {
     "source": "project_phase2_analyse.tex",
     "dependencies": {
       project_phase2_analyse.filename: lambda: project_phase2_analyse.build(),
+    },
+  },
+  "Semester Project Fase 3 Programudvikling": {
+    "source": "project_phase3_programudvikling.tex",
+    "dependencies": {
+      project_phase3_programudvikling.filename: lambda: project_phase3_programudvikling.build(),
     },
   },
   "ProOnline Course Material": {
