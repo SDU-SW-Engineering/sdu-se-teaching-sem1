@@ -117,7 +117,7 @@ def generate_sheets (pa, owb, sheeti, rowi):
     n3value = ["", "return(42)", "@Override print"]
     n3comment = ["", "Returnerer den nye værdi.", "Override af metoden \"print\" således at værdien af attributten name udskrives."]
     sheet["N3"].value = n3value[pa]
-    sheet["N3"].comment = Comment("%s\n\n0 eller 1" % m3comment[pa], author)
+    sheet["N3"].comment = Comment("%s\n\n0 eller 1" % n3comment[pa], author)
     sheet["O3"].font = Font(b=True)
     sheet["O3"].fill = PatternFill("solid", fgColor="88CCFF")
     sheet["O3"].value = "Sum"
