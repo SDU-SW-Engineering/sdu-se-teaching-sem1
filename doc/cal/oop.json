@@ -55,20 +55,24 @@
       "fillcolor": "orange",
     },
     {
+      "date": "2022 October 26",
+      "description": ["Exceptions"],
+    },
+    {
       "date": "2022 October 31",
       "description": ["Not scheduled!"],
     },
     {
       "date": "2022 November 2",
-      "description": ["Exceptions"],
-    },
-    {
-      "date": "2022 November 7",
       "description": ["Collections og Sortering"],
     },
     {
-      "date": "2022 November 9",
+      "date": "2022 November 7",
       "description": ["Input og Output"],
+    },
+    {
+      "date": "2022 November 9",
+      "description": ["Softwarearkitektur"],
     },
     {
       "date": "2022 November 14",
