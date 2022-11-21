@@ -30,9 +30,9 @@ def load_datafile (filename, students=None):
     if not role in ["Studerende", "Student"]: continue
     
     student = {
-      "name": name,
+      "name":  name,
       "email": email,
-      "role": role,
+      "role":  role,
       "thold": thold,
       "group": group,
     }
