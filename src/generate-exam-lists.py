@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from openpyxl import load_workbook
+from functools import cmp_to_key
 
 src_sheet_names = [
   "Software Engineering",
@@ -13,6 +14,20 @@ eduname2line = {
   "Software teknologi":              "Softwareteknologi",
   "Spiludvikling og Læringsteknolo": "Spiludvikling og Læringsteknologi",
 }
+
+oop_dates = [
+  "Mandag den 16. Januar, 2023",
+  "Tirsdag den 17. Januar, 2023",
+  "Onsdag den 18. Januar, 2023",
+  "Torsdag den 19. Januar, 2023",
+  "Fredag den 20. Januar, 2023",
+]
+
+oop_line_order = [
+  "Spiludvikling og Læringsteknologi",
+  "Software Engineering",
+  "Softwareteknologi",
+]
 
 def groups2thold (groups):
   for group in groups:
@@ -74,6 +89,51 @@ def load_student_lines (filename):
       
       name2line[name] = line
 
+def import_groups (oop_students, sem_students):
+  name2group = {}
+  
+  for entry in sem_students:
+    name2group[entry['name']] = entry["group"]
+  
+  for entry in oop_students:
+    name = entry["name"]
+    entry["group"] = name2group[name] if name in name2group else "-1"
+
+def generate_line2index ():
+  line2index = {}
+  
+  for i in range(len(oop_line_order)):
+    line = oop_line_order[i]
+    line2index[line] = i
+  
+  return line2index
+
+def sort_students (students):
+  def compare (s1, s2):
+    def strcmp (s1, s2):
+      return -1 if s1<s2 else (0 if s1==s2 else 1)
+    
+    n1 = s1["name"]
+    n2 = s2["name"]
+    
+    # primary
+    l1 = name2line[n1] if n1 in name2line else ""
+    l2 = name2line[n2] if n2 in name2line else ""
+    if l1 != l2:
+      return strcmp(line2index[l1], line2index[l2])
+    
+    # secondary
+    if s1["group"] != s2["group"]:
+      return strcmp(s1["group"], s2["group"])
+    
+    # tertiary
+    return strcmp(n1, n2)
+  
+  students.sort(key=cmp_to_key(compare))
+
+def generate_oop_schedules ():
+    
+
 oop_students = []
 load_datafile("oop1.data", oop_students)
 load_datafile("oop2.data", oop_students)
@@ -85,7 +145,13 @@ load_datafile("sem2.data", sem_students)
 name2line = {}
 load_student_lines("Lister SI1-OOP19 med klasser.xlsx")
 
-#print(oop_students)
+import_groups(oop_students, sem_students)
+line2index = generate_line2index()
+sort_students(oop_students)
+
+generate_oop_schedules()
+
+print(oop_students)
 #print(sem_students)
 #print(name2line)
 
