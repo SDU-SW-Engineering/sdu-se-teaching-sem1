@@ -30,6 +30,7 @@ oop_line_order = [
 ]
 
 group2size = {}
+classes = ["1", "2", "3", "4"]
 
 def groups2thold (groups):
   for group in groups:
@@ -147,6 +148,19 @@ def sort_students (students):
 def generate_oop_schedules ():
     pass
 
+def print_class_times ():
+  for classname in classes:
+    count = 0
+    groups = []
+    
+    for student in sem_students:
+      if student["thold"] == "T"+classname:
+        count += 1
+        if not student["group"] in groups:
+          groups.append(student["group"])
+    
+    print("Class %s: %2d students in %d groups => %3d min / %1d h %s" % (classname, count, len(groups), 20*count, 20*count/60, list(map(lambda group: group2size[group]*20, groups))))
+
 oop_students = []
 load_datafile("oop1.data", oop_students)
 load_datafile("oop2.data", oop_students)
@@ -169,4 +183,6 @@ generate_oop_schedules()
 #print(oop_students)
 #print(sem_students)
 #print(name2line)
-print(group2size)
+#print(group2size)
+print_class_times()
+
