@@ -29,6 +29,8 @@ oop_line_order = [
   "Softwareteknologi",
 ]
 
+group2size = {}
+
 def groups2thold (groups):
   for group in groups:
     if len(group)==2 and group[0]=="T":
@@ -89,6 +91,17 @@ def load_student_lines (filename):
       
       name2line[name] = line
 
+def load_group_sizes (students):
+  global group2size
+  
+  for student in students:
+    group = student["group"]
+    
+    if not group in group2size:
+      group2size[group] = 0
+    
+    group2size[group] += 1
+
 def import_groups (oop_students, sem_students):
   name2group = {}
   
@@ -132,7 +145,7 @@ def sort_students (students):
   students.sort(key=cmp_to_key(compare))
 
 def generate_oop_schedules ():
-    
+    pass
 
 oop_students = []
 load_datafile("oop1.data", oop_students)
@@ -145,13 +158,15 @@ load_datafile("sem2.data", sem_students)
 name2line = {}
 load_student_lines("Lister SI1-OOP19 med klasser.xlsx")
 
+load_group_sizes(sem_students)
+
 import_groups(oop_students, sem_students)
 line2index = generate_line2index()
 sort_students(oop_students)
 
 generate_oop_schedules()
 
-print(oop_students)
+#print(oop_students)
 #print(sem_students)
 #print(name2line)
-
+print(group2size)
