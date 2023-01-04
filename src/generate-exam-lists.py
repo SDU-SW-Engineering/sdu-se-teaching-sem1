@@ -2,6 +2,7 @@
 
 from openpyxl import load_workbook
 from functools import cmp_to_key
+import json
 
 src_sheet_names = [
   "Software Engineering",
@@ -31,6 +32,12 @@ oop_line_order = [
 
 group2size = {}
 classes = ["1", "2", "3", "4"]
+
+with open("sem_censors.json") as fo:
+  sem_censors = json.loads("".join(fo.readlines()))
+  
+with open("sem_advisors.json") as fo:
+  sem_advisors = json.loads("".join(fo.readlines()))
 
 # 1-2: se, 3-4: st
 sem_groups = [
@@ -184,11 +191,20 @@ def generate_sem_schedules (filename):
   texlines.append("\\section{Software Engineering}")
   for day in ["Jan 24", "Jan 25", "Jan 26"]:
     texlines.append("\\subsection{%s}" % day)
+    
+    # censor
+    censor = sem_censors["se"][day]
+    texlines.append("\\textbf{Censor:} %s (\\texttt{%s})%s" % (censor["name"], censor["email"], " [%s]"%censor["note"] if "note" in censor and censor["note"]!="" else ""))
+    
     for group in sem_groups:
       if group["edu"]!="se": continue
       if group["day"]!= day: continue
       
       texlines.append("\\subsubsection{%s $\\rightarrow$ %s: Gruppe %s}" % (group["from"], group["to"], group["group"]))
+      
+      advisor = sem_advisors[group["group"]]
+      texlines.append("\\textbf{Vejleder:} %s (\\texttt{%s})" % (advisor["name"], advisor["email"]))
+      
       texlines.append("\\begin{itemize}")
       for student in sem_students:
         if student["group"]!="Gruppe %s"%group["group"]: continue
@@ -198,6 +214,11 @@ def generate_sem_schedules (filename):
   texlines.append("\\section{Software Teknologi}")
   for day in ["Jan 24", "Jan 25", "Jan 26"]:
     texlines.append("\\subsection{%s}" % day)
+    
+    # censor
+    censor = sem_censors["st"][day]
+    texlines.append("\\textbf{Censor:} %s (\\texttt{%s})%s" % (censor["name"], censor["email"], " [%s]"%censor["note"] if "note" in censor and censor["note"]!="" else ""))
+    
     for group in sem_groups:
       if group["edu"]!="st": continue
       if group["day"]!= day: continue
