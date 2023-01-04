@@ -32,6 +32,29 @@ oop_line_order = [
 group2size = {}
 classes = ["1", "2", "3", "4"]
 
+# 1-2: se, 3-4: st
+sem_groups = [
+  {"group": "1.1", "edu": "se", "day": "Jan 24", "from": "9:00", "to": "11:00"},
+  {"group": "1.2", "edu": "se", "day": "Jan 24", "from": "11:20", "to": "13:00"},
+  {"group": "1.3", "edu": "se", "day": "Jan 24", "from": "14:00", "to": "16:00"},
+  {"group": "1.5", "edu": "se", "day": "Jan 25", "from": "9:00", "to": "10:20"},
+  {"group": "1.4", "edu": "se", "day": "Jan 25", "from": "10:40", "to": "12:20"},
+  {"group": "2.2", "edu": "se", "day": "Jan 25", "from": "13:20", "to": "15:00"},
+  {"group": "2.4", "edu": "se", "day": "Jan 25", "from": "15:20", "to": "17:00"},
+  {"group": "2.1", "edu": "se", "day": "Jan 26", "from": "9:00", "to": "10:40"},
+  {"group": "2.5", "edu": "se", "day": "Jan 26", "from": "11:00", "to": "13:00"},
+  {"group": "2.3", "edu": "se", "day": "Jan 26", "from": "14:00", "to": "16:00"},
+  {"group": "3.2", "edu": "st", "day": "Jan 24", "from": "9:00", "to": "10:40"},
+  {"group": "3.4", "edu": "st", "day": "Jan 24", "from": "11:00", "to": "12:40"},
+  {"group": "3.1", "edu": "st", "day": "Jan 24", "from": "13:40", "to": "15:40"},
+  {"group": "4.4", "edu": "st", "day": "Jan 25", "from": "9:00", "to": "10:40"}, # not Jan 26
+  {"group": "4.1", "edu": "st", "day": "Jan 25", "from": "11:00", "to": "12:40"},
+  {"group": "4.2", "edu": "st", "day": "Jan 25", "from": "13:40", "to": "15:40"},
+  {"group": "4.3", "edu": "st", "day": "Jan 26", "from": "9:00", "to": "10:40"},
+  {"group": "3.3", "edu": "st", "day": "Jan 26", "from": "11:00", "to": "12:40"},
+  {"group": "3.5", "edu": "st", "day": "Jan 26", "from": "13:40", "to": "15:20"},
+]
+
 def groups2thold (groups):
   for group in groups:
     if len(group)==2 and group[0]=="T":
@@ -53,7 +76,7 @@ def load_datafile (filename, students=None):
   for line in lines:
     elements = line.split("\t")
     name   = elements[1]
-    email  = elements[2]
+    email  = elements[2].strip()
     role   = elements[3].strip()
     groups = elements[4].split(", ")
     thold  = groups2thold(groups)
@@ -148,6 +171,48 @@ def sort_students (students):
 def generate_oop_schedules ():
     pass
 
+def generate_sem_schedules (filename):
+  # tex file creation
+  texlines = []
+  texlines.append("\\documentclass{article}")
+  texlines.append("\\usepackage[utf8]{inputenc}")
+  texlines.append("\\title{Software Educations 1st Semester Project Exam 2022}")
+  texlines.append("\\date{}")
+  texlines.append("\\begin{document}")
+  texlines.append("\\maketitle")
+  
+  texlines.append("\\section{Software Engineering}")
+  for day in ["Jan 24", "Jan 25", "Jan 26"]:
+    texlines.append("\\subsection{%s}" % day)
+    for group in sem_groups:
+      if group["edu"]!="se": continue
+      if group["day"]!= day: continue
+      
+      texlines.append("\\subsubsection{%s $\\rightarrow$ %s: Gruppe %s}" % (group["from"], group["to"], group["group"]))
+      texlines.append("\\begin{itemize}")
+      for student in sem_students:
+        if student["group"]!="Gruppe %s"%group["group"]: continue
+        texlines.append("  \\item %s (\\texttt{%s})" % (student["name"], student["email"]))
+      texlines.append("\\end{itemize}")
+  
+  texlines.append("\\section{Software Teknologi}")
+  for day in ["Jan 24", "Jan 25", "Jan 26"]:
+    texlines.append("\\subsection{%s}" % day)
+    for group in sem_groups:
+      if group["edu"]!="st": continue
+      if group["day"]!= day: continue
+      
+      texlines.append("\\subsubsection{%s $\\rightarrow$ %s: Gruppe %s}" % (group["from"], group["to"], group["group"]))
+      texlines.append("\\begin{itemize}")
+      for student in sem_students:
+        if student["group"]!="Gruppe %s"%group["group"]: continue
+        texlines.append("  \\item %s (\\texttt{%s})" % (student["name"], student["email"]))
+      texlines.append("\\end{itemize}")
+  
+  texlines.append("\\end{document}")
+  with open(filename, "w") as fo:
+    fo.writelines(map(lambda line: "%s\n"%line, texlines))
+
 def print_class_times ():
   for classname in classes:
     count = 0
@@ -179,10 +244,11 @@ line2index = generate_line2index()
 sort_students(oop_students)
 
 generate_oop_schedules()
+generate_sem_schedules("SDU SEST 2022 Sem1 Project Exams.tex")
 
 #print(oop_students)
-#print(sem_students)
+print(sem_students)
 #print(name2line)
 #print(group2size)
-print_class_times()
+#print_class_times()
 
