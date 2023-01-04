@@ -224,6 +224,10 @@ def generate_sem_schedules (filename):
       if group["day"]!= day: continue
       
       texlines.append("\\subsubsection{%s $\\rightarrow$ %s: Gruppe %s}" % (group["from"], group["to"], group["group"]))
+      
+      advisor = sem_advisors[group["group"]]
+      texlines.append("\\textbf{Vejleder:} %s (\\texttt{%s})" % (advisor["name"], advisor["email"]))
+      
       texlines.append("\\begin{itemize}")
       for student in sem_students:
         if student["group"]!="Gruppe %s"%group["group"]: continue
