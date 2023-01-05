@@ -178,7 +178,7 @@ def sort_students (students):
 def generate_oop_schedules ():
     pass
 
-def generate_sem_schedules (filename):
+def generate_sem_schedules (filename, show_censors):
   # tex file creation
   texlines = []
   texlines.append("\\documentclass{article}")
@@ -193,8 +193,9 @@ def generate_sem_schedules (filename):
     texlines.append("\\subsection{%s}" % day)
     
     # censor
-    censor = sem_censors["se"][day]
-    texlines.append("\\textbf{Censor:} %s (\\texttt{%s})%s" % (censor["name"], censor["email"], " [%s]"%censor["note"] if "note" in censor and censor["note"]!="" else ""))
+    if show_censors:
+      censor = sem_censors["se"][day]
+      texlines.append("\\textbf{Censor:} %s (\\texttt{%s})%s" % (censor["name"], censor["email"], " [%s]"%censor["note"] if "note" in censor and censor["note"]!="" else ""))
     
     for group in sem_groups:
       if group["edu"]!="se": continue
@@ -216,8 +217,9 @@ def generate_sem_schedules (filename):
     texlines.append("\\subsection{%s}" % day)
     
     # censor
-    censor = sem_censors["st"][day]
-    texlines.append("\\textbf{Censor:} %s (\\texttt{%s})%s" % (censor["name"], censor["email"], " [%s]"%censor["note"] if "note" in censor and censor["note"]!="" else ""))
+    if show_censors:
+      censor = sem_censors["st"][day]
+      texlines.append("\\textbf{Censor:} %s (\\texttt{%s})%s" % (censor["name"], censor["email"], " [%s]"%censor["note"] if "note" in censor and censor["note"]!="" else ""))
     
     for group in sem_groups:
       if group["edu"]!="st": continue
@@ -269,7 +271,8 @@ line2index = generate_line2index()
 sort_students(oop_students)
 
 generate_oop_schedules()
-generate_sem_schedules("SDU SEST 2022 Sem1 Project Exams.tex")
+generate_sem_schedules("SDU SEST 2022 Sem1 Project Exams.tex", show_censors=False)
+generate_sem_schedules("SDU SEST 2022 Sem1 Project Exams Full.tex", show_censors=True)
 
 #print(oop_students)
 print(sem_students)
