@@ -189,6 +189,7 @@ def generate_sem_schedules (filename, show_censors):
   texlines.append("\\maketitle")
   
   texlines.append("\\section{Software Engineering}")
+  texlines.append("\\textbf{Lokale:} U143")
   for day in ["Jan 24", "Jan 25", "Jan 26"]:
     texlines.append("\\subsection{%s}" % day)
     
@@ -213,6 +214,7 @@ def generate_sem_schedules (filename, show_censors):
       texlines.append("\\end{itemize}")
   
   texlines.append("\\section{Software Teknologi}")
+  texlines.append("\\textbf{Lokale:} U145")
   for day in ["Jan 24", "Jan 25", "Jan 26"]:
     texlines.append("\\subsection{%s}" % day)
     
@@ -275,7 +277,7 @@ generate_sem_schedules("SDU SEST 2022 Sem1 Project Exams.tex", show_censors=Fals
 generate_sem_schedules("SDU SEST 2022 Sem1 Project Exams Full.tex", show_censors=True)
 
 #print(oop_students)
-print(sem_students)
+#print(sem_students)
 #print(name2line)
 #print(group2size)
 #print_class_times()
