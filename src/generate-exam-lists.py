@@ -41,13 +41,13 @@ with open("sem_advisors.json") as fo:
 
 # 1-2: se, 3-4: st
 sem_groups = [
+  {"group": "1.5", "edu": "se", "day": "Jan 23", "from": "9:00", "to": "10:20"},
+  {"group": "1.4", "edu": "se", "day": "Jan 23", "from": "10:40", "to": "12:20"},
+  {"group": "2.2", "edu": "se", "day": "Jan 23", "from": "13:20", "to": "15:00"},
+  {"group": "2.4", "edu": "se", "day": "Jan 23", "from": "15:20", "to": "17:00"},
   {"group": "1.1", "edu": "se", "day": "Jan 24", "from": "9:00", "to": "11:00"},
   {"group": "1.2", "edu": "se", "day": "Jan 24", "from": "11:20", "to": "13:00"},
   {"group": "1.3", "edu": "se", "day": "Jan 24", "from": "14:00", "to": "16:00"},
-  {"group": "1.5", "edu": "se", "day": "Jan 25", "from": "9:00", "to": "10:20"},
-  {"group": "1.4", "edu": "se", "day": "Jan 25", "from": "10:40", "to": "12:20"},
-  {"group": "2.2", "edu": "se", "day": "Jan 25", "from": "13:20", "to": "15:00"},
-  {"group": "2.4", "edu": "se", "day": "Jan 25", "from": "15:20", "to": "17:00"},
   {"group": "2.1", "edu": "se", "day": "Jan 26", "from": "9:00", "to": "10:40"},
   {"group": "2.5", "edu": "se", "day": "Jan 26", "from": "11:00", "to": "13:00"},
   {"group": "2.3", "edu": "se", "day": "Jan 26", "from": "14:00", "to": "16:00"},
@@ -189,13 +189,14 @@ def generate_sem_schedules (filename, show_censors):
   texlines.append("\\maketitle")
   
   texlines.append("\\section{Software Engineering}")
-  texlines.append("\\textbf{Lokale:} U143")
-  for day in ["Jan 24", "Jan 25", "Jan 26"]:
+  for day in ["Jan 23", "Jan 24", "Jan 26"]:
     texlines.append("\\subsection{%s}" % day)
+    texlines.append("\\textbf{Lokale:} %s" % ("U145" if day=="Jan 23" else "U143"))
     
     # censor
     if show_censors:
       censor = sem_censors["se"][day]
+      texlines.append("\\\\")
       texlines.append("\\textbf{Censor:} %s (\\texttt{%s})%s" % (censor["name"], censor["email"], " [%s]"%censor["note"] if "note" in censor and censor["note"]!="" else ""))
     
     for group in sem_groups:
