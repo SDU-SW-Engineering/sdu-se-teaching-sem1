@@ -164,6 +164,9 @@ with open("sem_advisors.json") as fo:
 with open("student_mapping_override.json") as fo:
   student_mapping_override = json.loads("".join(fo.readlines()))
 
+with open("oop_censors.json") as fo:
+  oop_censors = json.loads("".join(fo.readlines()))
+  
 # 1-2: se, 3-4: st
 sem_groups = [
   {"group": "1.5", "edu": "se", "day": "Jan 23", "from": "9:00", "to": "10:20"},
@@ -394,6 +397,9 @@ def generate_oop_schedules (filename, show_censors):
   for date in oop_dates:
     day = date.split(" ")[0]
     for examiner in ["Aslak", "Peter"]:
+      # guard
+      if examiner=="Peter" and day=="Tirsdag": continue
+      
       sheet_title = "%s %s" % (day, examiner)
       wb.create_sheet(title = sheet_title)
       sheet = wb[sheet_title]
@@ -404,7 +410,7 @@ def generate_oop_schedules (filename, show_censors):
       
       # censor
       sheet["A2"].font = Font(i=True)
-      sheet["A2"].value = "censor?"
+      sheet["A2"].value = "Censor: %s (%s)" % (oop_censors[examiner][day]["name"], oop_censors[examiner][day]["email"])
       
       # header
       for key in header:
@@ -463,11 +469,9 @@ def generate_oop_schedules (filename, show_censors):
     insert_students(sheets["Aslak"]["Tirsdag"], teamaslak[aslaksplit1:aslaksplit2])
     insert_students(sheets["Aslak"]["Onsdag"] , teamaslak[aslaksplit2:])
     
-    petersplit1 = int(len(teampeter)/3)
-    petersplit2 = int(2*len(teampeter)/3)
-    insert_students(sheets["Peter"]["Mandag"] , teampeter[:petersplit1])
-    insert_students(sheets["Peter"]["Tirsdag"], teampeter[petersplit1:petersplit2])
-    insert_students(sheets["Peter"]["Onsdag"] , teampeter[petersplit2:])
+    petersplit = int(len(teampeter)/2)
+    insert_students(sheets["Peter"]["Mandag"] , teampeter[:petersplit])
+    insert_students(sheets["Peter"]["Onsdag"] , teampeter[petersplit:])
   
   # data: Softwareteknologi
   if True:
