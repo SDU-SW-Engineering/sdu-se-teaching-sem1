@@ -424,7 +424,7 @@ def generate_oop_schedules (filename, show_censors):
   # data: 
   print(students.keys())
   
-  # data: Spiludvikling || Læringsteknologi + Software Engineering
+  # data: Spiludvikling og Læringsteknologi || Software Engineering
   
   # data: Softwareteknologi
   if True:
