@@ -428,9 +428,6 @@ def generate_oop_schedules (filename, show_censors):
   # data: split input
   students = split_students_on_educations(oop_students)
   
-  # data: 
-  print(students.keys())
-  
   # data: Spiludvikling og Læringsteknologi || Software Engineering
   if True:
     gamer = students["Spiludvikling og Læringsteknologi"]
