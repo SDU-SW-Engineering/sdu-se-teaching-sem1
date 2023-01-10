@@ -31,6 +31,121 @@ oop_line_order = [
   "Softwareteknologi",
 ]
 
+header = {
+  # Tid
+  "time": {
+    "title": "Tid",
+    "index": 0,
+    "major": True,
+    "width": 3,
+  },
+  "time.meet": {
+    "title": "Møde",
+    "index": 0,
+    "major": False,
+    "colwidth": 7,
+  },
+  "time.from": {
+    "title": "Start",
+    "index": 1,
+    "major": False,
+    "colwidth": 7,
+  },
+  "time.to": {
+    "title": "Afslutning",
+    "index": 2,
+    "major": False,
+    "colwidth": 10,
+  },
+  
+  # Studerende
+  "studerede": {
+    "title": "Studerende",
+    "index": 3,
+    "major": True,
+    "width": 2,
+  },
+  "name": {
+    "title": "Navn",
+    "index": 3,
+    "major": False,
+    "colwidth": 35,
+  },
+  "email": {
+    "title": "Email",
+    "index": 4,
+    "major": False,
+    "colwidth": 25,
+  },
+  
+  # TA
+  "ta": {
+    "title": "Tællende Aktiviteter",
+    "index": 5,
+    "major": True,
+    "width": 4,
+  },
+  "ta1": {
+    "title": "TA1",
+    "index": 5,
+    "major": False,
+    "colwidth": 6,
+  },
+  "ta2": {
+    "title": "TA2",
+    "index": 6,
+    "major": False,
+    "colwidth": 6,
+  },
+  "ta3": {
+    "title": "TA3",
+    "index": 7,
+    "major": False,
+    "colwidth": 6,
+  },
+  "ta.sum": {
+    "title": "Sum",
+    "index": 8,
+    "major": False,
+    "colwidth": 6,
+  },
+  
+  # oral
+  "oral": {
+    "title": "Mundtlig Eksamen",
+    "index": 9,
+    "major": True,
+    "width": 3,
+  },
+  "topic": {
+    "title": "Emne",
+    "index": 9,
+    "major": False,
+  },
+  "exercise": {
+    "title": "Opgave",
+    "index": 10,
+    "major": False,
+  },
+  "grade.oral": {
+    "title": "Karakter",
+    "index": 11,
+    "major": False,
+  },
+  
+  # final grade
+  "final.major": {
+    "title": "Endelig",
+    "index": 12,
+    "major": True,
+  },
+  "grade.final": {
+    "title": "Karakter",
+    "index": 12,
+    "major": False,
+  },
+}
+
 group2size = {}
 classes = ["1", "2", "3", "4"]
 
@@ -78,9 +193,9 @@ oop_slots = [
   {"from": "11:40", "to": "12:00", "meet": "10:40"},
   {"from": "12:00", "to": "12:20", "meet": "11:00"},
   {"from": "12:20", "to": "12:40", "meet": "11:20"},
-  {"from": "12:40", "to": "13:00", "meet": "11:40", "lunch": "first"},
-  {"from": "13:00", "to": "13:20", "meet": "12:00", "lunch": "second"},
-  {"from": "13:20", "to": "13:40", "meet": "12:20", "lunch": "third"},
+  {"from": "12:40", "to": "13:00", "meet": "11:40", "break": "lunch"},
+  {"from": "13:00", "to": "13:20", "meet": "12:00", "break": "skip"},
+  {"from": "13:20", "to": "13:40", "meet": "12:20", "break": "skip"},
   {"from": "13:40", "to": "14:00", "meet": "12:40"},
   {"from": "14:00", "to": "14:20", "meet": "13:00"},
   {"from": "14:20", "to": "14:40", "meet": "13:20"},
@@ -227,14 +342,48 @@ def split_students_on_educations (students):
   
   return structure
 
+def x2col (x):
+  return "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[x]
+
+def xy2cell (x, y): # zero-indexed
+  col = x2col(x)
+  return "%s%d" % (col, y+1)
+
+def insert_students (sheet, students):
+  row = 5
+  sloti = 0
+  for student in students:
+    # init
+    slot = oop_slots[sloti]
+    
+    # handle break
+    while "break" in slot:
+      if slot["break"]!="skip":
+        cell = xy2cell(0, row)
+        sheet[cell].font = Font(i=True)
+        sheet[cell].value = "pause"
+        row += 1
+      sloti += 1
+      slot = oop_slots[sloti]
+    
+    # insert
+#    print(sheet[xy2cell(0, row)].value)
+#    print(student)
+    sheet[xy2cell(0, row)].value = slot["meet"]
+    sheet[xy2cell(1, row)].value = slot["from"]
+    sheet[xy2cell(2, row)].value = slot["to"]
+    sheet[xy2cell(3, row)].value = student["name"]
+    sheet[xy2cell(4, row)].value = student["email"]
+    
+    # update
+    row += 1
+    sloti += 1
+
 def generate_oop_schedules (filename, show_censors):
-  def xy2cell (x, y): # zero-indexed
-    row = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    return "%s%d" % (row[x], y+1)
-  
   wb = Workbook()
   
   # produce sheets
+  sheets = {"Aslak": {}, "Peter": {}}
   for date in oop_dates:
     day = date.split(" ")[0]
     for examiner in ["Aslak", "Peter"]:
@@ -246,92 +395,13 @@ def generate_oop_schedules (filename, show_censors):
       sheet["A1"].font = Font(b=True)
       sheet["A1"].value = "%s/%s" % (date, examiner)
       
+      sheet["A1"].font = Font(i=True)
+      sheet["A2"].value = "censor?"
+      
       # header
-      header = {
-        # Studerende
-        "studerede": {
-          "title": "Studerende",
-          "index": 0,
-          "major": True,
-          "width": 2,
-        },
-        "name": {
-          "title": "Navn",
-          "index": 0,
-          "major": False,
-        },
-        "email": {
-          "title": "Email",
-          "index": 1,
-          "major": False,
-        },
-        
-        # TA
-        "ta": {
-          "title": "Tællende Aktiviteter",
-          "index": 2,
-          "major": True,
-          "width": 4,
-        },
-        "ta1": {
-          "title": "TA1",
-          "index": 2,
-          "major": False,
-        },
-        "ta2": {
-          "title": "TA2",
-          "index": 3,
-          "major": False,
-        },
-        "ta3": {
-          "title": "TA3",
-          "index": 4,
-          "major": False,
-        },
-        "ta.sum": {
-          "title": "Sum",
-          "index": 5,
-          "major": False,
-        },
-        
-        # oral
-        "oral": {
-          "title": "Mundtlig Eksamen",
-          "index": 6,
-          "major": True,
-          "width": 3,
-        },
-        "topic": {
-          "title": "Emne",
-          "index": 6,
-          "major": False,
-        },
-        "exercise": {
-          "title": "Opgave",
-          "index": 7,
-          "major": False,
-        },
-        "grade.oral": {
-          "title": "Karakter",
-          "index": 8,
-          "major": False,
-        },
-        
-        # final grade
-        "final.major": {
-          "title": "Endelig",
-          "index": 9,
-          "major": True,
-        },
-        "grade.final": {
-          "title": "Karakter",
-          "index": 9,
-          "major": False,
-        },
-      }
       for key in header:
         entry = header[key]
-        cell = xy2cell(entry["index"], 2 if entry["major"] else 3)
+        cell = xy2cell(entry["index"], 3 if entry["major"] else 4)
 #        print(str(entry)+"->"+cell)
         
 #        if "width" in entry:
@@ -341,12 +411,41 @@ def generate_oop_schedules (filename, show_censors):
 #                            end_column=1+(2 if entry["major"] else 3))
         sheet[cell].font = Font(b=True)
         sheet[cell].value = entry["title"]
+        
+        if "colwidth" in entry:
+          sheet.column_dimensions[x2col(entry["index"])].width = entry["colwidth"]
       
+      # register sheet
+      sheets[examiner][day] = sheet
+  
   # data: split input
   students = split_students_on_educations(oop_students)
   
   # data: 
   print(students.keys())
+  
+  # data: Spiludvikling || Læringsteknologi + Software Engineering
+  
+  # data: Softwareteknologi
+  if True:
+    swtech = students["Softwareteknologi"]
+    t3 = list(filter(lambda e: e["thold"]=="T3", swtech)) # aslak
+    t4 = list(filter(lambda e: e["thold"]=="T4", swtech)) # peter
+    
+    # sanity check
+    sanity = list(filter(lambda e: not e["thold"] in ["T3", "T4"], swtech))
+    if len(sanity)>0:
+      print("ERR: Sanity check for generate_oop_schedules/data/Softwareteknologi failed:")
+      for entry in sanity:
+        print(" - %s" % entry)
+    
+    t3split = int(len(t3)/2)
+    insert_students(sheets["Aslak"]["Torsdag"], t3[:t3split])
+    insert_students(sheets["Aslak"]["Fredag"], t3[t3split:])
+    
+    t4split = len(t4)-8
+    insert_students(sheets["Peter"]["Torsdag"], t4[:t4split])
+    insert_students(sheets["Peter"]["Fredag"], t4[t4split:])
   
   # remove original sheet
   wb.remove(wb['Sheet'])
