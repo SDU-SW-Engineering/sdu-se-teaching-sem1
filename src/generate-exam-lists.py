@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-from openpyxl import load_workbook
+from openpyxl import load_workbook, Workbook
+from openpyxl.styles import Font
 from functools import cmp_to_key
 import json
 
@@ -175,8 +176,127 @@ def sort_students (students):
   
   students.sort(key=cmp_to_key(compare))
 
-def generate_oop_schedules ():
-    pass
+def generate_oop_schedules (filename, show_censors):
+  def xy2cell (x, y): # zero-indexed
+    row = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    return "%s%d" % (row[x], y+1)
+  
+  wb = Workbook()
+  for date in oop_dates:
+    day = date.split(" ")[0]
+    for examiner in ["Aslak", "Peter"]:
+      sheet_title = "%s %s" % (day, examiner)
+      wb.create_sheet(title = sheet_title)
+      sheet = wb[sheet_title]
+      
+      # title
+      sheet["A1"].font = Font(b=True)
+      sheet["A1"].value = "%s/%s" % (date, examiner)
+      
+      # header
+      header = {
+        # Studerende
+        "studerede": {
+          "title": "Studerende",
+          "index": 0,
+          "major": True,
+          "width": 2,
+        },
+        "name": {
+          "title": "Navn",
+          "index": 0,
+          "major": False,
+        },
+        "email": {
+          "title": "Email",
+          "index": 1,
+          "major": False,
+        },
+        
+        # TA
+        "ta": {
+          "title": "Tællende Aktiviteter",
+          "index": 2,
+          "major": True,
+          "width": 4,
+        },
+        "ta1": {
+          "title": "TA1",
+          "index": 2,
+          "major": False,
+        },
+        "ta2": {
+          "title": "TA2",
+          "index": 3,
+          "major": False,
+        },
+        "ta3": {
+          "title": "TA3",
+          "index": 4,
+          "major": False,
+        },
+        "ta.sum": {
+          "title": "Sum",
+          "index": 5,
+          "major": False,
+        },
+        
+        # oral
+        "oral": {
+          "title": "Mundtlig Eksamen",
+          "index": 6,
+          "major": True,
+          "width": 3,
+        },
+        "topic": {
+          "title": "Emne",
+          "index": 6,
+          "major": False,
+        },
+        "exercise": {
+          "title": "Opgave",
+          "index": 7,
+          "major": False,
+        },
+        "grade.oral": {
+          "title": "Karakter",
+          "index": 8,
+          "major": False,
+        },
+        
+        # final grade
+        "final.major": {
+          "title": "Endelig",
+          "index": 9,
+          "major": True,
+        },
+        "grade.final": {
+          "title": "Karakter",
+          "index": 9,
+          "major": False,
+        },
+      }
+      for key in header:
+        entry = header[key]
+        cell = xy2cell(entry["index"], 2 if entry["major"] else 3)
+        print(str(entry)+"->"+cell)
+        
+#        if "width" in entry:
+#          sheet.merge_cells(start_row=1+entry["index"], \
+#                            start_column=1+(2 if entry["major"] else 3), \
+#                            end_row=1+entry["index"]+entry["width"]-1, \
+#                            end_column=1+(2 if entry["major"] else 3))
+        sheet[cell].font = Font(b=True)
+        sheet[cell].value = entry["title"]
+      
+      # data
+      
+  
+  # remove original sheet
+  wb.remove(wb['Sheet'])
+  
+  # save resulting workbook
+  wb.save(filename)
 
 def generate_sem_schedules (filename, show_censors):
   # tex file creation
@@ -273,7 +393,7 @@ import_groups(oop_students, sem_students)
 line2index = generate_line2index()
 sort_students(oop_students)
 
-generate_oop_schedules()
+generate_oop_schedules("SDU SEST 2022 OOP Exams Full.xlsx", show_censors=True)
 generate_sem_schedules("SDU SEST 2022 Sem1 Project Exams.tex", show_censors=False)
 generate_sem_schedules("SDU SEST 2022 Sem1 Project Exams Full.tex", show_censors=True)
 
