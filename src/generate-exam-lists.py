@@ -63,7 +63,7 @@ header = {
     "title": "Studerende",
     "index": 3,
     "major": True,
-    "width": 2,
+    "width": 3,
   },
   "name": {
     "title": "Navn",
@@ -77,35 +77,41 @@ header = {
     "major": False,
     "colwidth": 25,
   },
+  "edu": {
+    "title": "Retning",
+    "index": 5,
+    "major": False,
+    "colwidth": 20,
+  },
   
   # TA
   "ta": {
     "title": "Tællende Aktiviteter",
-    "index": 5,
+    "index": 6,
     "major": True,
     "width": 4,
   },
   "ta1": {
     "title": "TA1",
-    "index": 5,
+    "index": 6,
     "major": False,
     "colwidth": 6,
   },
   "ta2": {
     "title": "TA2",
-    "index": 6,
+    "index": 7,
     "major": False,
     "colwidth": 6,
   },
   "ta3": {
     "title": "TA3",
-    "index": 7,
+    "index": 8,
     "major": False,
     "colwidth": 6,
   },
   "ta.sum": {
     "title": "Sum",
-    "index": 8,
+    "index": 9,
     "major": False,
     "colwidth": 6,
   },
@@ -113,35 +119,35 @@ header = {
   # oral
   "oral": {
     "title": "Mundtlig Eksamen",
-    "index": 9,
+    "index": 10,
     "major": True,
     "width": 3,
   },
   "topic": {
     "title": "Emne",
-    "index": 9,
+    "index": 10,
     "major": False,
   },
   "exercise": {
     "title": "Opgave",
-    "index": 10,
+    "index": 11,
     "major": False,
   },
   "grade.oral": {
     "title": "Karakter",
-    "index": 11,
+    "index": 12,
     "major": False,
   },
   
   # final grade
   "final.major": {
     "title": "Endelig",
-    "index": 12,
+    "index": 13,
     "major": True,
   },
   "grade.final": {
     "title": "Karakter",
-    "index": 12,
+    "index": 13,
     "major": False,
   },
 }
@@ -374,6 +380,7 @@ def insert_students (sheet, students):
     sheet[xy2cell(2, row)].value = slot["to"]
     sheet[xy2cell(3, row)].value = student["name"]
     sheet[xy2cell(4, row)].value = student["email"]
+    sheet[xy2cell(5, row)].value = name2line[student["name"]]
     
     # update
     row += 1
