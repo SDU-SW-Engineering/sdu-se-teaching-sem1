@@ -40,6 +40,9 @@ with open("sem_censors.json") as fo:
 with open("sem_advisors.json") as fo:
   sem_advisors = json.loads("".join(fo.readlines()))
 
+with open("student_mapping_override.json") as fo:
+  student_mapping_override = json.loads("".join(fo.readlines()))
+
 # 1-2: se, 3-4: st
 sem_groups = [
   {"group": "1.5", "edu": "se", "day": "Jan 23", "from": "9:00", "to": "10:20"},
@@ -113,7 +116,7 @@ def load_datafile (filename, students=None):
   
   for line in lines:
     elements = line.split("\t")
-    name   = elements[1]
+    name   = elements[1].strip()
     email  = elements[2].strip()
     role   = elements[3].strip()
     groups = elements[4].split(", ")
@@ -152,6 +155,10 @@ def load_student_lines (filename):
       name = "%s %s" % (gname, fname)
       
       name2line[name] = line
+  
+  # override
+  for name in student_mapping_override:
+    name2line[name] = student_mapping_override[name]
 
 def load_group_sizes (students):
   global group2size
@@ -206,12 +213,28 @@ def sort_students (students):
   
   students.sort(key=cmp_to_key(compare))
 
+def split_students_on_educations (students):
+  structure = {}
+  
+  for student in students:
+#    print(name2line.keys())
+    if not student["name"] in name2line:
+      print("'"+student["name"]+"'", type(student["name"]))
+      continue
+    line = name2line[student["name"]]
+    if not line in structure: structure[line] = []
+    structure[line].append(student)
+  
+  return structure
+
 def generate_oop_schedules (filename, show_censors):
   def xy2cell (x, y): # zero-indexed
     row = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     return "%s%d" % (row[x], y+1)
   
   wb = Workbook()
+  
+  # produce sheets
   for date in oop_dates:
     day = date.split(" ")[0]
     for examiner in ["Aslak", "Peter"]:
@@ -309,7 +332,7 @@ def generate_oop_schedules (filename, show_censors):
       for key in header:
         entry = header[key]
         cell = xy2cell(entry["index"], 2 if entry["major"] else 3)
-        print(str(entry)+"->"+cell)
+#        print(str(entry)+"->"+cell)
         
 #        if "width" in entry:
 #          sheet.merge_cells(start_row=1+entry["index"], \
@@ -319,8 +342,11 @@ def generate_oop_schedules (filename, show_censors):
         sheet[cell].font = Font(b=True)
         sheet[cell].value = entry["title"]
       
-      # data
-      
+  # data: split input
+  students = split_students_on_educations(oop_students)
+  
+  # data: 
+  print(students.keys())
   
   # remove original sheet
   wb.remove(wb['Sheet'])
