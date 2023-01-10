@@ -395,20 +395,20 @@ def generate_oop_schedules (filename, show_censors):
       sheet["A1"].font = Font(b=True)
       sheet["A1"].value = "%s/%s" % (date, examiner)
       
-      sheet["A1"].font = Font(i=True)
+      # censor
+      sheet["A2"].font = Font(i=True)
       sheet["A2"].value = "censor?"
       
       # header
       for key in header:
         entry = header[key]
         cell = xy2cell(entry["index"], 3 if entry["major"] else 4)
-#        print(str(entry)+"->"+cell)
         
-#        if "width" in entry:
-#          sheet.merge_cells(start_row=1+entry["index"], \
-#                            start_column=1+(2 if entry["major"] else 3), \
-#                            end_row=1+entry["index"]+entry["width"]-1, \
-#                            end_column=1+(2 if entry["major"] else 3))
+        if "width" in entry:
+          sheet.merge_cells(start_row=1+(3 if entry["major"] else 4), \
+                            start_column=1+entry["index"], \
+                            end_row=1+(3 if entry["major"] else 4), \
+                            end_column=1+entry["index"]+entry["width"]-1)
         sheet[cell].font = Font(b=True)
         sheet[cell].value = entry["title"]
         
