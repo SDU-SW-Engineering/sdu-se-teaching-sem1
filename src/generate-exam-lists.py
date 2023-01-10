@@ -218,6 +218,9 @@ oop_slots = [
   {"from": "17:00", "to": "17:20", "meet": "16:00"},
   {"from": "17:20", "to": "17:40", "meet": "16:20"},
   {"from": "17:40", "to": "18:00", "meet": "16:40"},
+  {"from": "18:00", "to": "18:20", "meet": "17:00"},
+  {"from": "18:20", "to": "18:40", "meet": "17:20"},
+  {"from": "18:40", "to": "19:00", "meet": "17:40"},
 ]
 
 def groups2thold (groups):
@@ -409,8 +412,9 @@ def generate_oop_schedules (filename, show_censors):
       sheet["A1"].value = "%s/%s" % (date, examiner)
       
       # censor
-      sheet["A2"].font = Font(i=True)
-      sheet["A2"].value = "Censor: %s (%s)" % (oop_censors[examiner][day]["name"], oop_censors[examiner][day]["email"])
+      if show_censors:
+        sheet["A2"].font = Font(i=True)
+        sheet["A2"].value = "Censor: %s (%s)" % (oop_censors[examiner][day]["name"], oop_censors[examiner][day]["email"])
       
       # header
       for key in header:
@@ -439,11 +443,6 @@ def generate_oop_schedules (filename, show_censors):
     gamer = students["Spiludvikling og Læringsteknologi"]
     sweng = students["Software Engineering"]
     
-    t1 = list(filter(lambda e: e["thold"]=="T1", sweng)) # aslak
-    t2 = list(filter(lambda e: e["thold"]=="T2", sweng)) # peter
-    t5 = list(filter(lambda e: e["thold"]=="T5", gamer)) # aslak
-    t6 = list(filter(lambda e: e["thold"]=="T6", gamer)) # peter
-    
     # sanity check: Software Engineering
     sanity = list(filter(lambda e: not e["thold"] in ["T1", "T2"], sweng))
     if len(sanity)>0:
@@ -459,6 +458,18 @@ def generate_oop_schedules (filename, show_censors):
       print("ERR: Sanity check for generate_oop_schedules/data/Spiludvikling og Læringsteknologi failed:")
       for entry in sanity:
         print(" - %s" % entry)
+    
+    t1 = list(filter(lambda e: e["thold"]=="T1", sweng)) # aslak
+    t2 = list(filter(lambda e: e["thold"]=="T2", sweng)) # peter
+    t5 = list(filter(lambda e: e["thold"]=="T5", gamer)) # aslak
+    t6 = list(filter(lambda e: e["thold"]=="T6", gamer)) # peter
+    
+    print("OOP EXAM: Students in T1: %d" % len(t1))
+    print("OOP EXAM: Students in T2: %d" % len(t2))
+    print("OOP EXAM: Students in SWENG: %d" % (len(t1)+len(t2)))
+    print("OOP EXAM: Students in T5: %d" % len(t5))
+    print("OOP EXAM: Students in T6: %d" % len(t6))
+    print("OOP EXAM: Students in GAMER: %d" % (len(t5)+len(t6)))
     
     teamaslak = t1 + t5
     teampeter = t2 + t6
@@ -476,8 +487,6 @@ def generate_oop_schedules (filename, show_censors):
   # data: Softwareteknologi
   if True:
     swtech = students["Softwareteknologi"]
-    t3 = list(filter(lambda e: e["thold"]=="T3", swtech)) # aslak
-    t4 = list(filter(lambda e: e["thold"]=="T4", swtech)) # peter
     
     # sanity check
     sanity = list(filter(lambda e: not e["thold"] in ["T3", "T4"], swtech))
@@ -485,6 +494,13 @@ def generate_oop_schedules (filename, show_censors):
       print("ERR: Sanity check for generate_oop_schedules/data/Softwareteknologi failed:")
       for entry in sanity:
         print(" - %s" % entry)
+    
+    t3 = list(filter(lambda e: e["thold"]=="T3", swtech)) # aslak
+    t4 = list(filter(lambda e: e["thold"]=="T4", swtech)) # peter
+    
+    print("OOP EXAM: Students in T3: %d" % len(t3))
+    print("OOP EXAM: Students in T4: %d" % len(t4))
+    print("OOP EXAM: Students in SWTEK: %d" % (len(t3)+len(t4)))
     
     t3split = int(len(t3)/2)
     insert_students(sheets["Aslak"]["Torsdag"], t3[:t3split])
@@ -595,6 +611,7 @@ import_groups(oop_students, sem_students)
 line2index = generate_line2index()
 sort_students(oop_students)
 
+#generate_oop_schedules("SDU SEST 2022 OOP Exams.xlsx", show_censors=False)
 generate_oop_schedules("SDU SEST 2022 OOP Exams Full.xlsx", show_censors=True)
 generate_sem_schedules("SDU SEST 2022 Sem1 Project Exams.tex", show_censors=False)
 generate_sem_schedules("SDU SEST 2022 Sem1 Project Exams Full.tex", show_censors=True)
