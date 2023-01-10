@@ -192,10 +192,10 @@ oop_slots = [
   {"from": "11:20", "to": "11:40", "meet": "10:20"},
   {"from": "11:40", "to": "12:00", "meet": "10:40"},
   {"from": "12:00", "to": "12:20", "meet": "11:00"},
-  {"from": "12:20", "to": "12:40", "meet": "11:20"},
-  {"from": "12:40", "to": "13:00", "meet": "11:40", "break": "lunch"},
+  {"from": "12:20", "to": "12:40", "meet": "11:20", "break": "lunch"},
+  {"from": "12:40", "to": "13:00", "meet": "11:40", "break": "skip"},
   {"from": "13:00", "to": "13:20", "meet": "12:00", "break": "skip"},
-  {"from": "13:20", "to": "13:40", "meet": "12:20", "break": "skip"},
+  {"from": "13:20", "to": "13:40", "meet": "12:20"},
   {"from": "13:40", "to": "14:00", "meet": "12:40"},
   {"from": "14:00", "to": "14:20", "meet": "13:00"},
   {"from": "14:20", "to": "14:40", "meet": "13:20"},
@@ -425,6 +425,45 @@ def generate_oop_schedules (filename, show_censors):
   print(students.keys())
   
   # data: Spiludvikling og Læringsteknologi || Software Engineering
+  if True:
+    gamer = students["Spiludvikling og Læringsteknologi"]
+    sweng = students["Software Engineering"]
+    
+    t1 = list(filter(lambda e: e["thold"]=="T1", sweng)) # aslak
+    t2 = list(filter(lambda e: e["thold"]=="T2", sweng)) # peter
+    t5 = list(filter(lambda e: e["thold"]=="T5", gamer)) # aslak
+    t6 = list(filter(lambda e: e["thold"]=="T6", gamer)) # peter
+    
+    # sanity check: Software Engineering
+    sanity = list(filter(lambda e: not e["thold"] in ["T1", "T2"], sweng))
+    if len(sanity)>0:
+      print("ERR: Sanity check for generate_oop_schedules/data/Software Engineering failed:")
+      for entry in sanity:
+        thold = "T2"
+        print(" - %s, assigning %s" % (entry, thold))
+        entry["thold"] = thold
+    
+    # sanity check: Spiludvikling og Læringsteknologi
+    sanity = list(filter(lambda e: not e["thold"] in ["T5", "T6"], gamer))
+    if len(sanity)>0:
+      print("ERR: Sanity check for generate_oop_schedules/data/Spiludvikling og Læringsteknologi failed:")
+      for entry in sanity:
+        print(" - %s" % entry)
+    
+    teamaslak = t1 + t5
+    teampeter = t2 + t6
+    
+    aslaksplit1 = int(len(teamaslak)/3)
+    aslaksplit2 = int(2*len(teamaslak)/3)
+    insert_students(sheets["Aslak"]["Mandag"] , teamaslak[:aslaksplit1])
+    insert_students(sheets["Aslak"]["Tirsdag"], teamaslak[aslaksplit1:aslaksplit2])
+    insert_students(sheets["Aslak"]["Onsdag"] , teamaslak[aslaksplit2:])
+    
+    petersplit1 = int(len(teampeter)/3)
+    petersplit2 = int(2*len(teampeter)/3)
+    insert_students(sheets["Peter"]["Mandag"] , teampeter[:petersplit1])
+    insert_students(sheets["Peter"]["Tirsdag"], teampeter[petersplit1:petersplit2])
+    insert_students(sheets["Peter"]["Onsdag"] , teampeter[petersplit2:])
   
   # data: Softwareteknologi
   if True:
