@@ -322,7 +322,7 @@ def load_oop_ta3_scores (filename, students):
     
     cols = line.strip().split(",")
     username = cols[0]
-    score    = cols[11]
+    score    = str(float(cols[11])*100)
 #    username = sheet["A%d"%row].value
 #    score    = sheet["L%d"%row].value[:-1]
     email    = "%s@student.sdu.dk" % username
