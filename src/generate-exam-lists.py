@@ -468,6 +468,8 @@ def insert_students (sheet, students, show_grades):
       sheet[xy2cell(8, row)].value = student["ta3"] if "ta3" in student else "0"
       sheet[xy2cell(9, row)].value = "=(%s+%s+%s)/3" % (xy2cell(6, row), xy2cell(7, row), xy2cell(8, row))
       sheet[xy2cell(13, row)].value = "=%s+(%s/10)" % (xy2cell(12, row), xy2cell(9, row))
+      formula = "=if(N%d>T6,12,if(N%d>T7,10,if(N%d>T8,7,if(N%d>T9,4,if(N%d>T10,2,if(N%d>T11,0,-3))))))"
+      sheet[xy2cell(14, row)].value = formula % (row+1, row+1, row+1, row+1, row+1, row+1)
     
     # update
     row += 1
