@@ -2,6 +2,7 @@
 
 from openpyxl import load_workbook, Workbook
 from openpyxl.styles import Font
+from openpyxl.comments import Comment
 from functools import cmp_to_key
 import json
 
@@ -44,6 +45,7 @@ header = {
     "index": 0,
     "major": False,
     "colwidth": 7,
+    "comment": "Mødetid er op til 1 time før forventet starttid for effektivt at kunne håndtere udeblivelser",
   },
   "time.from": {
     "title": "Start",
@@ -134,16 +136,33 @@ header = {
     "index": 10,
     "major": False,
     "grade": "noshow",
+    "comment": "Hvilket emne blev trukket til præsentation?",
   },
   "exercise": {
     "title": "Opgave",
     "index": 11,
     "major": False,
     "grade": "noshow",
+    "comment": "Hvilken praktisk opgave blev trukket til løsning på tavle?",
   },
   "grade.oral": {
     "title": "Karakter",
     "index": 12,
+    "major": False,
+    "grade": "noshow",
+    "comment": "På skala fra 0 til 100",
+  },
+  
+  # adjusted grade
+  "adj.major": {
+    "title": "Justeret",
+    "index": 13,
+    "major": True,
+    "grade": "noshow",
+  },
+  "grade.adj": {
+    "title": "Karakter",
+    "index": 13,
     "major": False,
     "grade": "noshow",
   },
@@ -151,13 +170,13 @@ header = {
   # final grade
   "final.major": {
     "title": "Endelig",
-    "index": 13,
+    "index": 14,
     "major": True,
     "grade": "noshow",
   },
   "grade.final": {
     "title": "Karakter",
-    "index": 13,
+    "index": 14,
     "major": False,
     "grade": "noshow",
   },
@@ -444,6 +463,7 @@ def insert_students (sheet, students, show_grades):
       sheet[xy2cell(7, row)].value = student["ta2"] if "ta2" in student else "0"
       sheet[xy2cell(8, row)].value = student["ta3"] if "ta3" in student else "0"
       sheet[xy2cell(9, row)].value = "=(%s+%s+%s)/3" % (xy2cell(6, row), xy2cell(7, row), xy2cell(8, row))
+      sheet[xy2cell(13, row)].value = "=%s+(%s/10)" % (xy2cell(12, row), xy2cell(9, row))
     
     # update
     row += 1
@@ -488,6 +508,9 @@ def generate_oop_schedules (filename, show_censors, show_grades):
                             end_column=1+entry["index"]+entry["width"]-1)
         sheet[cell].font = Font(b=True)
         sheet[cell].value = entry["title"]
+        
+        if "comment" in entry:
+          sheet[cell].comment = Comment(entry["comment"], "Aslak Johansen")
         
         if "colwidth" in entry:
           sheet.column_dimensions[x2col(entry["index"])].width = entry["colwidth"]
