@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from openpyxl import load_workbook, Workbook
-from openpyxl.styles import Font
+from openpyxl.styles import PatternFill, Font
 from openpyxl.comments import Comment
 from functools import cmp_to_key
 import json
@@ -180,6 +180,10 @@ header = {
     "major": False,
     "grade": "noshow",
   },
+}
+
+color = {
+  "table": "F4DBFD"
 }
 
 group2size = {}
@@ -514,6 +518,31 @@ def generate_oop_schedules (filename, show_censors, show_grades):
         
         if "colwidth" in entry:
           sheet.column_dimensions[x2col(entry["index"])].width = entry["colwidth"]
+      
+      # conversion table
+      sheet.column_dimensions[x2col(15)].width = 5
+      sheet.column_dimensions[x2col(16)].width = 9
+      sheet.column_dimensions[x2col(17)].width = 10
+      sheet.column_dimensions[x2col(18)].width = 12
+      sheet.column_dimensions[x2col(19)].width = 11
+      for i, value in [(0,"Karakter"), (1,"Point/min"), (2,"Point/mean"), (3,"Point/max")]:
+        cell = xy2cell(16+i, 4)
+        sheet[cell].font = Font(b=True)
+        sheet[cell].fill = PatternFill("solid", fgColor=color["table"])
+        sheet[cell].value = value
+      for i, grade, pmin, pmax in [(0, "12", 92, 100), (1,"10", 81, 91), (2,"7", 66, 80), (3,"4", 56, 65), (4, "2", 50, 55), (5, "00", 16, 49), (6, "-3", 0, 15)]:
+        cell0 = xy2cell(16+0, 5+i)
+        cell1 = xy2cell(16+1, 5+i)
+        cell2 = xy2cell(16+2, 5+i)
+        cell3 = xy2cell(16+3, 5+i)
+        sheet[cell0].fill = PatternFill("solid", fgColor=color["table"])
+        sheet[cell0].value = grade
+        sheet[cell1].fill = PatternFill("solid", fgColor=color["table"])
+        sheet[cell1].value = pmin
+        sheet[cell2].fill = PatternFill("solid", fgColor=color["table"])
+        sheet[cell2].value = "=average(%s,%s)" % (cell1, cell3)
+        sheet[cell3].fill = PatternFill("solid", fgColor=color["table"])
+        sheet[cell3].value = pmax
       
       # register sheet
       sheets[examiner][day] = sheet
