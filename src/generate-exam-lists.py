@@ -213,6 +213,22 @@ color = {
   "table":    "F4DBFD",
 }
 
+oop_rooms = {
+  "Aslak": {
+    "Mandag": "U147",
+    "Tirsdag": "U147",
+    "Onsdag": "U74",
+    "Torsdag": "U147",
+    "Fredag": "U147",
+  },
+  "Peter": {
+    "Mandag": "U148",
+    "Onsdag": "U75",
+    "Torsdag": "U148",
+    "Fredag": "U148",
+  }
+}
+
 group2size = {}
 classes = ["1", "2", "3", "4"]
 
@@ -543,8 +559,9 @@ def generate_oop_schedules (filename, show_censors, show_grades):
       sheet = wb[sheet_title]
       
       # title
+      room = oop_rooms[examiner][day]
       sheet["A1"].font = Font(b=True)
-      sheet["A1"].value = "%s/%s" % (date, examiner)
+      sheet["A1"].value = "%s med %s i lokale %s" % (date, examiner, room)
       
       # censor
       if show_censors:
