@@ -806,9 +806,9 @@ import_groups(oop_students, sem_students)
 line2index = generate_line2index()
 sort_students(oop_students)
 
-generate_oop_schedules("SDU SEST 2022 OOP Exams.xlsx", show_censors=False, show_grades=False)
-generate_oop_schedules("SDU SEST 2022 OOP Exams Partiel.xlsx", show_censors=True, show_grades=False)
-generate_oop_schedules("SDU SEST 2022 OOP Exams Full.xlsx", show_censors=True, show_grades=True)
+generate_oop_schedules("SDU SE OOP 2022 - Eksamensplan.xlsx", show_censors=False, show_grades=False)
+generate_oop_schedules("SDU SE OOP 2022 - Eksamensplan Partiel.xlsx", show_censors=True, show_grades=False)
+generate_oop_schedules("SDU SE OOP 2022 - Eksamensplan Full.xlsx", show_censors=True, show_grades=True)
 generate_sem_schedules("SDU SEST 2022 Sem1 Project Exams.tex", show_censors=False)
 generate_sem_schedules("SDU SEST 2022 Sem1 Project Exams Full.tex", show_censors=True)
 
