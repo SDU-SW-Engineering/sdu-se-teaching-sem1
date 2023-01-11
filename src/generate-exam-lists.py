@@ -90,7 +90,7 @@ header = {
     "title": "Retning",
     "index": 5,
     "major": False,
-    "colwidth": 20,
+    "colwidth": 30,
     "color": "student",
   },
   
