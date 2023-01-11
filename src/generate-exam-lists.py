@@ -627,8 +627,8 @@ def generate_oop_schedules (filename, show_censors, show_grades):
     print("OOP EXAM: Students in T6: %d" % len(t6))
     print("OOP EXAM: Students in GAMER: %d" % (len(t5)+len(t6)))
     
-    teamaslak = t1 + t5
-    teampeter = t2 + t6
+    teamaslak = t5 + t1
+    teampeter = t6 + t2
     
     aslaksplit1 = int(len(teamaslak)/3)
     aslaksplit2 = int(2*len(teamaslak)/3)
