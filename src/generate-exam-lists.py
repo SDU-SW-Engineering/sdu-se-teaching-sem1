@@ -114,7 +114,7 @@ header = {
     "grade": "noshow",
   },
   "ta.sum": {
-    "title": "Sum",
+    "title": "Avg",
     "index": 9,
     "major": False,
     "colwidth": 6,
@@ -426,7 +426,7 @@ def insert_students (sheet, students, show_grades):
       sheet[xy2cell(6, row)].value = "1"
       sheet[xy2cell(7, row)].value = "2"
       sheet[xy2cell(8, row)].value = student["ta3"] if "ta3" in student else "0"
-      sheet[xy2cell(9, row)].value = "=%s+%s+%s" % (xy2cell(6, row), xy2cell(7, row), xy2cell(8, row))
+      sheet[xy2cell(9, row)].value = "=(%s+%s+%s)/3" % (xy2cell(6, row), xy2cell(7, row), xy2cell(8, row))
     
     
     # update
