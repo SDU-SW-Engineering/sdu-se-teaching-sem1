@@ -90,30 +90,35 @@ header = {
     "index": 6,
     "major": True,
     "width": 4,
+    "grade": "noshow",
   },
   "ta1": {
     "title": "TA1",
     "index": 6,
     "major": False,
     "colwidth": 6,
+    "grade": "noshow",
   },
   "ta2": {
     "title": "TA2",
     "index": 7,
     "major": False,
     "colwidth": 6,
+    "grade": "noshow",
   },
   "ta3": {
     "title": "TA3",
     "index": 8,
     "major": False,
     "colwidth": 6,
+    "grade": "noshow",
   },
   "ta.sum": {
     "title": "Sum",
     "index": 9,
     "major": False,
     "colwidth": 6,
+    "grade": "noshow",
   },
   
   # oral
@@ -122,21 +127,25 @@ header = {
     "index": 10,
     "major": True,
     "width": 3,
+    "grade": "noshow",
   },
   "topic": {
     "title": "Emne",
     "index": 10,
     "major": False,
+    "grade": "noshow",
   },
   "exercise": {
     "title": "Opgave",
     "index": 11,
     "major": False,
+    "grade": "noshow",
   },
   "grade.oral": {
     "title": "Karakter",
     "index": 12,
     "major": False,
+    "grade": "noshow",
   },
   
   # final grade
@@ -144,11 +153,13 @@ header = {
     "title": "Endelig",
     "index": 13,
     "major": True,
+    "grade": "noshow",
   },
   "grade.final": {
     "title": "Karakter",
     "index": 13,
     "major": False,
+    "grade": "noshow",
   },
 }
 
@@ -298,6 +309,30 @@ def load_group_sizes (students):
     
     group2size[group] += 1
 
+def load_oop_ta3_scores (filename, students):
+  with open(filename) as fo:
+    lines = fo.readlines()
+#  wb = load_workbook(filename=filename)
+#  sheet = wb["TA3 Scores"]
+  
+  for line in lines[1:]:
+#  for row in range(2, 200):
+#    if sheet["A%d"%row].value==None:
+#      break
+    
+    cols = line.strip().split(",")
+    username = cols[0]
+    score    = cols[11]
+#    username = sheet["A%d"%row].value
+#    score    = sheet["L%d"%row].value[:-1]
+    email    = "%s@student.sdu.dk" % username
+    
+    for student in students:
+      if student["email"]==email:
+        print("%s: %s -> %s" % (email, student["name"], score))
+        student["ta3"]=score
+        break
+
 def import_groups (oop_students, sem_students):
   name2group = {}
   
@@ -361,7 +396,7 @@ def xy2cell (x, y): # zero-indexed
   col = x2col(x)
   return "%s%d" % (col, y+1)
 
-def insert_students (sheet, students):
+def insert_students (sheet, students, show_grades):
   row = 5
   sloti = 0
   for student in students:
@@ -387,12 +422,18 @@ def insert_students (sheet, students):
     sheet[xy2cell(3, row)].value = student["name"]
     sheet[xy2cell(4, row)].value = student["email"]
     sheet[xy2cell(5, row)].value = name2line[student["name"]]
+    if show_grades:
+      sheet[xy2cell(6, row)].value = "1"
+      sheet[xy2cell(7, row)].value = "2"
+      sheet[xy2cell(8, row)].value = student["ta3"] if "ta3" in student else "0"
+      sheet[xy2cell(9, row)].value = "=%s+%s+%s" % (xy2cell(6, row), xy2cell(7, row), xy2cell(8, row))
+    
     
     # update
     row += 1
     sloti += 1
 
-def generate_oop_schedules (filename, show_censors):
+def generate_oop_schedules (filename, show_censors, show_grades):
   wb = Workbook()
   
   # produce sheets
@@ -420,6 +461,9 @@ def generate_oop_schedules (filename, show_censors):
       for key in header:
         entry = header[key]
         cell = xy2cell(entry["index"], 3 if entry["major"] else 4)
+        
+        # guard
+        if "grade" in entry and not show_grades: continue
         
         if "width" in entry:
           sheet.merge_cells(start_row=1+(3 if entry["major"] else 4), \
@@ -476,13 +520,13 @@ def generate_oop_schedules (filename, show_censors):
     
     aslaksplit1 = int(len(teamaslak)/3)
     aslaksplit2 = int(2*len(teamaslak)/3)
-    insert_students(sheets["Aslak"]["Mandag"] , teamaslak[:aslaksplit1])
-    insert_students(sheets["Aslak"]["Tirsdag"], teamaslak[aslaksplit1:aslaksplit2])
-    insert_students(sheets["Aslak"]["Onsdag"] , teamaslak[aslaksplit2:])
+    insert_students(sheets["Aslak"]["Mandag"] , teamaslak[:aslaksplit1], show_grades)
+    insert_students(sheets["Aslak"]["Tirsdag"], teamaslak[aslaksplit1:aslaksplit2],show_grades)
+    insert_students(sheets["Aslak"]["Onsdag"] , teamaslak[aslaksplit2:], show_grades)
     
     petersplit = int(len(teampeter)/2)
-    insert_students(sheets["Peter"]["Mandag"] , teampeter[:petersplit])
-    insert_students(sheets["Peter"]["Onsdag"] , teampeter[petersplit:])
+    insert_students(sheets["Peter"]["Mandag"] , teampeter[:petersplit], show_grades)
+    insert_students(sheets["Peter"]["Onsdag"] , teampeter[petersplit:], show_grades)
   
   # data: Softwareteknologi
   if True:
@@ -503,12 +547,12 @@ def generate_oop_schedules (filename, show_censors):
     print("OOP EXAM: Students in SWTEK: %d" % (len(t3)+len(t4)))
     
     t3split = int(len(t3)/2)
-    insert_students(sheets["Aslak"]["Torsdag"], t3[:t3split])
-    insert_students(sheets["Aslak"]["Fredag"], t3[t3split:])
+    insert_students(sheets["Aslak"]["Torsdag"], t3[:t3split], show_grades)
+    insert_students(sheets["Aslak"]["Fredag"], t3[t3split:], show_grades)
     
     t4split = len(t4)-8
-    insert_students(sheets["Peter"]["Torsdag"], t4[:t4split])
-    insert_students(sheets["Peter"]["Fredag"], t4[t4split:])
+    insert_students(sheets["Peter"]["Torsdag"], t4[:t4split], show_grades)
+    insert_students(sheets["Peter"]["Fredag"], t4[t4split:], show_grades)
   
   # remove original sheet
   wb.remove(wb['Sheet'])
@@ -605,14 +649,17 @@ load_datafile("sem2.data", sem_students)
 name2line = {}
 load_student_lines("Lister SI1-OOP19 med klasser.xlsx")
 
+#load_oop_ta3_scores("TA3 Scores.xlsx", oop_students)
+load_oop_ta3_scores("TA3 Scores.csv", oop_students)
+
 load_group_sizes(sem_students)
 
 import_groups(oop_students, sem_students)
 line2index = generate_line2index()
 sort_students(oop_students)
 
-#generate_oop_schedules("SDU SEST 2022 OOP Exams.xlsx", show_censors=False)
-generate_oop_schedules("SDU SEST 2022 OOP Exams Full.xlsx", show_censors=True)
+generate_oop_schedules("SDU SEST 2022 OOP Exams.xlsx", show_censors=False, show_grades=False)
+generate_oop_schedules("SDU SEST 2022 OOP Exams Full.xlsx", show_censors=True, show_grades=True)
 generate_sem_schedules("SDU SEST 2022 Sem1 Project Exams.tex", show_censors=False)
 generate_sem_schedules("SDU SEST 2022 Sem1 Project Exams Full.tex", show_censors=True)
 
