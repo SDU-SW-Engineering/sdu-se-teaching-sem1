@@ -86,28 +86,28 @@ header = {
   
   # TA
   "ta": {
-    "title": "Tællende Aktiviteter",
+    "title": "Pointgivende Aktiviteter",
     "index": 6,
     "major": True,
     "width": 4,
     "grade": "noshow",
   },
   "ta1": {
-    "title": "TA1",
+    "title": "PA1",
     "index": 6,
     "major": False,
     "colwidth": 6,
     "grade": "noshow",
   },
   "ta2": {
-    "title": "TA2",
+    "title": "PA2",
     "index": 7,
     "major": False,
     "colwidth": 6,
     "grade": "noshow",
   },
   "ta3": {
-    "title": "TA3",
+    "title": "PA3",
     "index": 8,
     "major": False,
     "colwidth": 6,
