@@ -39,12 +39,14 @@ header = {
     "index": 0,
     "major": True,
     "width": 3,
+    "color": "time",
   },
   "time.meet": {
     "title": "Møde",
     "index": 0,
     "major": False,
     "colwidth": 7,
+    "color": "time",
     "comment": "Mødetid er op til 1 time før forventet starttid for effektivt at kunne håndtere udeblivelser",
   },
   "time.from": {
@@ -52,12 +54,14 @@ header = {
     "index": 1,
     "major": False,
     "colwidth": 7,
+    "color": "time",
   },
   "time.to": {
     "title": "Afslutning",
     "index": 2,
     "major": False,
     "colwidth": 10,
+    "color": "time",
   },
   
   # Studerende
@@ -66,24 +70,28 @@ header = {
     "index": 3,
     "major": True,
     "width": 3,
+    "color": "student",
   },
   "name": {
     "title": "Navn",
     "index": 3,
     "major": False,
     "colwidth": 35,
+    "color": "student",
   },
   "email": {
     "title": "Email",
     "index": 4,
     "major": False,
     "colwidth": 25,
+    "color": "student",
   },
   "edu": {
     "title": "Retning",
     "index": 5,
     "major": False,
     "colwidth": 20,
+    "color": "student",
   },
   
   # TA
@@ -93,6 +101,7 @@ header = {
     "major": True,
     "width": 4,
     "grade": "noshow",
+    "color": "pa",
   },
   "ta1": {
     "title": "PA1",
@@ -100,6 +109,7 @@ header = {
     "major": False,
     "colwidth": 6,
     "grade": "noshow",
+    "color": "pa",
   },
   "ta2": {
     "title": "PA2",
@@ -107,6 +117,7 @@ header = {
     "major": False,
     "colwidth": 6,
     "grade": "noshow",
+    "color": "pa",
   },
   "ta3": {
     "title": "PA3",
@@ -114,6 +125,7 @@ header = {
     "major": False,
     "colwidth": 6,
     "grade": "noshow",
+    "color": "pa",
   },
   "ta.sum": {
     "title": "Avg",
@@ -121,6 +133,7 @@ header = {
     "major": False,
     "colwidth": 6,
     "grade": "noshow",
+    "color": "pa",
   },
   
   # oral
@@ -130,12 +143,14 @@ header = {
     "major": True,
     "width": 3,
     "grade": "noshow",
+    "color": "oral",
   },
   "topic": {
     "title": "Emne",
     "index": 10,
     "major": False,
     "grade": "noshow",
+    "color": "oral",
     "comment": "Hvilket emne blev trukket til præsentation?",
   },
   "exercise": {
@@ -143,6 +158,7 @@ header = {
     "index": 11,
     "major": False,
     "grade": "noshow",
+    "color": "oral",
     "comment": "Hvilken praktisk opgave blev trukket til løsning på tavle?",
   },
   "grade.oral": {
@@ -150,6 +166,7 @@ header = {
     "index": 12,
     "major": False,
     "grade": "noshow",
+    "color": "oral",
     "comment": "På skala fra 0 til 100",
   },
   
@@ -159,12 +176,14 @@ header = {
     "index": 13,
     "major": True,
     "grade": "noshow",
+    "color": "adjusted",
   },
   "grade.adj": {
     "title": "Karakter",
     "index": 13,
     "major": False,
     "grade": "noshow",
+    "color": "adjusted",
   },
   
   # final grade
@@ -173,17 +192,25 @@ header = {
     "index": 14,
     "major": True,
     "grade": "noshow",
+    "color": "final",
   },
   "grade.final": {
     "title": "Karakter",
     "index": 14,
     "major": False,
     "grade": "noshow",
+    "color": "final",
   },
 }
 
 color = {
-  "table": "F4DBFD"
+  "time":     "FDDBFA",
+  "student":  "F1F1F1",
+  "pa":       "FCFDDB",
+  "oral":     "DBFCFD",
+  "adjusted": "FDDFDB",
+  "final":    "DBFDE3",
+  "table":    "F4DBFD",
 }
 
 group2size = {}
@@ -456,18 +483,30 @@ def insert_students (sheet, students, show_grades):
     # insert
 #    print(sheet[xy2cell(0, row)].value)
 #    print(student)
+    for i in range(0,3):
+      sheet[xy2cell(i, row)].fill = PatternFill("solid", fgColor=color["time"])
     sheet[xy2cell(0, row)].value = slot["meet"]
     sheet[xy2cell(1, row)].value = slot["from"]
     sheet[xy2cell(2, row)].value = slot["to"]
+    for i in range(3,6):
+      sheet[xy2cell(i, row)].fill = PatternFill("solid", fgColor=color["student"])
     sheet[xy2cell(3, row)].value = student["name"]
     sheet[xy2cell(4, row)].value = student["email"]
     sheet[xy2cell(5, row)].value = name2line[student["name"]]
     if show_grades:
+      for i in range(6,10):
+        sheet[xy2cell(i, row)].fill = PatternFill("solid", fgColor=color["pa"])
       sheet[xy2cell(6, row)].value = student["ta1"] if "ta1" in student else "0"
       sheet[xy2cell(7, row)].value = student["ta2"] if "ta2" in student else "0"
       sheet[xy2cell(8, row)].value = student["ta3"] if "ta3" in student else "0"
       sheet[xy2cell(9, row)].value = "=(%s+%s+%s)/3" % (xy2cell(6, row), xy2cell(7, row), xy2cell(8, row))
+      for i in range(10,13):
+        sheet[xy2cell(i, row)].fill = PatternFill("solid", fgColor=color["oral"])
+      for i in range(13,14):
+        sheet[xy2cell(i, row)].fill = PatternFill("solid", fgColor=color["adjusted"])
       sheet[xy2cell(13, row)].value = "=%s+(%s/10)" % (xy2cell(12, row), xy2cell(9, row))
+      for i in range(14,15):
+        sheet[xy2cell(i, row)].fill = PatternFill("solid", fgColor=color["final"])
       formula = "=if(N%d>T6,12,if(N%d>T7,10,if(N%d>T8,7,if(N%d>T9,4,if(N%d>T10,2,if(N%d>T11,0,-3))))))"
       sheet[xy2cell(14, row)].value = formula % (row+1, row+1, row+1, row+1, row+1, row+1)
     
@@ -517,6 +556,9 @@ def generate_oop_schedules (filename, show_censors, show_grades):
         
         if "comment" in entry:
           sheet[cell].comment = Comment(entry["comment"], "Aslak Johansen")
+        
+        if "color" in entry:
+          sheet[cell].fill = PatternFill("solid", fgColor=color[entry["color"]])
         
         if "colwidth" in entry:
           sheet.column_dimensions[x2col(entry["index"])].width = entry["colwidth"]
