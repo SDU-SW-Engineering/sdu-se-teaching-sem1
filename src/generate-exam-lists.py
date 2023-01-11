@@ -309,6 +309,23 @@ def load_group_sizes (students):
     
     group2size[group] += 1
 
+def load_oop_ta12_scores (filename, students, key):
+  wb = load_workbook(filename=filename)
+  sheet = wb["QuestionResults"]
+  
+  for row in range(2, 200):
+    if sheet["A%d"%row].value==None:
+      break
+    
+    score    = str(sheet["E%d"%row].value)
+    email    = sheet["B%d"%row].value.strip()
+    
+    for student in students:
+      if student["email"]==email:
+#        print("%s: %s -> %s" % (email, student["name"], score))
+        student[key]=score
+        break
+
 def load_oop_ta3_scores (filename, students):
   with open(filename) as fo:
     lines = fo.readlines()
@@ -329,7 +346,7 @@ def load_oop_ta3_scores (filename, students):
     
     for student in students:
       if student["email"]==email:
-        print("%s: %s -> %s" % (email, student["name"], score))
+#        print("%s: %s -> %s" % (email, student["name"], score))
         student["ta3"]=score
         break
 
@@ -423,11 +440,10 @@ def insert_students (sheet, students, show_grades):
     sheet[xy2cell(4, row)].value = student["email"]
     sheet[xy2cell(5, row)].value = name2line[student["name"]]
     if show_grades:
-      sheet[xy2cell(6, row)].value = "1"
-      sheet[xy2cell(7, row)].value = "2"
+      sheet[xy2cell(6, row)].value = student["ta1"] if "ta1" in student else "0"
+      sheet[xy2cell(7, row)].value = student["ta2"] if "ta2" in student else "0"
       sheet[xy2cell(8, row)].value = student["ta3"] if "ta3" in student else "0"
       sheet[xy2cell(9, row)].value = "=(%s+%s+%s)/3" % (xy2cell(6, row), xy2cell(7, row), xy2cell(8, row))
-    
     
     # update
     row += 1
@@ -649,6 +665,10 @@ load_datafile("sem2.data", sem_students)
 name2line = {}
 load_student_lines("Lister SI1-OOP19 med klasser.xlsx")
 
+load_oop_ta12_scores ("Pointgiven_Aktivitet_1_export_2023_01_11__01_23.xlsx", oop_students, "ta1")
+load_oop_ta12_scores ("Pointgiven_Aktivitet_1_s_rlige_vilk_r__export_2023_01_11__01_24.xlsx", oop_students, "ta1")
+load_oop_ta12_scores ("Pointgivende_Aktivitet_2_export_2023_01_11__01_21.xlsx", oop_students, "ta2")
+load_oop_ta12_scores ("Pointgivende_Aktivitet_2_s_rlige_vilk_r__export_2023_01_11__01_23.xlsx", oop_students, "ta2")
 #load_oop_ta3_scores("TA3 Scores.xlsx", oop_students)
 load_oop_ta3_scores("TA3 Scores.csv", oop_students)
 
