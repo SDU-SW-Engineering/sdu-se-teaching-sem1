@@ -228,6 +228,9 @@ with open("student_mapping_override.json") as fo:
 with open("oop_censors.json") as fo:
   oop_censors = json.loads("".join(fo.readlines()))
   
+with open("oop_flip_students.json") as fo:
+  oop_flip_students = json.loads("".join(fo.readlines()))
+  
 # 1-2: se, 3-4: st
 sem_groups = [
   {"group": "1.5", "edu": "se", "day": "Jan 23", "from": "9:00", "to": "10:20"},
@@ -409,6 +412,16 @@ def import_groups (oop_students, sem_students):
   for entry in oop_students:
     name = entry["name"]
     entry["group"] = name2group[name] if name in name2group else "-1"
+
+def flip_students (emails, students):
+  for email in emails:
+    found = False
+    for student in students:
+      if student["email"]==email:
+        student["flip"] = "other examiner"
+        found = True
+    if not found:
+      print("ERR: Unable to flip student: %s" % email)
 
 def generate_line2index ():
   line2index = {}
@@ -615,8 +628,8 @@ def generate_oop_schedules (filename, show_censors, show_grades):
       for entry in sanity:
         print(" - %s" % entry)
     
-    t1 = list(filter(lambda e: e["thold"]=="T1", sweng)) # aslak
-    t2 = list(filter(lambda e: e["thold"]=="T2", sweng)) # peter
+    t1 = list(filter(lambda e: (e["thold"]=="T1" and not "flip" in e) or (e["thold"]=="T2" and "flip" in e), sweng)) # aslak
+    t2 = list(filter(lambda e: (e["thold"]=="T2" and not "flip" in e) or (e["thold"]=="T1" and "flip" in e), sweng)) # peter
     t5 = list(filter(lambda e: e["thold"]=="T5", gamer)) # aslak
     t6 = list(filter(lambda e: e["thold"]=="T6", gamer)) # peter
     
@@ -757,6 +770,8 @@ load_datafile("oop2.data", oop_students)
 sem_students = []
 load_datafile("sem1.data", sem_students)
 load_datafile("sem2.data", sem_students)
+
+flip_students(oop_flip_students, oop_students)
 
 name2line = {}
 load_student_lines("Lister SI1-OOP19 med klasser.xlsx")
