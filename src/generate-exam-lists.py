@@ -259,10 +259,10 @@ sem_groups = [
   {"group": "2.1", "edu": "se", "day": "Jan 26", "from": "9:00", "to": "10:40"},
   {"group": "2.5", "edu": "se", "day": "Jan 26", "from": "11:00", "to": "13:00"},
   {"group": "2.3", "edu": "se", "day": "Jan 26", "from": "14:00", "to": "16:00"},
-  {"group": "3.2", "edu": "st", "day": "Jan 24", "from": "9:00", "to": "10:40"},
+  {"group": "4.4", "edu": "st", "day": "Jan 24", "from": "9:00", "to": "10:40"}, # not Jan 26 # moved
   {"group": "3.4", "edu": "st", "day": "Jan 24", "from": "11:00", "to": "12:40"},
   {"group": "3.1", "edu": "st", "day": "Jan 24", "from": "13:40", "to": "15:40"},
-  {"group": "4.4", "edu": "st", "day": "Jan 25", "from": "9:00", "to": "10:40"}, # not Jan 26
+  {"group": "3.2", "edu": "st", "day": "Jan 25", "from": "9:00", "to": "10:40"}, # moved
   {"group": "4.1", "edu": "st", "day": "Jan 25", "from": "11:00", "to": "12:40"},
   {"group": "4.2", "edu": "st", "day": "Jan 25", "from": "13:40", "to": "15:40"},
   {"group": "4.3", "edu": "st", "day": "Jan 26", "from": "9:00", "to": "10:40"},
