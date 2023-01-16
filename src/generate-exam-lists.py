@@ -536,7 +536,7 @@ def insert_students (sheet, students, show_grades):
       sheet[xy2cell(13, row)].value = "=%s+(%s/10)" % (xy2cell(12, row), xy2cell(9, row))
       for i in range(14,15):
         sheet[xy2cell(i, row)].fill = PatternFill("solid", fgColor=color["final"])
-      formula = "=if(N%d>T6,12,if(N%d>T7,10,if(N%d>T8,7,if(N%d>T9,4,if(N%d>T10,2,if(N%d>T11,0,-3))))))"
+      formula = "=if(N%d>T7,12,if(N%d>T8,10,if(N%d>T9,7,if(N%d>T10,4,if(N%d>T11,2,if(N%d>T12,0,-3))))))"
       sheet[xy2cell(14, row)].value = formula % (row+1, row+1, row+1, row+1, row+1, row+1)
     
     # update
