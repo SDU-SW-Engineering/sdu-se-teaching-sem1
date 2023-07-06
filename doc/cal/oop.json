@@ -1,118 +1,110 @@
 {
   "OOP": [
     {
-      "date": "2022 September 5",
+      "date": "2023 September 4",
       "description": ["Introduktion"],
     },
     {
-      "date": "2022 September 7",
+      "date": "2023 September 6",
       "description": ["Primitive Typer"],
     },
     {
-      "date": "2022 September 12",
+      "date": "2023 September 11",
       "description": ["Kontrol Flow"],
     },
     {
-      "date": "2022 September 14",
+      "date": "2023 September 13",
       "description": ["Arrays"],
     },
     {
-      "date": "2022 September 19",
+      "date": "2023 September 18",
       "description": ["Metoder"],
     },
     {
-      "date": "2022 September 21",
+      "date": "2023 September 20",
       "description": ["Pointgivende Aktivitet 1"],
       "fillcolor": "orange",
     },
     {
-      "date": "2022 September 26",
+      "date": "2023 September 25",
       "description": ["Objekter og Klasser"],
     },
     {
-      "date": "2022 September 28",
+      "date": "2023 September 27",
       "description": ["Arv"],
     },
     {
-      "date": "2022 October 3",
+      "date": "2023 October 2",
       "description": ["Naming"],
     },
     {
-      "date": "2022 October 5",
+      "date": "2023 October 4",
       "description": ["Objektorienteret Programudvikling"],
     },
     {
-      "date": "2022 October 10",
+      "date": "2023 October 9",
       "description": ["Polymorfi"],
     },
     {
-      "date": "2022 October 12",
+      "date": "2023 October 11",
       "description": ["Abstrakte Klasser og Interfaces"],
     },
     {
-      "date": "2022 October 24",
+      "date": "2023 October 23",
       "description": ["Pointgivende Aktivitet 2"],
       "fillcolor": "orange",
     },
     {
-      "date": "2022 October 26",
+      "date": "2023 October 25",
       "description": ["Exceptions"],
     },
     {
-      "date": "2022 October 31",
-      "description": ["Not scheduled!"],
-    },
-    {
-      "date": "2022 November 2",
-      "description": ["Skipped for SE/ST Evaluation"],
-    },
-    {
-      "date": "2022 November 7",
+      "date": "2023 October 30",
       "description": ["Collections og Sortering"],
     },
     {
-      "date": "2022 November 9",
+      "date": "2022 November 1",
       "description": ["Input og Output"],
     },
     {
-      "date": "2022 November 14",
+      "date": "2023 November 6",
       "description": ["Softwarearkitektur"],
     },
     {
-      "date": "2022 November 16",
+      "date": "2023 November 8",
       "description": ["Refactoring"],
     },
     {
-      "date": "2022 November 21",
+      "date": "2023 November 13",
       "description": ["GUI 1/2"],
     },
     {
-      "date": "2022 November 23",
+      "date": "2023 November 15",
       "description": ["GUI 2/2"],
     },
     {
-      "date": "2022 November 28",
+      "date": "2023 November 20",
       "description": ["Workshop 1/2"],
     },
     {
-      "date": "2022 November 30",
+      "date": "2023 November 22",
       "description": ["Workshop 2/2"],
     },
     {
-      "date": "2022 December 5",
+      "date": "2023 November 27",
       "description": ["Pointgivende Aktivitet 3"],
       "fillcolor": "orange",
     },
     {
-      "date": "2022 December 7",
-      "description": ["Not scheduled!"],
-    },
-    {
-      "date": "2022 December 12",
+      "date": "2023 November 29",
       "description": ["Afslutning"],
     },
     {
-      "date": "2022 December 14",
+      "date": "2023 December 4",
+      "description": ["Not scheduled!"],
+    },
+    {
+      "date": "2023 December 6",
       "description": ["Not scheduled!"],
     },
   ],

@@ -4,8 +4,8 @@ from datetime import datetime
 filename = "tables/project_phase2_analyse.tex"
 headercolor = "blue!25"
 window = {
-  "begin": datetime.strptime("2022 September 26", "%Y %B %d"),
-  "end":   datetime.strptime("2022 October 7", "%Y %B %d"),
+  "begin": datetime.strptime("2023 September 25", "%Y %B %d"),
+  "end":   datetime.strptime("2023 October 8", "%Y %B %d"),
 }
 
 def escape (text):

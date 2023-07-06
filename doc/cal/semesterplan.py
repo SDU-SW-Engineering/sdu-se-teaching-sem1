@@ -52,32 +52,32 @@ def build ():
   ]
   headlines = [
 #    {
-#      "date":  "2022 August 7",
+#      "date":  "2023 August 7",
 #      "title": "Før semesterstart (uge 32-34)",
 #      "fillcolor": headercolor,
 #    },
     {
-      "date":  "2022 August 31",
+      "date":  "2023 August 28",
       "title": "Projektstart (uge 35-38)",
       "fillcolor": headercolor,
     },
     {
-      "date":  "2022 September 25",
+      "date":  "2023 September 25",
       "title": "Problemanalysefase (Uge 39-40)",
       "fillcolor": headercolor,
     },
     {
-      "date":  "2022 October 9",
+      "date":  "2023 October 9",
       "title": "Gennemførselsfase - programudvikling (41-48)",
       "fillcolor": headercolor,
     },
     {
-      "date":  "2022 December 4",
+      "date":  "2023 December 4",
       "title": "Afleveringsfase (49-50)",
       "fillcolor": headercolor,
     },
     {
-      "date":  "2023 January 1",
+      "date":  "2024 January 1",
       "title": "Eksamen og refleksion",
       "fillcolor": headercolor,
     },
