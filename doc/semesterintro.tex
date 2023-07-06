@@ -265,8 +265,52 @@ mundtligt som skriftligt til forskellige målgrupper
 \subsection{Hvordan opnås kompetencerne?}
 \begin{frame}[fragile]
   \frametitle{Hvordan opnås kompetencerne?}
-  \vspace{1mm}
   
+  \begin{tikzpicture}[remember picture, overlay]
+    \newcommand{\size}[0]{25mm}
+    
+    \tikzstyle{edge}  = [
+      very thick,
+      >=stealth,
+      draw=black,
+    ]
+    
+    \node[circle, anchor=north east, minimum size=2*\size, draw, very thick] (big) at ([xshift=-12mm, yshift=-17mm] current page.north east) {};
+    \node[circle, minimum size=1.6cm, draw, very thick] (student) at (big) {\small{Student}};
+    \node[circle, minimum size=1.6cm, draw, fill=white, very thick] (subject) at (big.north) {\small{Subject}};
+    \node[circle, minimum size=1.6cm, draw, fill=white, very thick] (team) at ([xshift=-\size*0.81418097053, yshift=-\size*0.58061118421] big) {\small{Team}};
+    \node[circle, minimum size=1.6cm, draw, fill=white, very thick] (project) at ([xshift=\size*0.81418097053, yshift=-\size*0.58061118421] big) {\small{Project}};
+    \draw[<->, edge] (student) -- (subject);
+    \draw[<->, edge] (student) -- (team);
+    \draw[<->, edge] (student) -- (project);
+  \end{tikzpicture}
+  
+  \vspace{0mm}
+  \begin{itemize}
+    \pause
+    \item DSMI (udtales \quoted{dæsmi})
+      \begin{itemize}
+        \item Den Syddanske Model for Ingeniøruddannelser
+      \end{itemize}
+    \pause
+    \item Sammenhængende tematiske semestre
+      \begin{itemize}
+        \item De første fire semestre på ingeniøruddannelserne
+          \begin{itemize}
+            \item Sammenhængende og tematiserede
+            \item Tværfagligt semesterprojekt, der har semester-\\temaet som overskrift
+            \item Projektarbejdet en særlig stærk rolle
+          \end{itemize}
+        \item De første to semestre er næsten fælles for\\Software Engineering og Software Teknologi
+          \begin{enumerate}
+            \item Udvikling af Software Programmer
+            \item Udvikling af Software Systemer / Udvikling af Cyber-Physical Software Systemer
+          \end{enumerate}
+        \item Hvert semester tilrettelægges af et semesterteam (undervisere og projektvejledere)
+      \end{itemize}
+    \pause
+    \item Aktiverende undervisning og aktiv læring – timeblokke (typisk med fire timer)
+  \end{itemize}
 \end{frame}
 
 \subsection{ECTS Point}
