@@ -107,6 +107,9 @@ document_names = {
   "Plan for Midtvej Seminar": {
     "source": "midtvejseminar.tex",
   },
+  "Introduktion til Semesteret": {
+    "source": "semesterintro.tex",
+  },
 }
 
 class RecipeTexTable (Recipe):
