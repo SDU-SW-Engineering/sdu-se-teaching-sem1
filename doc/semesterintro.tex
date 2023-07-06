@@ -93,6 +93,34 @@
 \includegraphics[width=#2]{./figs/#1}
 }
 
+% args: 1:prefix 2:semester 3:index_west 4:index_east 5:title 6:ects 7:style
+\newcommand{\entry}[7]{
+  \node[
+    rectangle,
+    draw=purple,
+    anchor=south west,
+    align=center,
+    minimum height=\cellheight,
+    minimum width=(#4-#3)*\cellwidth+((#4-#3)-1)*\cellspacing,
+    #7
+  ]
+  (#1) at (
+    [
+      xshift=\xoffset+#3*\cellwidth+(#3-1)*\cellspacing,
+      yshift=\yoffset+(#2-1)*\cellheight+(#2-2)*\cellspacing,
+    ] semorigo)
+  {
+    #5\\\textcolor{orange}{#6 ECTS}
+  }
+}
+
+\newcommand{\entryNormal}[6]{\entry{#1}{#2}{#3}{#4}{#5}{#6}{}}
+\newcommand{\entryProject}[6]{\entry{#1}{#2}{#3}{#4}{#5}{#6}{fill=purple!10,}}
+\newcommand{\entryElective}[6]{\entry{#1}{#2}{#3}{#4}{#5}{#6}{pattern=north east lines, pattern color=purple!10, even odd rule,}}
+\newcommand{\entryNormalMsc}[6]{\entry{#1}{#2}{#3}{#4}{#5}{#6}{draw=blue}}
+\newcommand{\entryProjectMsc}[6]{\entry{#1}{#2}{#3}{#4}{#5}{#6}{draw=blue,fill=blue!10,}}
+\newcommand{\entryElectiveMsc}[6]{\entry{#1}{#2}{#3}{#4}{#5}{#6}{draw=blue,pattern=north east lines, pattern color=blue!10, even odd rule,}}
+
 \newenvironment{inspiration}[1]
 {
     \begin{center}
@@ -234,8 +262,114 @@ Aisha Umair \hspace{1mm} \href{mailto:aiu@mmmi.sdu.dk}{aiu@mmmi.sdu.dk}
 \subsection{De to Første Semestre}
 \begin{frame}[fragile]
   \frametitle{De to Første Semestre}
-  \vspace{1mm}
+  \vspace{7mm}
   
+  Software Engineering:
+  
+  \scalebox{0.47}{
+    \begin{tikzpicture}[remember picture,overlay]
+      \newcommand{\cellwidth}[0]{4.3cm}
+      \newcommand{\cellheight}[0]{1.5cm}
+      \newcommand{\cellspacing}[0]{2mm}
+      \newcommand{\width}[0]{(4*\cellwidth+3*\cellspacing)}
+      \newcommand{\ewidth}[0]{(\width+0.8mm)}
+      \newcommand{\height}[0]{3cm}
+      \newcommand{\xoffset}[0]{24mm}
+      \newcommand{\labelpad}[0]{32mm}
+      \newcommand{\yoffset}[0]{-\height}
+      
+      \coordinate (origo) at (\xoffset,\yoffset);
+      \coordinate (semorigo) at (0,0);
+      
+      \tikzstyle{node}=[
+        overlay,
+        rectangle,
+        draw=purple,
+        anchor=center,
+        align=center,
+        thick,
+        minimum width=\blockwidth,
+        minimum height=1.2cm,
+      ]
+      \tikzstyle{title} = [
+        anchor=south,
+        align=center,
+      ]
+      \tikzstyle{edge}  = [
+        very thick,
+        >=stealth,
+        draw=purple,
+      ]
+      
+      % sem1
+      \entryNormal{cos}{1}{0}{1}{\textbf{Computersystemer}\\}{5};
+      \entryNormal{sda}{1}{1}{2}{\textbf{Statistisk}\\\textbf{Datanalyse}}{5};
+      \entryNormal{oop}{1}{2}{4}{\textbf{Objektorienteret Programmering}\\}{10};
+      \entryProject{semI}{1}{4}{6}{\textbf{Semesterprojekt:}\\\textbf{Udvikling af Softwareprogrammer}}{10};
+      \node[align=left, minimum width=\labelpad, anchor=east] (labI) at (cos.west) {\textbf{Semester 1}};
+      
+      % sem2
+      \entryNormal{seo}{2}{0}{2}{\textbf{Software Engineering}\\\textbf{og Organisation}}{10};
+      \entryNormal{vop}{2}{2}{3}{\textbf{Videregående}\\\textbf{OOP}}{5};
+      \entryNormal{md}{2}{3}{4}{\textbf{Data Management}\\}{5};
+      \entryProject{semII}{2}{4}{6}{\textbf{Semesterprojekt:}\\\textbf{Udvikling af Softwaresystemer}}{10};
+      \node[align=left, minimum width=\labelpad, anchor=east] (labII) at (seo.west) {\textbf{Semester 2}};
+    \end{tikzpicture}
+  }
+  
+  \vspace{2.5cm}
+  Softwareteknologi:
+  
+  \scalebox{0.47}{
+    \begin{tikzpicture}[remember picture,overlay]
+      \newcommand{\cellwidth}[0]{4.3cm}
+      \newcommand{\cellheight}[0]{1.5cm}
+      \newcommand{\cellspacing}[0]{2mm}
+      \newcommand{\width}[0]{(4*\cellwidth+3*\cellspacing)}
+      \newcommand{\ewidth}[0]{(\width+0.8mm)}
+      \newcommand{\height}[0]{3cm}
+      \newcommand{\xoffset}[0]{24mm}
+      \newcommand{\labelpad}[0]{32mm}
+      \newcommand{\yoffset}[0]{-\height}
+      
+      \coordinate (origo) at (\xoffset,\yoffset);
+      \coordinate (semorigo) at (0,0);
+      
+      \tikzstyle{node}=[
+        overlay,
+        rectangle,
+        draw=purple,
+        anchor=center,
+        align=center,
+        thick,
+        minimum width=\blockwidth,
+        minimum height=1.2cm,
+      ]
+      \tikzstyle{title} = [
+        anchor=south,
+        align=center,
+      ]
+      \tikzstyle{edge}  = [
+        very thick,
+        >=stealth,
+        draw=purple,
+      ]
+      
+      % sem1
+      \entryNormal{cos}{1}{0}{1}{\textbf{Cyper-Physical}\\\textbf{Systemer}}{5};
+      \entryNormal{sda}{1}{1}{2}{\textbf{Statistisk}\\\textbf{Datanalyse}}{5};
+      \entryNormal{oop}{1}{2}{4}{\textbf{Objektorienteret Programmering}\\}{10};
+      \entryProject{semI}{1}{4}{6}{\textbf{Semesterprojekt:}\\\textbf{Udvikling af Softwareprogrammer}}{10};
+      \node[align=left, minimum width=\labelpad, anchor=east] (labI) at (cos.west) {\textbf{Semester 1}};
+      
+      % sem2
+      \entryNormal{seo}{2}{0}{2}{\textbf{Software Engineering og Modelling}\\\textbf{til Cyber-Physical Systemer}}{10};
+      \entryNormal{vop}{2}{2}{3}{\textbf{Videregående}\\\textbf{OOP}}{5};
+      \entryNormal{md}{2}{3}{4}{\textbf{Data Management}\\}{5};
+      \entryProject{semII}{2}{4}{6}{\textbf{Semesterprojekt: Udvikling af}\\\textbf{Softwaresystemer med CPS Elementer}}{10};
+      \node[align=left, minimum width=\labelpad, anchor=east] (labII) at (seo.west) {\textbf{Semester 2}};
+    \end{tikzpicture}
+  }
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
