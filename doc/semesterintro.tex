@@ -492,8 +492,100 @@ mundtligt som skriftligt til forskellige målgrupper
 \subsection{Det Første Semester}
 \begin{frame}[fragile]
   \frametitle{Det Første Semester}
-  \vspace{1mm}
+  \vspace{7mm}
   
+  Software Engineering:
+  
+  \scalebox{0.47}{
+    \begin{tikzpicture}[remember picture,overlay]
+      \newcommand{\cellwidth}[0]{4.3cm}
+      \newcommand{\cellheight}[0]{1.5cm}
+      \newcommand{\cellspacing}[0]{2mm}
+      \newcommand{\width}[0]{(4*\cellwidth+3*\cellspacing)}
+      \newcommand{\ewidth}[0]{(\width+0.8mm)}
+      \newcommand{\height}[0]{3cm}
+      \newcommand{\xoffset}[0]{24mm}
+      \newcommand{\labelpad}[0]{32mm}
+      \newcommand{\yoffset}[0]{-\height}
+      
+      \coordinate (origo) at (\xoffset,\yoffset);
+      \coordinate (semorigo) at (0,0);
+      
+      \tikzstyle{node}=[
+        overlay,
+        rectangle,
+        draw=purple,
+        anchor=center,
+        align=center,
+        thick,
+        minimum width=\blockwidth,
+        minimum height=1.2cm,
+      ]
+      \tikzstyle{title} = [
+        anchor=south,
+        align=center,
+      ]
+      \tikzstyle{edge}  = [
+        very thick,
+        >=stealth,
+        draw=purple,
+      ]
+      
+      % sem1
+      \entryNormal{cos}{1}{0}{1}{\textbf{Computersystemer}\\}{5};
+      \entryNormal{sda}{1}{1}{2}{\textbf{Statistisk}\\\textbf{Datanalyse}}{5};
+      \entryNormal{oop}{1}{2}{4}{\textbf{Objektorienteret Programmering}\\}{10};
+      \entryProject{semI}{1}{4}{6}{\textbf{Semesterprojekt:}\\\textbf{Udvikling af Softwareprogrammer}}{10};
+      \node[align=left, minimum width=\labelpad, anchor=east] (labI) at (cos.west) {\textbf{Semester 1}};
+    \end{tikzpicture}
+  }
+  
+  \vspace{2.5cm}
+  Softwareteknologi:
+  
+  \scalebox{0.47}{
+    \begin{tikzpicture}[remember picture,overlay]
+      \newcommand{\cellwidth}[0]{4.3cm}
+      \newcommand{\cellheight}[0]{1.5cm}
+      \newcommand{\cellspacing}[0]{2mm}
+      \newcommand{\width}[0]{(4*\cellwidth+3*\cellspacing)}
+      \newcommand{\ewidth}[0]{(\width+0.8mm)}
+      \newcommand{\height}[0]{3cm}
+      \newcommand{\xoffset}[0]{24mm}
+      \newcommand{\labelpad}[0]{32mm}
+      \newcommand{\yoffset}[0]{-\height}
+      
+      \coordinate (origo) at (\xoffset,\yoffset);
+      \coordinate (semorigo) at (0,0);
+      
+      \tikzstyle{node}=[
+        overlay,
+        rectangle,
+        draw=purple,
+        anchor=center,
+        align=center,
+        thick,
+        minimum width=\blockwidth,
+        minimum height=1.2cm,
+      ]
+      \tikzstyle{title} = [
+        anchor=south,
+        align=center,
+      ]
+      \tikzstyle{edge}  = [
+        very thick,
+        >=stealth,
+        draw=purple,
+      ]
+      
+      % sem1
+      \entryNormal{cos}{1}{0}{1}{\textbf{Cyper-Physical}\\\textbf{Systemer}}{5};
+      \entryNormal{sda}{1}{1}{2}{\textbf{Statistisk}\\\textbf{Datanalyse}}{5};
+      \entryNormal{oop}{1}{2}{4}{\textbf{Objektorienteret Programmering}\\}{10};
+      \entryProject{semI}{1}{4}{6}{\textbf{Semesterprojekt:}\\\textbf{Udvikling af Softwareprogrammer}}{10};
+      \node[align=left, minimum width=\labelpad, anchor=east] (labI) at (cos.west) {\textbf{Semester 1}};
+    \end{tikzpicture}
+  }
 \end{frame}
 
 \subsection{Undervisere}
