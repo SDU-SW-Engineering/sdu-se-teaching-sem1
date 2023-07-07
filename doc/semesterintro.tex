@@ -669,8 +669,103 @@ mundtligt som skriftligt til forskellige målgrupper
 \subsection{Semesterprojektets Faser}
 \begin{frame}[fragile]
   \frametitle{Semesterprojektets Faser}
-  \vspace{1mm}
-  
+  \scalebox{0.55}{
+    \begin{tikzpicture}[remember picture,overlay]
+      \newcommand{\blockwidth}[0]{50mm}
+      \newcommand{\blockheight}[0]{50mm}
+      \newcommand{\parwidth}[0]{40mm}
+      \newcommand{\spacing}[0]{8mm}
+      
+      % via https://duckduckgo.com/?q=color+picker&t=newext&atb=v290-1&ia=answer
+      \definecolor{startstroke}{rgb}{0.5098039215686274, 0.17254901960784313, 0.5098039215686274}
+      \definecolor{endstroke}{rgb}{0.17254901960784313, 0.5098039215686274, 0.5098039215686274}
+      \definecolor{startfill}{rgb}{0.8980392156862745, 0.3058823529411765, 0.8980392156862745}
+      \definecolor{endfill}{rgb}{0.3058823529411765, 0.8980392156862745, 0.8980392156862745}
+      
+      \coordinate (origo) at (-16mm,-6cm);
+      
+      \tikzstyle{node}=[
+        overlay,
+        rectangle,
+        draw=purple,
+        anchor=west,
+        align=left,
+        very thick,
+        minimum width=\blockwidth,
+        minimum height=\blockheight,
+      ]
+      
+      \tikzstyle{edge}  = [
+        very thick,
+        >=stealth,
+        draw=black,
+      ]
+      
+      \node[node, draw=startstroke!100!endstroke, fill=startfill!100!endfill] (start) at (origo) {
+        \begin{minipage}{\parwidth}
+          \textbf{Projektstart}
+          
+          \begin{itemize}
+            \item Takeoff
+            \item Etablering
+          \end{itemize}
+        \end{minipage}
+      };
+      
+      \node[node, draw=startstroke!75!endstroke, fill=startfill!75!endfill] (analysis) at ([xshift=\spacing] start.east) {
+        \begin{minipage}{\parwidth}
+          \textbf{Problemanalyse}
+          
+          \begin{itemize}
+            \item Problemanalyse
+            \item Problemformulering
+            \item Metodevalg
+            \item Planlægning
+          \end{itemize}
+        \end{minipage}
+      };
+      
+      \node[node, draw=startstroke!50!endstroke, fill=startfill!50!endfill] (progress) at ([xshift=\spacing] analysis.east) {
+        \begin{minipage}{\parwidth}
+          \textbf{Gennemførsel}
+          
+          \begin{itemize}
+            \item Analyse
+            \item Design
+            \item Implementering
+          \end{itemize}
+        \end{minipage}
+      };
+      
+      \node[node, draw=startstroke!25!endstroke, fill=startfill!25!endfill] (completion) at ([xshift=\spacing] progress.east) {
+        \begin{minipage}{\parwidth}
+          \textbf{Færdiggørelse}
+          
+          \begin{itemize}
+            \item Færdiggørelse af projektrapporten
+            \item Aflevering
+          \end{itemize}
+        \end{minipage}
+      };
+      
+      \node[node, draw=startstroke!0!endstroke, fill=startfill!0!endfill] (post) at ([xshift=\spacing] completion.east) {
+        \begin{minipage}{\parwidth}
+          \textbf{Evaluering og\\reflektion}
+          
+          \begin{itemize}
+            \item Forberedelse af evaluering
+            \item Evaluering
+            \item Reflektion
+          \end{itemize}
+        \end{minipage}
+      };
+      
+      \draw[->, edge] (start) -- (analysis);
+      \draw[->, edge] (analysis) -- (progress);
+      \draw[->, edge] (progress) -- (completion);
+      \draw[->, edge] (completion) -- (post);
+    \end{tikzpicture}
+  }
 \end{frame}
 
 \subsection{Projektarbejdet}
