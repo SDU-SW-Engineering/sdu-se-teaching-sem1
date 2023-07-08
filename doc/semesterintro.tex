@@ -856,6 +856,18 @@ mundtligt som skriftligt til forskellige målgrupper
   \begin{center}
     \includegraphics[width=14cm]{figs/itslearning/courses.png}
   \end{center}
+  \begin{tikzpicture}[remember picture, overlay]
+    \tikzstyle{edge}  = [
+      very thick,
+      >=stealth,
+      draw=red,
+    ]
+    \node[ellipse, draw=red, very thick, minimum width=10mm, minimum height=6mm] (home) at (7.5mm,49mm) {};
+    \node[ellipse, draw=red, very thick, minimum width=14mm, minimum height=8mm] (courses) at (62.5mm,42.5mm) {};
+    \node[rectangle, draw=red, very thick, align=left] (note) at (100mm,69mm) {\textcolor{red}{For SE students, it will be}\\\textcolor{red}{Computer Systems course}};
+    \coordinate (target) at (77mm,35mm);
+    \draw[->, edge] (note) -- (target);
+  \end{tikzpicture}
 \end{frame}
 
 \subsection{Home Page: Updates (tab)}
