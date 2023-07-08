@@ -906,8 +906,34 @@ mundtligt som skriftligt til forskellige målgrupper
 \subsection{Plans}
 \begin{frame}[fragile]
   \frametitle{Plans}
-  \vspace{1mm}
-  
+  \vspace{-3mm}
+  \begin{center}
+    \includegraphics[width=122mm]{figs/itslearning/plans.png}
+  \end{center}
+  \begin{tikzpicture}[remember picture, overlay]
+    \tikzstyle{edge}  = [
+      very thick,
+      >=stealth,
+      draw=red,
+    ]
+    \node[ellipse, draw=red, very thick, minimum width=7mm, minimum height=5mm] (plans) at (52.75mm,76mm) {};
+    
+    \node[rectangle, draw=red, very thick, anchor=north west, minimum width=29mm, minimum height=4mm] (topic1) at (47.5mm,66.25mm) {};
+    \node[anchor=east] (topic1label) at ([xshift=-1cm] topic1.west) {\textcolor{red}{Topic}};
+    \draw[->, edge] (topic1label) -- (topic1);
+    
+    \node[rectangle, draw=red, very thick, anchor=north west, minimum width=29mm, minimum height=4mm] (topic2) at (47.5mm,58.5mm) {};
+    \node[anchor=east] (topic2label) at ([xshift=-1cm] topic2.west) {\textcolor{red}{Topic}};
+    \draw[->, edge] (topic2label) -- (topic2);
+    
+    \node[rectangle, draw=red, very thick, anchor=north west, minimum width=37.5mm, minimum height=4mm] (topic3) at (47.5mm,17.3mm) {};
+    \node[anchor=east] (topic3label) at ([xshift=-1cm] topic3.west) {\textcolor{red}{Topic}};
+    \draw[->, edge] (topic3label) -- (topic3);
+    
+    \node[rectangle, draw=green!60!black, very thick, anchor=north west, minimum width=7mm, minimum height=2.5mm] (plan) at (47.5mm,61.7mm) {};
+    \node[anchor=west] (planlabel) at ([xshift=3cm] plan.east) {\textcolor{green!60!black}{Plan}};
+    \draw[->, edge, draw=green!60!black] (planlabel) -- (plan);
+  \end{tikzpicture}
 \end{frame}
 
 \subsection{Resources}
