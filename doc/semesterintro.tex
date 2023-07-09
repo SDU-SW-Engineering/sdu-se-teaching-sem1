@@ -1011,8 +1011,83 @@ mundtligt som skriftligt til forskellige målgrupper
 \subsection{Problemorienteret Projektarbejde - et Online Kursus}
 \begin{frame}[fragile]
   \frametitle{Problemorienteret Projektarbejde - et Online Kursus}
-  \vspace{1mm}
-  
+  \vspace{-5mm}
+  \begin{tikzpicture}[remember picture, overlay]
+    \newcommand{\spacing}[0]{4mm}
+    \newcommand{\xshift}[0]{12mm}
+    \newcommand{\yshift}[0]{4mm}
+    
+    \tikzstyle{box} = [
+      draw=black,
+      very thick,
+      anchor=north west,
+      align=center,
+      minimum width=42mm,
+      minimum height=16mm,
+    ]
+    \tikzstyle{edge} = [
+      ->,
+      very thick,
+      >=stealth,
+    ]
+    \tikzstyle{edgeblue} = [
+      edge,
+      draw=blue,
+    ]
+    \tikzstyle{edgegreen} = [
+      edge,
+      draw=green!70!black,
+    ]
+    \tikzstyle{edgeyellow} = [
+      edge,
+      draw=yellow!40!brown,
+    ]
+    \node[box] (1) at (0mm,0mm) {\textbf{01:} Introduktion til\\kurset};
+    \node[box] (2) at ([yshift=-\spacing] 1.south west) {\textbf{02:} Projekter på\\Ingeniøruddannelserne};
+    \node[box] (3) at ([yshift=-\spacing] 2.south west) {\textbf{03:} Samarbejde};
+    \node[box] (4) at ([yshift=-\spacing] 3.south west) {\textbf{04:} Problemorienteret\\projektarbejde};
+    \node[box] (8) at ([xshift=\spacing] 1.north east) {\textbf{08:} Præsentation og\\feedback};
+    \node[box] (7) at ([yshift=-\spacing] 8.south west) {\textbf{07:} Metoder og plan-\\lægning i projektarbejdet};
+    \node[box] (6) at ([yshift=-\spacing] 7.south west) {\textbf{06:} Projektets faglige \\vidensgrundlag};
+    \node[box] (5) at ([yshift=-\spacing] 6.south west) {\textbf{05:} Problemanalyse og\\problemformulering};
+    \node[box] (9) at ([xshift=\spacing] 8.north east) {\textbf{09:} Projektrapporten};
+    \node[box] (10) at ([yshift=-\spacing] 9.south west) {\textbf{10:} Projekteksamen};
+    
+    \draw[edgeblue]   ([xshift=-\xshift] 1.south) -- ([xshift=-\xshift] 2.north);
+    \draw[edgegreen]  ([xshift=0       ] 1.south) -- ([xshift=0       ] 2.north);
+    \draw[edgeyellow] ([xshift= \xshift] 1.south) -- ([xshift= \xshift] 2.north);
+    
+    \draw[edgeblue]   ([xshift=-\xshift] 2.south) -- ([xshift=-\xshift] 3.north);
+    \draw[edgegreen]  ([xshift=0       ] 2.south) -- ([xshift=0       ] 3.north);
+    \draw[edgeyellow] ([xshift= \xshift] 2.south) -- ([xshift= \xshift] 3.north);
+    
+    \draw[edgeblue]   ([xshift=-\xshift] 3.south) -- ([xshift=-\xshift] 4.north);
+    
+    \draw[edgeyellow] (3.south east) -- (5.north west);
+    
+    \draw[edgegreen]  ([yshift=0       ] 3.east) -- ([yshift=0       ] 6.west);
+    
+    \draw[edgeblue]   ([yshift=\yshift] 4.east) -- ([yshift=\yshift] 5.west);
+    
+    \draw[edgeblue]   ([xshift=-\xshift] 5.north) -- ([xshift=-\xshift] 6.south);
+    \draw[edgeyellow] ([xshift= \xshift] 5.north) -- ([xshift= \xshift] 6.south);
+    
+    \draw[edgeblue]   ([xshift=-\xshift] 6.north) -- ([xshift=-\xshift] 7.south);
+    \draw[edgegreen]  ([xshift=0       ] 6.north) -- ([xshift=0       ] 7.south);
+    \draw[edgeyellow] ([xshift= \xshift] 6.north) -- ([xshift= \xshift] 7.south);
+    
+    \draw[edgeblue]   ([xshift=-\xshift] 7.north) -- ([xshift=-\xshift] 8.south);
+    \draw[edgegreen]  ([xshift=0       ] 7.north) -- ([xshift=0       ] 8.south);
+    \draw[edgeyellow] ([xshift= \xshift] 7.north) -- ([xshift= \xshift] 8.south);
+    
+    \draw[edgeblue]   ([yshift= \yshift] 8.east) -- ([yshift= \yshift] 9.west);
+    \draw[edgegreen]  ([yshift=0       ] 8.east) -- ([yshift=0       ] 9.west);
+    \draw[edgeyellow] ([yshift=-\yshift] 8.east) -- ([yshift=-\yshift] 9.west);
+    
+    \draw[edgeblue]   ([xshift=-\xshift] 9.south) -- ([xshift=-\xshift] 10.north);
+    \draw[edgegreen]  ([xshift=0       ] 9.south) -- ([xshift=0       ] 10.north);
+    \draw[edgeyellow] ([xshift= \xshift] 9.south) -- ([xshift= \xshift] 10.north);
+  \end{tikzpicture}
 \end{frame}
 
 \subsection{Problemorienteret Projektarbejde - et Online Kursus}
