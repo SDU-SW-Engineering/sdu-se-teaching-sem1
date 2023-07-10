@@ -43,6 +43,10 @@
 \usepackage{array} % for new array implementation: http://mirrors.ibiblio.org/CTAN/macros/latex/required/tools/array.pdf
 \usepackage{dirtytalk} % for \say quotation
 \usepackage{MnSymbol,wasysym} % for smileys
+%\usepackage{enumitem} % for ordered and unordered list
+\usepackage{longtable} % for tabular environment that spans multiple pages and supports footnotes
+
+%\include{shared}
 
 \setcounter{tocdepth}{4}
 \setcounter{secnumdepth}{4}
@@ -1120,9 +1124,11 @@ samarbejde, afrapportering og eksamen.
 
 \subsection{Næste Skridt}
 \begin{frame}[fragile]
-  \frametitle{}
+  \frametitle{Næste Skridt}
   \vspace{1mm}
+  Se semesterplanen!
   
+  \input{tables/intro-next-steps.tex}
 \end{frame}
 
 \subsection{Skema}
