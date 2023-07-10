@@ -1128,8 +1128,140 @@ samarbejde, afrapportering og eksamen.
 \subsection{Skema}
 \begin{frame}[fragile]
   \frametitle{Skema}
-  \vspace{1mm}
-  
+  \vspace{0mm}
+  \begin{tikzpicture}[remember picture, overlay]
+    % variables
+    \newcommand{\blockw}[0]{28mm}
+    \newcommand{\blockh}[0]{14mm}
+    
+    % styles
+    \tikzstyle{day}  = [
+      anchor=south,
+    ]
+    \tikzstyle{block}  = [
+      anchor=north west,
+      minimum width=\blockw,
+      minimum height=\blockh,
+      draw,
+    ]
+    \tikzstyle{time}  = [
+      anchor=east,
+    ]
+    \tikzstyle{lecture}  = [
+      anchor=north west,
+      minimum width=\blockw,
+      minimum height=\blockh,
+      draw=purple,
+      fill=purple!50,
+      align=center,
+    ]
+    \tikzstyle{exercise}  = [
+      anchor=north west,
+      minimum width=\blockw,
+      minimum height=\blockh,
+      draw=teal,
+      fill=teal!50,
+      align=center,
+    ]
+    \tikzstyle{project}  = [
+      anchor=north west,
+      minimum width=\blockw,
+      minimum height=5*\blockh,
+      draw=black,
+      fill=black!25,
+      align=center,
+    ]
+    
+    \coordinate (origo)     at (2mm,0mm);
+    
+    % coordinates: days
+    \coordinate (monday)    at ([xshift=0*\blockw] origo);
+    \coordinate (tuesday)   at ([xshift=1*\blockw] origo);
+    \coordinate (wednesday) at ([xshift=2*\blockw] origo);
+    \coordinate (thursday)  at ([xshift=3*\blockw] origo);
+    \coordinate (friday)    at ([xshift=4*\blockw] origo);
+    
+    % coordinates: blocks
+    \coordinate (monday08)  at ([yshift= 0*\blockh] monday);
+    \coordinate (monday10)  at ([yshift=-1*\blockh] monday);
+    \coordinate (monday12)  at ([yshift=-2*\blockh] monday);
+    \coordinate (monday14)  at ([yshift=-3*\blockh] monday);
+    \coordinate (monday16)  at ([yshift=-4*\blockh] monday);
+    \coordinate (monday18)  at ([yshift=-5*\blockh] monday);
+    \coordinate (tuesday08)  at ([yshift= 0*\blockh] tuesday);
+    \coordinate (tuesday10)  at ([yshift=-1*\blockh] tuesday);
+    \coordinate (tuesday12)  at ([yshift=-2*\blockh] tuesday);
+    \coordinate (tuesday14)  at ([yshift=-3*\blockh] tuesday);
+    \coordinate (tuesday16)  at ([yshift=-4*\blockh] tuesday);
+    \coordinate (wednesday08)  at ([yshift= 0*\blockh] wednesday);
+    \coordinate (wednesday10)  at ([yshift=-1*\blockh] wednesday);
+    \coordinate (wednesday12)  at ([yshift=-2*\blockh] wednesday);
+    \coordinate (wednesday14)  at ([yshift=-3*\blockh] wednesday);
+    \coordinate (wednesday16)  at ([yshift=-4*\blockh] wednesday);
+    \coordinate (thursday08)  at ([yshift= 0*\blockh] thursday);
+    \coordinate (thursday10)  at ([yshift=-1*\blockh] thursday);
+    \coordinate (thursday12)  at ([yshift=-2*\blockh] thursday);
+    \coordinate (thursday14)  at ([yshift=-3*\blockh] thursday);
+    \coordinate (thursday16)  at ([yshift=-4*\blockh] thursday);
+    \coordinate (friday08)  at ([yshift= 0*\blockh] friday);
+    \coordinate (friday10)  at ([yshift=-1*\blockh] friday);
+    \coordinate (friday12)  at ([yshift=-2*\blockh] friday);
+    \coordinate (friday14)  at ([yshift=-3*\blockh] friday);
+    \coordinate (friday16)  at ([yshift=-4*\blockh] friday);
+    
+    % blocks
+    \node[block] () at (monday08) {};
+    \node[block] () at (monday10) {};
+    \node[block] () at (monday12) {};
+    \node[block] () at (monday14) {};
+    \node[block] () at (monday16) {};
+    \node[block] () at (tuesday08) {};
+    \node[block] () at (tuesday10) {};
+    \node[block] () at (tuesday12) {};
+    \node[block] () at (tuesday14) {};
+    \node[block] () at (tuesday16) {};
+    \node[block] () at (wednesday08) {};
+    \node[block] () at (wednesday10) {};
+    \node[block] () at (wednesday12) {};
+    \node[block] () at (wednesday14) {};
+    \node[block] () at (wednesday16) {};
+    \node[block] () at (thursday08) {};
+    \node[block] () at (thursday10) {};
+    \node[block] () at (thursday12) {};
+    \node[block] () at (thursday14) {};
+    \node[block] () at (thursday16) {};
+    \node[block] () at (friday08) {};
+    \node[block] () at (friday10) {};
+    \node[block] () at (friday12) {};
+    \node[block] () at (friday14) {};
+    \node[block] () at (friday16) {};
+    
+    % schedule
+    \node[lecture]  () at (monday10) {\textbf{OOP} \\ \scriptsize Forelæsning i U45};
+    \node[exercise] () at (monday12) {\textbf{OOP} \\ \scriptsize Øvelser};
+    \node[project]  () at (tuesday08) {\textbf{Project}};
+    \node[lecture]  () at (wednesday12) {\textbf{OOP} \\ \scriptsize Forelæsning i U45};
+    \node[exercise] () at (wednesday14) {\textbf{OOP} \\ \scriptsize Øvelser};
+    \node[lecture]  () at (thursday12) {\textbf{SDA} \\ \scriptsize Forelæsning i U45};
+    \node[exercise] () at (thursday14) {\textbf{SDA} \\ \scriptsize Øvelser};
+    \node[lecture]  () at (friday10) {\textbf{COS/CPS} \\ \scriptsize Forelæsning i U45};
+    \node[exercise] () at (friday12) {\textbf{COS/CPS} \\ \scriptsize Øvelser};
+    
+    % time
+    \node[time] () at (monday08) {8};
+    \node[time] () at (monday10) {10};
+    \node[time] () at (monday12) {12};
+    \node[time] () at (monday14) {14};
+    \node[time] () at (monday16) {16};
+    \node[time] () at (monday18) {18};
+    
+    % days
+    \node[day] () at ([xshift=\blockw/2] monday)    {Mandag};
+    \node[day] () at ([xshift=\blockw/2] tuesday)   {Tirsdag};
+    \node[day] () at ([xshift=\blockw/2] wednesday) {Onsdag};
+    \node[day] () at ([xshift=\blockw/2] thursday)  {Torsdag};
+    \node[day] () at ([xshift=\blockw/2] friday)    {Fridag};
+  \end{tikzpicture}
 \end{frame}
 
 \subsection{How to Uni}
