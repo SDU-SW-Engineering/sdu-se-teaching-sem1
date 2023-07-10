@@ -596,7 +596,193 @@ mundtligt som skriftligt til forskellige målgrupper
 \begin{frame}[fragile]
   \frametitle{Undervisere}
   \vspace{1mm}
-  
+  \scalebox{0.82}{
+  \begin{tikzpicture}[remember picture, overlay]
+    % variables
+    \newcommand{\spacing}[0]{4mm}
+    \newcommand{\blockwidth}[0]{40mm}
+    \newcommand{\blockheight}[0]{58mm}
+    \newcommand{\imgsize}[0]{20mm}
+    \newcommand{\headerheight}[0]{(1.6*\spacing)}
+    
+    \newcommand{\personSouth}[3]{
+      \node[anchor=north] (image) at (#1) {\includegraphics[width=\imgsize]{#3}};
+      \node[anchor=north] (label) at (image.south) {#2};
+    }
+    \newcommand{\personWest}[3]{
+      \node[anchor=east] (image) at (#1) {\includegraphics[width=\imgsize]{#3}};
+      \node[anchor=east] (label) at (image.west) {#2};
+    }
+    \newcommand{\personEast}[3]{
+      \node[anchor=west] (image) at (#1) {\includegraphics[width=\imgsize]{#3}};
+      \node[anchor=west] (label) at (image.east) {#2};
+    }
+    
+    \newcommand{\buildBlock}[3]{
+      \coordinate (coord) at (#1);
+      \node[block,minimum width=#2,fill=black] (outer) at ([yshift=\headerheight] coord) {};
+      \node[block,minimum width=#2,fill=white] (inner) at (coord) {};
+      \node[anchor=center] (text) at ([yshift=\headerheight/2] inner.north) {\textcolor{white}{\textbf{#3}}};
+    }
+    
+    \newcommand{\origoX}[0]{(10mm)}
+    \newcommand{\origoY}[0]{(-25mm)}
+    \newcommand{\classX}[0]{(\origoX-\spacing)}
+    \newcommand{\classIy}[0]{(\origoY-\spacing)}
+    \newcommand{\classIIy}[0]{(\classIy-\spacing)}
+    \newcommand{\classIIIy}[0]{(\classIIy-3*\spacing)}
+    \newcommand{\classIVy}[0]{(\classIIIy-\spacing)}
+    \newcommand{\belowY}[0]{(\classIVy-\spacing)}
+    \newcommand{\blockY}[0]{(\origoY)}
+    \newcommand{\projectX}[0]{(\origoX)}
+    \newcommand{\oopX}[0]{(\projectX+6*\spacing+0*\imgsize)}
+    \newcommand{\cosX}[0]{(\oopX+4*\spacing+2*\imgsize)}
+    \newcommand{\sdaX}[0]{(\cosX+3*\spacing+1*\imgsize)}
+    \newcommand{\sdaXeast}[0]{(\sdaX+3*\spacing+2*\imgsize)}
+    
+    \newcommand{\proWidth}[0]{(5*\spacing+0*\imgsize)}
+    \newcommand{\oopWidth}[0]{(3*\spacing+2*\imgsize)}
+    \newcommand{\cosWidth}[0]{(2*\spacing+1*\imgsize)}
+    \newcommand{\sdaWidth}[0]{(3*\spacing+2*\imgsize)}
+    
+    \newcommand{\proXsuperI}[0]{(  \projectX+1*\spacing)}
+    \newcommand{\proXsuperII}[0]{( \projectX+2*\spacing)}
+    \newcommand{\proXsuperIII}[0]{(\projectX+3*\spacing)}
+    \newcommand{\proXsuperIV}[0]{( \projectX+4*\spacing)}
+    
+    \newcommand{\oopXaslak}[0]{(\oopX+\spacing+\imgsize/2)}
+    \newcommand{\oopXpeter}[0]{(\oopXaslak+\spacing+\imgsize)}
+    \newcommand{\cosXmorten}[0]{(\cosX+\spacing+\imgsize/2)}
+    \newcommand{\sdaXvictoria}[0]{(\sdaX+\spacing+\imgsize/2)}
+    \newcommand{\sdaXnataliya}[0]{(\sdaXvictoria+\spacing+\imgsize)}
+    \newcommand{\eolX}[0]{(\sdaXnataliya+\imgsize/2)}
+    
+    \coordinate (northwest) at ({\projectX}, {\blockY+\headerheight+\spacing});
+    \coordinate (northeast) at ({\sdaXeast}, {\blockY+\headerheight+\spacing});
+    
+    % styles
+    \tikzstyle{day}  = [
+      anchor=south,
+    ]
+    \tikzstyle{block}  = [
+      rectangle,
+      rounded corners,
+      anchor=north west,
+      minimum height=\blockheight,
+      draw,
+    ]
+    \tikzstyle{class}  = [
+      anchor=east,
+      align=right,
+    ]
+    \tikzstyle{education}  = [
+      anchor=south,
+      align=center,
+    ]
+    \tikzstyle{gridline}  = [
+      draw=olive,
+      thick,
+      dotted,
+    ]
+    \tikzstyle{teachexam}  = [
+      circle,
+      minimum size=2mm,
+      inner sep=0pt,
+      outer sep=0pt,
+      anchor=center,
+      draw=olive,
+      fill=olive,
+    ]
+    \tikzstyle{onlyteach}  = [
+      circle,
+      minimum size=2mm,
+      inner sep=0pt,
+      outer sep=0pt,
+      anchor=center,
+      draw=olive,
+      fill=olive!25,
+    ]
+    
+    % classes
+    \node[class] (classI)   at ({\classX},{\classIy})   {Klasse 1};
+    \node[class] (classII)  at ({\classX},{\classIIy})  {Klasse 2};
+    \node[class] (classIII) at ({\classX},{\classIIIy}) {Klasse 3};
+    \node[class] (classIV)  at ({\classX},{\classIVy})  {Klasse 4};
+    
+    % educations
+    \node[education] (eduSE) at ([yshift=0] classI.north)   {\textbf{SE}};
+    \node[education] (eduST) at ([yshift=0] classIII.north) {\textbf{ST}};
+    
+    % blocks
+    \buildBlock{{\projectX},{\blockY}}{\proWidth}{Projekt}
+    \buildBlock{{\oopX},{\blockY}}{\oopWidth}{OOP}
+    \buildBlock{{\cosX},{\blockY}}{\cosWidth}{COS | CPS}
+    \buildBlock{{\sdaX},{\blockY}}{\sdaWidth}{SDA}
+    
+    % lines
+    \draw[gridline] ({\classX},{\classIy})   -- ({\eolX},{\classIy});
+    \draw[gridline] ({\classX},{\classIIy})  -- ({\eolX},{\classIIy});
+    \draw[gridline] ({\classX},{\classIIIy}) -- ({\eolX},{\classIIIy});
+    \draw[gridline] ({\classX},{\classIVy})  -- ({\eolX},{\classIVy});
+    \draw[gridline] ({\proXsuperI},{\classIy})   -- ({\proXsuperI}  ,{\belowY});
+    \draw[gridline] ({\proXsuperII},{\classIy})  -- ({\proXsuperII} ,{\belowY});
+    \draw[gridline] ({\proXsuperIII},{\classIy}) -- ({\proXsuperIII},{\belowY});
+    \draw[gridline] ({\proXsuperIV},{\classIy})  -- ({\proXsuperIV} ,{\belowY});
+    \draw[gridline] ({\oopXaslak},{\classIy})    -- ({\oopXaslak},{\belowY});
+    \draw[gridline] ({\oopXpeter},{\classIy})    -- ({\oopXpeter},{\belowY});
+    \draw[gridline] ({\cosXmorten},{\classIy})   -- ({\cosXmorten},{\belowY});
+    \draw[gridline] ({\sdaXvictoria},{\classIy}) -- ({\sdaXvictoria},{\belowY});
+    \draw[gridline] ({\sdaXnataliya},{\classIy}) -- ({\sdaXnataliya},{\belowY});
+    
+    % crossings
+    \node[teachexam] () at ({\proXsuperI}  ,{\classIy}) {};
+    \node[teachexam] () at ({\proXsuperII} ,{\classIIy}) {};
+    \node[teachexam] () at ({\proXsuperIII},{\classIIIy}) {};
+    \node[teachexam] () at ({\proXsuperIV} ,{\classIVy}) {};
+    \node[teachexam] () at ({\oopXaslak},{\classIy}) {};
+    \node[onlyteach] () at ({\oopXaslak},{\classIIy}) {};
+    \node[teachexam] () at ({\oopXaslak},{\classIIIy}) {};
+    \node[onlyteach] () at ({\oopXaslak},{\classIVy}) {};
+    \node[onlyteach] () at ({\oopXpeter},{\classIy}) {};
+    \node[teachexam] () at ({\oopXpeter},{\classIIy}) {};
+    \node[onlyteach] () at ({\oopXpeter},{\classIIIy}) {};
+    \node[teachexam] () at ({\oopXpeter},{\classIVy}) {};
+    \node[teachexam] () at ({\cosXmorten},{\classIy}) {};
+    \node[teachexam] () at ({\cosXmorten},{\classIIy}) {};
+    \node[teachexam] () at ({\cosXmorten},{\classIIIy}) {};
+    \node[teachexam] () at ({\cosXmorten},{\classIVy}) {};
+    \node[teachexam] () at ({\sdaXvictoria},{\classIy}) {};
+    \node[teachexam] () at ({\sdaXvictoria},{\classIIy}) {};
+    \node[teachexam] () at ({\sdaXvictoria},{\classIIIy}) {};
+    \node[teachexam] () at ({\sdaXvictoria},{\classIVy}) {};
+    \node[teachexam] () at ({\sdaXnataliya},{\classIy}) {};
+    \node[teachexam] () at ({\sdaXnataliya},{\classIIy}) {};
+    \node[teachexam] () at ({\sdaXnataliya},{\classIIIy}) {};
+    \node[teachexam] () at ({\sdaXnataliya},{\classIVy}) {};
+    
+    % supervisors
+    \node[anchor=north] (superI)   at ({\proXsuperI}  ,{\belowY}) {\rotatebox{90}{Vejleder 1}};
+    \node[anchor=north] (superII)  at ({\proXsuperII} ,{\belowY}) {\rotatebox{90}{Vejleder 2}};
+    \node[anchor=north] (superIII) at ({\proXsuperIII},{\belowY}) {\rotatebox{90}{Vejleder 3}};
+    \node[anchor=north] (superIV)  at ({\proXsuperIV} ,{\belowY}) {\rotatebox{90}{Vejleder 4}};
+    \node[anchor=north] (groups)   at ([xshift=\spacing/2] superII.south) {\scriptsize{\textsl{grupper af 6}}};
+    
+    % people (south)
+    \personSouth{{\oopXaslak},{\belowY}}{Aslak}{figs/people/aslak-johansen.png}
+    \personSouth{{\oopXpeter},{\belowY}}{Peter}{figs/people/peter-nellemann.jpeg}
+    \personSouth{{\cosXmorten},{\belowY}}{Morten}{figs/people/morten-hansen.jpeg}
+    \personSouth{{\sdaXnataliya},{\belowY}}{Nataliya}{figs/people/nataliya-chukhrova.jpeg}
+    \personSouth{{\sdaXvictoria},{\belowY}}{Victoria}{figs/people/victoria-blanes-vidal.jpeg}
+    
+    % embrace
+    \draw[thick, rounded corners, draw=black] (northwest) |- ++(\spacing,\spacing/2) -- ([xshift=-\spacing, yshift=\spacing/2] northeast) -| ++(\spacing,-\spacing/2);
+    
+    % people (north)
+    \node[anchor=center] (plus)  at ([yshift=1.5*\spacing+\imgsize/2] $(northwest)!0.5!(northeast)$) {+};
+    \personWest{[xshift=-\spacing] plus}{Aslak}{figs/people/aslak-johansen.png}
+    \personEast{[xshift=\spacing] plus}{Aisha}{figs/people/aslak-johansen.png}
+  \end{tikzpicture}
+  }
 \end{frame}
 
 \subsection{Kompetencemål}
