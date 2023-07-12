@@ -3,6 +3,7 @@
 from makeish import *
 import cal.projectdescription as projectdescription
 import cal.semesterplan as semesterplan
+import cal.semesterintro as semesterintro
 import cal.project_phase1_start as project_phase1_start
 import cal.project_phase2_analyse as project_phase2_analyse
 import cal.project_phase3_programudvikling as project_phase3_programudvikling
@@ -113,6 +114,12 @@ document_names = {
   },
   "Plan for Midtvej Seminar": {
     "source": "midtvejseminar.tex",
+  },
+  "Introduktion til Semesteret": {
+    "source": "semesterintro.tex",
+    "dependencies": {
+      semesterintro.filename: lambda: semesterintro.build(),
+    },
   },
 }
 
