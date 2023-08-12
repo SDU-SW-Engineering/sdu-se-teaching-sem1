@@ -20,6 +20,7 @@
 \usetikzlibrary{datavisualization}
 \usetikzlibrary{datavisualization.formats.functions}
 \usetikzlibrary{tikzmark}
+\usetikzlibrary{backgrounds,mindmap,trees}
 %\usetikzlibrary{uml}
 %\usepackage{tikz-uml} % https://perso.ensta-paris.fr/~kielbasi/tikzuml/index.php
 \usepackage{pgf-umlcd}
@@ -1465,6 +1466,114 @@ samarbejde, afrapportering og eksamen.
   \begin{center}
     Husk at gennemføre 1. semesterprøven før deadline (7th September)
   \end{center}
+\end{frame}
+
+\section{God Studiekultur}
+\begin{frame}[fragile]
+  \frametitle{God Studiekultur}
+  \vspace{-7mm}
+  \hspace{30mm}\resizebox{!}{84mm}{%
+    \begin{tikzpicture}
+      \newcommand{\majorangle}[0]{72}
+      \newcommand{\nodeangle}[0]{60}
+      
+      \path[
+         mindmap,
+         concept color=black,
+         text=white,
+         grow cyclic,
+         segment length=20cm,
+         level 1/.append style={level distance=50mm, sibling angle=\majorangle},
+         level 2/.append style={level distance=40mm, sibling angle=\nodeangle},
+         level 3/.append style={level distance=30mm, sibling angle=\nodeangle},
+         level 4/.append style={level distance=20mm, sibling angle=\nodeangle},
+      ]
+      node[concept] {Kultur}
+      [clockwise from=0]
+      child[concept color=green!50!black] {%
+         node[concept] {Læring}
+         [clockwise from=0*\majorangle+\nodeangle/2]
+         child {
+           node[concept] {Hvordan lærer du?}
+           [clockwise from=0*\majorangle+\nodeangle/2]
+           child {node[concept] {Respekter det!} }
+         }
+         child {
+           node[concept] {Fagsprog}
+           [clockwise from=0*\majorangle-\nodeangle/2]
+           child {node[concept] {Detaljer betyder noget!} }
+         }
+      }  
+      child[concept color=blue] {%
+         node[concept] {Faglig Progress}
+         [clockwise from=-1*\majorangle+\nodeangle]
+         child {node[concept] (spareprojects) {Tildel fritid til fagligt relevante projekter} }
+         child {
+           node[concept] {Det er hårdt at være bagud}
+           [clockwise from=-1*\majorangle+\nodeangle-\nodeangle+\nodeangle/2]
+           child {node[concept] {Sørg for at det ikke sker} }
+           child {node[concept] {Sørg for at være det så kort tid som muligt} }
+         }
+         child {
+           node[concept] {Forstår du øvelserne, eller kan du bare lave dem?}
+           [clockwise from=-1*\majorangle+\nodeangle-2*\nodeangle]
+           child {node[concept] {Faglig stolthed} }
+         }
+      }
+      child[concept color=red] {%
+         node[concept] {Filosoferen}
+         [clockwise from=-2*\majorangle+\nodeangle]
+         child {node[concept] {Had nu hvis man \ldots} }
+         child {node[concept] {Dét vi lærte, hvorfor hænger det egentligt sådan sammen?} }
+         child {
+           node[concept] (miniproject) {Mini projekter}
+           [clockwise from=-2*\majorangle-\nodeangle+\nodeangle/2]
+           child {node[concept] {Lære et nyt sprog} }
+           child {node[concept] {Lav værktøjer} }
+         }
+      }
+      child[concept color=orange] {%
+         node[concept] {Udforsk roller}
+         [clockwise from=-3*\majorangle+\nodeangle/2]
+         child {
+           node[concept] {Stil spørgsmpål}
+           [clockwise from=-3*\majorangle+\nodeangle/2+\nodeangle/2]
+           child {node[concept] {Et dét den rigtige formulering?} }
+           child {node[concept] {Respekt gennem precision} }
+         }
+         child {
+           node[concept] {Besvar spørgsmål}
+           [clockwise from=-3*\majorangle+\nodeangle/2-\nodeangle/2]
+           child {node[concept] {Hvad er det underliggende problem?} }
+           child {
+             node[concept] {Hvad er kernen af forklaringen?}
+             [clockwise from=-3*\majorangle+\nodeangle/2-\nodeangle/2-\nodeangle]
+             child {node[concept] {Hvordan kan den bedst leveres?} }
+           }
+         }
+      }
+      child[concept color=magenta] {%
+         node[concept] {Motion}
+         [clockwise from=-4*\majorangle+\nodeangle/2]
+         child {
+           node[concept] {ufagligt socialt}
+           [clockwise from=-4*\majorangle+\nodeangle/2+\nodeangle/2]
+           child {node[concept] {Netværk} }
+           child {node[concept] {Erfaring med at forklare hvad du laver} }
+         }
+         child {
+           node[concept] {Tvungen afstress}
+           [clockwise from=-4*\majorangle+\nodeangle/2-\nodeangle+\nodeangle/2]
+           child {node[concept] {Klatring} }
+           child {node[concept] {Acroyoga} }
+         }
+      }
+      ;
+    \end{tikzpicture}
+  }
+%  \begin{pgfonlayer}{background}
+%    \draw [concept connection] (miniproject) edge (spareprojects);
+%  \end{pgfonlayer}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
