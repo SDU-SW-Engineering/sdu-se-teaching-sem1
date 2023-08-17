@@ -593,6 +593,165 @@ mundtligt som skriftligt til forskellige målgrupper
   }
 \end{frame}
 
+
+\subsection{Fra Semester til Studerende}
+\begin{frame}[fragile]
+  \frametitle{Fra Semester til Studerende}
+  \vspace{1mm}
+  \scalebox{0.82}{
+    \begin{tikzpicture}[remember picture, overlay]
+      \newcommand{\ydist}[0]{12mm}
+      \newcommand{\holddist}[0]{28mm}
+      \newcommand{\classdist}[0]{18mm}
+      \newcommand{\groupdist}[0]{3mm}
+      \newcommand{\studentdist}[0]{2mm}
+      
+      \coordinate (origo) at (6cm,0);
+      \coordinate (labels) at (15cm,0);
+      
+      \tikzstyle{semester}  = [
+        rectangle,
+        draw,
+        very thick,
+      ]
+      \tikzstyle{hold}  = [
+        circle,
+        draw,
+        very thick,
+        minimum width=18mm,
+      ]
+      \tikzstyle{class}  = [
+        circle,
+        draw,
+        very thick,
+        minimum width=6mm,
+      ]
+      \tikzstyle{group}  = [
+        circle,
+        draw,
+        thick,
+        inner sep=0mm,
+        minimum width=2mm,
+        minimum height=2mm,
+      ]
+      \tikzstyle{student}  = [
+        circle,
+        draw,
+        inner sep=0mm,
+        minimum width=1.5mm,
+      ]
+      \tikzstyle{descriptor}  = [
+        rectangle,
+        text=blue,
+        anchor=west,
+      ]
+      \tikzstyle{edge}  = [
+        very thick,
+        >=stealth,
+        draw=black,
+      ]
+      
+      \node[semester] (semester) at (origo) {1. Semester};
+      
+      \node[hold, anchor=north] (se) at ([yshift=-\ydist] semester.south) {SE};
+      \node[hold, anchor=east] (st) at ([xshift=-\holddist] se.west) {ST};
+      \node[hold, anchor=west, draw=gray, text=gray] (spiltek) at ([xshift=\holddist] se.east) {SpilTek};
+      
+      \node[class, anchor=north] (se1) at ([yshift=-\ydist, xshift=-1*\classdist] se.south) {};
+      \node[class, anchor=north] (se2) at ([yshift=-\ydist, xshift= 0*\classdist] se.south) {};
+      \node[class, anchor=north] (se3) at ([yshift=-\ydist, xshift= 1*\classdist] se.south) {};
+      \node[class, anchor=north] (st1) at ([yshift=-\ydist, xshift=-0.5*\classdist] st.south) {};
+      \node[class, anchor=north] (st2) at ([yshift=-\ydist, xshift= 0.5*\classdist] st.south) {};
+      \node[class, anchor=north, draw=gray] (spiltek1) at ([yshift=-\ydist, xshift=-0.5*\classdist] spiltek.south) {};
+      \node[class, anchor=north, draw=gray] (spiltek2) at ([yshift=-\ydist, xshift= 0.5*\classdist] spiltek.south) {};
+      
+      \node[group, anchor=north] (se11) at ([yshift=-\ydist, xshift=-2*\groupdist] se1.south) {};
+      \node[group, anchor=north] (se12) at ([yshift=-\ydist, xshift=-1*\groupdist] se1.south) {};
+      \node[group, anchor=north] (se13) at ([yshift=-\ydist, xshift= 0*\groupdist] se1.south) {};
+      \node[group, anchor=north] (se14) at ([yshift=-\ydist, xshift= 1*\groupdist] se1.south) {};
+      \node[group, anchor=north] (se15) at ([yshift=-\ydist, xshift= 2*\groupdist] se1.south) {};
+      \node[group, anchor=north] (se21) at ([yshift=-\ydist, xshift=-2*\groupdist] se2.south) {};
+      \node[group, anchor=north] (se22) at ([yshift=-\ydist, xshift=-1*\groupdist] se2.south) {};
+      \node[group, anchor=north] (se23) at ([yshift=-\ydist, xshift= 0*\groupdist] se2.south) {};
+      \node[group, anchor=north] (se24) at ([yshift=-\ydist, xshift= 1*\groupdist] se2.south) {};
+      \node[group, anchor=north] (se25) at ([yshift=-\ydist, xshift= 2*\groupdist] se2.south) {};
+      \node[group, anchor=north] (se31) at ([yshift=-\ydist, xshift=-2*\groupdist] se3.south) {};
+      \node[group, anchor=north] (se32) at ([yshift=-\ydist, xshift=-1*\groupdist] se3.south) {};
+      \node[group, anchor=north] (se33) at ([yshift=-\ydist, xshift= 0*\groupdist] se3.south) {};
+      \node[group, anchor=north] (se34) at ([yshift=-\ydist, xshift= 1*\groupdist] se3.south) {};
+      \node[group, anchor=north] (se35) at ([yshift=-\ydist, xshift= 2*\groupdist] se3.south) {};
+      \node[group, anchor=north] (st11) at ([yshift=-\ydist, xshift=-2*\groupdist] st1.south) {};
+      \node[group, anchor=north] (st12) at ([yshift=-\ydist, xshift=-1*\groupdist] st1.south) {};
+      \node[group, anchor=north] (st13) at ([yshift=-\ydist, xshift= 0*\groupdist] st1.south) {};
+      \node[group, anchor=north] (st14) at ([yshift=-\ydist, xshift= 1*\groupdist] st1.south) {};
+      \node[group, anchor=north] (st15) at ([yshift=-\ydist, xshift= 2*\groupdist] st1.south) {};
+      \node[group, anchor=north] (st21) at ([yshift=-\ydist, xshift=-2*\groupdist] st2.south) {};
+      \node[group, anchor=north] (st22) at ([yshift=-\ydist, xshift=-1*\groupdist] st2.south) {};
+      \node[group, anchor=north] (st23) at ([yshift=-\ydist, xshift= 0*\groupdist] st2.south) {};
+      \node[group, anchor=north] (st24) at ([yshift=-\ydist, xshift= 1*\groupdist] st2.south) {};
+      \node[group, anchor=north] (st25) at ([yshift=-\ydist, xshift= 2*\groupdist] st2.south) {};
+      
+      \node[student, anchor=north] (se141) at ([yshift=-\ydist, xshift=-2*\studentdist] se14.south) {};
+      \node[student, anchor=north] (se142) at ([yshift=-\ydist, xshift=-1*\studentdist] se14.south) {};
+      \node[student, anchor=north] (se143) at ([yshift=-\ydist, xshift= 0*\studentdist] se14.south) {};
+      \node[student, anchor=north] (se144) at ([yshift=-\ydist, xshift= 1*\studentdist] se14.south) {};
+      \node[student, anchor=north] (se145) at ([yshift=-\ydist, xshift= 2*\studentdist] se14.south) {};
+      
+      \draw[->, edge] (semester) -- (se);
+      \draw[->, edge] (semester) -- (st);
+      \draw[->, edge, draw=gray] (semester) -- (spiltek);
+      \draw[->, edge] (se) -- (se1);
+      \draw[->, edge] (se) -- (se2);
+      \draw[->, edge] (se) -- (se3);
+      \draw[->, edge] (st) -- (st1);
+      \draw[->, edge] (st) -- (st2);
+      \draw[->, edge, draw=gray] (spiltek) -- (spiltek1);
+      \draw[->, edge, draw=gray] (spiltek) -- (spiltek2);
+      \draw[->, edge, thick] (se1) -- (se11);
+      \draw[->, edge, thick] (se1) -- (se12);
+      \draw[->, edge, thick] (se1) -- (se13);
+      \draw[->, edge, thick] (se1) -- (se14);
+      \draw[->, edge, thick] (se1) -- (se15);
+      \draw[->, edge, thick] (se2) -- (se21);
+      \draw[->, edge, thick] (se2) -- (se22);
+      \draw[->, edge, thick] (se2) -- (se23);
+      \draw[->, edge, thick] (se2) -- (se24);
+      \draw[->, edge, thick] (se2) -- (se25);
+      \draw[->, edge, thick] (se3) -- (se31);
+      \draw[->, edge, thick] (se3) -- (se32);
+      \draw[->, edge, thick] (se3) -- (se33);
+      \draw[->, edge, thick] (se3) -- (se34);
+      \draw[->, edge, thick] (se3) -- (se35);
+      \draw[->, edge, thick] (st1) -- (st11);
+      \draw[->, edge, thick] (st1) -- (st12);
+      \draw[->, edge, thick] (st1) -- (st13);
+      \draw[->, edge, thick] (st1) -- (st14);
+      \draw[->, edge, thick] (st1) -- (st15);
+      \draw[->, edge, thick] (st2) -- (st21);
+      \draw[->, edge, thick] (st2) -- (st22);
+      \draw[->, edge, thick] (st2) -- (st23);
+      \draw[->, edge, thick] (st2) -- (st24);
+      \draw[->, edge, thick] (st2) -- (st25);
+      \draw[->, edge, semithick] (se14) -- (se141);
+      \draw[->, edge, semithick] (se14) -- (se142);
+      \draw[->, edge, semithick] (se14) -- (se143);
+      \draw[->, edge, semithick] (se14) -- (se144);
+      \draw[->, edge, semithick] (se14) -- (se145);
+      
+      \node[descriptor] (desc semester) at (semester-|labels) {\textsl{Semester}};
+      \node[descriptor] (desc hold)     at (spiltek-|labels)  {\textsl{Hold}};
+      \node[descriptor] (desc class)    at (spiltek2-|labels) {\textsl{Klasser}};
+      \node[descriptor] (desc group)    at (se35-|labels)     {\textsl{Grupper}};
+      \node[descriptor] (desc student)  at (se145-|labels)    {\textsl{Studerende}};
+      \draw[->, edge, draw=blue] (desc semester) -- ([xshift=6mm] semester.east);
+      \draw[->, edge, draw=blue] (desc hold)     -- ([xshift=6mm] spiltek.east);
+      \draw[->, edge, draw=blue] (desc class)    -- ([xshift=6mm] spiltek2.east);
+      \draw[->, edge, draw=blue] (desc group)    -- ([xshift=6mm] se35.east);
+      \draw[->, edge, draw=blue] (desc student)  -- ([xshift=6mm] se145.east);
+    \end{tikzpicture}
+  }
+\end{frame}
+
 \subsection{Undervisere}
 \begin{frame}[fragile]
   \frametitle{Undervisere}
