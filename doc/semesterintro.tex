@@ -1663,15 +1663,26 @@ samarbejde, afrapportering og eksamen.
       [clockwise from=0]
       child[concept color=green!50!black] {%
          node[concept] {Læring}
-         [clockwise from=0*\majorangle+\nodeangle/2]
+         [clockwise from=0*\majorangle+\nodeangle]
          child {
            node[concept] {Hvordan lærer du?}
-           [clockwise from=0*\majorangle+\nodeangle/2]
+           [clockwise from=0*\majorangle+\nodeangle+\nodeangle]
+           child {node[concept] {Konsistent routine} }
+           child {
+             node[concept] {Prioritering af opgaver}
+             [clockwise from=0*\majorangle+\nodeangle]
+             child {node[concept] {Balanceret tidsallokering} }
+           }
+           child {node[concept] {Gruppe studier} }
+         }
+         child {
+           node[concept] {Struktur}
+           [clockwise from=0*\majorangle]
            child {node[concept] {Respekter det!} }
          }
          child {
            node[concept] {Fagsprog}
-           [clockwise from=0*\majorangle-\nodeangle/2]
+           [clockwise from=0*\majorangle-\nodeangle]
            child {node[concept] {Detaljer betyder noget!} }
          }
       }  
