@@ -21,18 +21,18 @@
       "description": ["\\textbf{Stormøde:} Orientering om projektaflevering og eksamen ved semesterkoordinator"],
     },
   ],
-  "Admin": [
+  "Mentorer": [
     {
       "date": "2023 September 25",
-      "description": ["Holdets time\\footnote{Is \"hold\" the righ unit here?}"],
+      "description": ["Holdets time"],
     },
     {
       "date": "2023 November 1",
-      "description": ["Holdets time\\footnote{Is \"hold\" the righ unit here?}"],
+      "description": ["Holdets time"],
     },
     {
       "date": "2023 November 15",
-      "description": ["Holdets time\\footnote{Is \"hold\" the righ unit here?}"],
+      "description": ["Holdets time"],
     },
   ],
   "Universitet": [
