@@ -1,6 +1,6 @@
 \documentclass[t, aspectratio=169]{beamer}
 
-\usepackage[english]{babel}
+\usepackage[danish]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{amsthm}
 \usepackage{amsmath}
@@ -593,6 +593,165 @@ mundtligt som skriftligt til forskellige målgrupper
   }
 \end{frame}
 
+\subsection{Fra Semester til Studerende}
+\begin{frame}[fragile]
+  \frametitle{Fra Semester til Studerende}
+  \vspace{1mm}
+  \scalebox{0.82}{
+    \begin{tikzpicture}[remember picture, overlay]
+      \newcommand{\ydist}[0]{12mm}
+      \newcommand{\holddist}[0]{28mm}
+      \newcommand{\classdist}[0]{18mm}
+      \newcommand{\groupdist}[0]{3mm}
+      \newcommand{\studentdist}[0]{2mm}
+      
+      \coordinate (origo) at (6cm,0);
+      \coordinate (labels) at (15cm,0);
+      
+      \tikzstyle{semester}  = [
+        rectangle,
+        draw,
+        very thick,
+        inner sep=4mm,
+      ]
+      \tikzstyle{hold}  = [
+        circle,
+        draw,
+        very thick,
+        minimum width=18mm,
+      ]
+      \tikzstyle{class}  = [
+        circle,
+        draw,
+        very thick,
+        minimum width=6mm,
+      ]
+      \tikzstyle{group}  = [
+        circle,
+        draw,
+        thick,
+        inner sep=0mm,
+        minimum width=2mm,
+        minimum height=2mm,
+      ]
+      \tikzstyle{student}  = [
+        circle,
+        draw,
+        inner sep=0mm,
+        minimum width=1.5mm,
+      ]
+      \tikzstyle{descriptor}  = [
+        rectangle,
+        text=blue,
+        anchor=west,
+      ]
+      \tikzstyle{edge}  = [
+        very thick,
+        >=stealth,
+        draw=black,
+      ]
+      
+      \node[semester] (semester) at (origo) {1. Semester};
+      
+      \node[hold, anchor=north] (se) at ([yshift=-\ydist] semester.south) {SE};
+      \node[hold, anchor=east] (st) at ([xshift=-\holddist] se.west) {ST};
+      \node[hold, anchor=west, draw=gray, text=gray] (spiltek) at ([xshift=\holddist] se.east) {SpilTek};
+      
+      \node[class, anchor=north] (se1) at ([yshift=-\ydist, xshift=-1*\classdist] se.south) {};
+      \node[class, anchor=north] (se2) at ([yshift=-\ydist, xshift= 0*\classdist] se.south) {};
+      \node[class, anchor=north] (se3) at ([yshift=-\ydist, xshift= 1*\classdist] se.south) {};
+      \node[class, anchor=north] (st1) at ([yshift=-\ydist, xshift=-0.5*\classdist] st.south) {};
+      \node[class, anchor=north] (st2) at ([yshift=-\ydist, xshift= 0.5*\classdist] st.south) {};
+      \node[class, anchor=north, draw=gray] (spiltek1) at ([yshift=-\ydist, xshift=-0.5*\classdist] spiltek.south) {};
+      \node[class, anchor=north, draw=gray] (spiltek2) at ([yshift=-\ydist, xshift= 0.5*\classdist] spiltek.south) {};
+      
+      \node[group, anchor=north] (se11) at ([yshift=-\ydist, xshift=-2*\groupdist] se1.south) {};
+      \node[group, anchor=north] (se12) at ([yshift=-\ydist, xshift=-1*\groupdist] se1.south) {};
+      \node[group, anchor=north] (se13) at ([yshift=-\ydist, xshift= 0*\groupdist] se1.south) {};
+      \node[group, anchor=north] (se14) at ([yshift=-\ydist, xshift= 1*\groupdist] se1.south) {};
+      \node[group, anchor=north] (se15) at ([yshift=-\ydist, xshift= 2*\groupdist] se1.south) {};
+      \node[group, anchor=north] (se21) at ([yshift=-\ydist, xshift=-2*\groupdist] se2.south) {};
+      \node[group, anchor=north] (se22) at ([yshift=-\ydist, xshift=-1*\groupdist] se2.south) {};
+      \node[group, anchor=north] (se23) at ([yshift=-\ydist, xshift= 0*\groupdist] se2.south) {};
+      \node[group, anchor=north] (se24) at ([yshift=-\ydist, xshift= 1*\groupdist] se2.south) {};
+      \node[group, anchor=north] (se25) at ([yshift=-\ydist, xshift= 2*\groupdist] se2.south) {};
+      \node[group, anchor=north] (se31) at ([yshift=-\ydist, xshift=-2*\groupdist] se3.south) {};
+      \node[group, anchor=north] (se32) at ([yshift=-\ydist, xshift=-1*\groupdist] se3.south) {};
+      \node[group, anchor=north] (se33) at ([yshift=-\ydist, xshift= 0*\groupdist] se3.south) {};
+      \node[group, anchor=north] (se34) at ([yshift=-\ydist, xshift= 1*\groupdist] se3.south) {};
+      \node[group, anchor=north] (se35) at ([yshift=-\ydist, xshift= 2*\groupdist] se3.south) {};
+      \node[group, anchor=north] (st11) at ([yshift=-\ydist, xshift=-2*\groupdist] st1.south) {};
+      \node[group, anchor=north] (st12) at ([yshift=-\ydist, xshift=-1*\groupdist] st1.south) {};
+      \node[group, anchor=north] (st13) at ([yshift=-\ydist, xshift= 0*\groupdist] st1.south) {};
+      \node[group, anchor=north] (st14) at ([yshift=-\ydist, xshift= 1*\groupdist] st1.south) {};
+      \node[group, anchor=north] (st15) at ([yshift=-\ydist, xshift= 2*\groupdist] st1.south) {};
+      \node[group, anchor=north] (st21) at ([yshift=-\ydist, xshift=-2*\groupdist] st2.south) {};
+      \node[group, anchor=north] (st22) at ([yshift=-\ydist, xshift=-1*\groupdist] st2.south) {};
+      \node[group, anchor=north] (st23) at ([yshift=-\ydist, xshift= 0*\groupdist] st2.south) {};
+      \node[group, anchor=north] (st24) at ([yshift=-\ydist, xshift= 1*\groupdist] st2.south) {};
+      \node[group, anchor=north] (st25) at ([yshift=-\ydist, xshift= 2*\groupdist] st2.south) {};
+      
+      \node[student, anchor=north] (se141) at ([yshift=-\ydist, xshift=-2*\studentdist] se14.south) {};
+      \node[student, anchor=north] (se142) at ([yshift=-\ydist, xshift=-1*\studentdist] se14.south) {};
+      \node[student, anchor=north] (se143) at ([yshift=-\ydist, xshift= 0*\studentdist] se14.south) {};
+      \node[student, anchor=north] (se144) at ([yshift=-\ydist, xshift= 1*\studentdist] se14.south) {};
+      \node[student, anchor=north] (se145) at ([yshift=-\ydist, xshift= 2*\studentdist] se14.south) {};
+      
+      \draw[->, edge] (semester) -- (se);
+      \draw[->, edge] (semester) -- (st);
+      \draw[->, edge, draw=gray] (semester) -- (spiltek);
+      \draw[->, edge] (se) -- (se1);
+      \draw[->, edge] (se) -- (se2);
+      \draw[->, edge] (se) -- (se3);
+      \draw[->, edge] (st) -- (st1);
+      \draw[->, edge] (st) -- (st2);
+      \draw[->, edge, draw=gray] (spiltek) -- (spiltek1);
+      \draw[->, edge, draw=gray] (spiltek) -- (spiltek2);
+      \draw[->, edge, thick] (se1) -- (se11);
+      \draw[->, edge, thick] (se1) -- (se12);
+      \draw[->, edge, thick] (se1) -- (se13);
+      \draw[->, edge, thick] (se1) -- (se14);
+      \draw[->, edge, thick] (se1) -- (se15);
+      \draw[->, edge, thick] (se2) -- (se21);
+      \draw[->, edge, thick] (se2) -- (se22);
+      \draw[->, edge, thick] (se2) -- (se23);
+      \draw[->, edge, thick] (se2) -- (se24);
+      \draw[->, edge, thick] (se2) -- (se25);
+      \draw[->, edge, thick] (se3) -- (se31);
+      \draw[->, edge, thick] (se3) -- (se32);
+      \draw[->, edge, thick] (se3) -- (se33);
+      \draw[->, edge, thick] (se3) -- (se34);
+      \draw[->, edge, thick] (se3) -- (se35);
+      \draw[->, edge, thick] (st1) -- (st11);
+      \draw[->, edge, thick] (st1) -- (st12);
+      \draw[->, edge, thick] (st1) -- (st13);
+      \draw[->, edge, thick] (st1) -- (st14);
+      \draw[->, edge, thick] (st1) -- (st15);
+      \draw[->, edge, thick] (st2) -- (st21);
+      \draw[->, edge, thick] (st2) -- (st22);
+      \draw[->, edge, thick] (st2) -- (st23);
+      \draw[->, edge, thick] (st2) -- (st24);
+      \draw[->, edge, thick] (st2) -- (st25);
+      \draw[->, edge, semithick] (se14) -- (se141);
+      \draw[->, edge, semithick] (se14) -- (se142);
+      \draw[->, edge, semithick] (se14) -- (se143);
+      \draw[->, edge, semithick] (se14) -- (se144);
+      \draw[->, edge, semithick] (se14) -- (se145);
+      
+      \node[descriptor] (desc semester) at (semester-|labels) {\textsl{Semester}};
+      \node[descriptor] (desc hold)     at (spiltek-|labels)  {\textsl{Hold}};
+      \node[descriptor] (desc class)    at (spiltek2-|labels) {\textsl{Klasser}};
+      \node[descriptor] (desc group)    at (se35-|labels)     {\textsl{Grupper}};
+      \node[descriptor] (desc student)  at (se145-|labels)    {\textsl{Studerende}};
+      \draw[->, edge, draw=blue] (desc semester) -- ([xshift=6mm] semester.east);
+      \draw[->, edge, draw=blue] (desc hold)     -- ([xshift=6mm] spiltek.east);
+      \draw[->, edge, draw=blue] (desc class)    -- ([xshift=6mm] spiltek2.east);
+      \draw[->, edge, draw=blue] (desc group)    -- ([xshift=6mm] se35.east);
+      \draw[->, edge, draw=blue] (desc student)  -- ([xshift=6mm] se145.east);
+    \end{tikzpicture}
+  }
+\end{frame}
+
 \subsection{Undervisere}
 \begin{frame}[fragile]
   \frametitle{Undervisere}
@@ -602,7 +761,7 @@ mundtligt som skriftligt til forskellige målgrupper
       % variables
       \newcommand{\spacing}[0]{4mm}
       \newcommand{\blockwidth}[0]{40mm}
-      \newcommand{\blockheight}[0]{58mm}
+      \newcommand{\blockheight}[0]{62mm}
       \newcommand{\imgsize}[0]{20mm}
       \newcommand{\headerheight}[0]{(1.6*\spacing)}
       
@@ -626,22 +785,23 @@ mundtligt som skriftligt til forskellige målgrupper
         \node[anchor=center] (text) at ([yshift=\headerheight/2] inner.north) {\textcolor{white}{\textbf{#3}}};
       }
       
-      \newcommand{\origoX}[0]{(10mm)}
-      \newcommand{\origoY}[0]{(-25mm)}
+      \newcommand{\origoX}[0]{(9mm)}
+      \newcommand{\origoY}[0]{(-23mm)}
       \newcommand{\classX}[0]{(\origoX-\spacing)}
       \newcommand{\classIy}[0]{(\origoY-\spacing)}
       \newcommand{\classIIy}[0]{(\classIy-\spacing)}
-      \newcommand{\classIIIy}[0]{(\classIIy-3*\spacing)}
-      \newcommand{\classIVy}[0]{(\classIIIy-\spacing)}
-      \newcommand{\belowY}[0]{(\classIVy-\spacing)}
-      \newcommand{\blockY}[0]{(\origoY)}
+      \newcommand{\classIIIy}[0]{(\classIIy-\spacing)}
+      \newcommand{\classIVy}[0]{(\classIIIy-3*\spacing)}
+      \newcommand{\classVy}[0]{(\classIVy-\spacing)}
+      \newcommand{\belowY}[0]{(\classIVy-2*\spacing)}
+      \newcommand{\blockY}[0]{(\origoY+0*\spacing)}
       \newcommand{\projectX}[0]{(\origoX)}
-      \newcommand{\oopX}[0]{(\projectX+6*\spacing+0*\imgsize)}
+      \newcommand{\oopX}[0]{(\projectX+7*\spacing+0*\imgsize)}
       \newcommand{\cosX}[0]{(\oopX+4*\spacing+2*\imgsize)}
       \newcommand{\sdaX}[0]{(\cosX+3*\spacing+1*\imgsize)}
       \newcommand{\sdaXeast}[0]{(\sdaX+3*\spacing+2*\imgsize)}
       
-      \newcommand{\proWidth}[0]{(5*\spacing+0*\imgsize)}
+      \newcommand{\proWidth}[0]{(6*\spacing+0*\imgsize)}
       \newcommand{\oopWidth}[0]{(3*\spacing+2*\imgsize)}
       \newcommand{\cosWidth}[0]{(2*\spacing+1*\imgsize)}
       \newcommand{\sdaWidth}[0]{(3*\spacing+2*\imgsize)}
@@ -650,6 +810,7 @@ mundtligt som skriftligt til forskellige målgrupper
       \newcommand{\proXsuperII}[0]{( \projectX+2*\spacing)}
       \newcommand{\proXsuperIII}[0]{(\projectX+3*\spacing)}
       \newcommand{\proXsuperIV}[0]{( \projectX+4*\spacing)}
+      \newcommand{\proXsuperV}[0]{( \projectX+5*\spacing)}
       
       \newcommand{\oopXaslak}[0]{(\oopX+\spacing+\imgsize/2)}
       \newcommand{\oopXpeter}[0]{(\oopXaslak+\spacing+\imgsize)}
@@ -711,10 +872,11 @@ mundtligt som skriftligt til forskellige målgrupper
       \node[class] (classII)  at ({\classX},{\classIIy})  {Klasse 2};
       \node[class] (classIII) at ({\classX},{\classIIIy}) {Klasse 3};
       \node[class] (classIV)  at ({\classX},{\classIVy})  {Klasse 4};
+      \node[class] (classV)   at ({\classX},{\classVy})   {Klasse 5};
       
       % educations
       \node[education] (eduSE) at ([yshift=0] classI.north)   {\textbf{SE}};
-      \node[education] (eduST) at ([yshift=0] classIII.north) {\textbf{ST}};
+      \node[education] (eduST) at ([yshift=0] classIV.north) {\textbf{ST}};
       
       % blocks
       \buildBlock{{\projectX},{\blockY}}{\proWidth}{Projekt}
@@ -727,10 +889,12 @@ mundtligt som skriftligt til forskellige målgrupper
       \draw[gridline] ({\classX},{\classIIy})  -- ({\eolX},{\classIIy});
       \draw[gridline] ({\classX},{\classIIIy}) -- ({\eolX},{\classIIIy});
       \draw[gridline] ({\classX},{\classIVy})  -- ({\eolX},{\classIVy});
+      \draw[gridline] ({\classX},{\classVy})   -- ({\eolX},{\classVy});
       \draw[gridline] ({\proXsuperI},{\classIy})   -- ({\proXsuperI}  ,{\belowY});
       \draw[gridline] ({\proXsuperII},{\classIy})  -- ({\proXsuperII} ,{\belowY});
       \draw[gridline] ({\proXsuperIII},{\classIy}) -- ({\proXsuperIII},{\belowY});
       \draw[gridline] ({\proXsuperIV},{\classIy})  -- ({\proXsuperIV} ,{\belowY});
+      \draw[gridline] ({\proXsuperV},{\classIy})  -- ({\proXsuperV} ,{\belowY});
       \draw[gridline] ({\oopXaslak},{\classIy})    -- ({\oopXaslak},{\belowY});
       \draw[gridline] ({\oopXpeter},{\classIy})    -- ({\oopXpeter},{\belowY});
       \draw[gridline] ({\cosXmorten},{\classIy})   -- ({\cosXmorten},{\belowY});
@@ -742,33 +906,40 @@ mundtligt som skriftligt til forskellige målgrupper
       \node[teachexam] () at ({\proXsuperII} ,{\classIIy}) {};
       \node[teachexam] () at ({\proXsuperIII},{\classIIIy}) {};
       \node[teachexam] () at ({\proXsuperIV} ,{\classIVy}) {};
-      \node[teachexam] () at ({\oopXaslak},{\classIy}) {};
+      \node[teachexam] () at ({\proXsuperV} ,{\classVy}) {};
+      \node[onlyteach] () at ({\oopXaslak},{\classIy}) {};
       \node[onlyteach] () at ({\oopXaslak},{\classIIy}) {};
-      \node[teachexam] () at ({\oopXaslak},{\classIIIy}) {};
+      \node[onlyteach] () at ({\oopXaslak},{\classIIIy}) {};
       \node[onlyteach] () at ({\oopXaslak},{\classIVy}) {};
+      \node[onlyteach] () at ({\oopXaslak},{\classVy}) {};
       \node[onlyteach] () at ({\oopXpeter},{\classIy}) {};
-      \node[teachexam] () at ({\oopXpeter},{\classIIy}) {};
+      \node[onlyteach] () at ({\oopXpeter},{\classIIy}) {};
       \node[onlyteach] () at ({\oopXpeter},{\classIIIy}) {};
-      \node[teachexam] () at ({\oopXpeter},{\classIVy}) {};
+      \node[onlyteach] () at ({\oopXpeter},{\classIVy}) {};
+      \node[onlyteach] () at ({\oopXpeter},{\classVy}) {};
       \node[teachexam] () at ({\cosXmorten},{\classIy}) {};
       \node[teachexam] () at ({\cosXmorten},{\classIIy}) {};
       \node[teachexam] () at ({\cosXmorten},{\classIIIy}) {};
       \node[teachexam] () at ({\cosXmorten},{\classIVy}) {};
+      \node[teachexam] () at ({\cosXmorten},{\classVy}) {};
       \node[teachexam] () at ({\sdaXvictoria},{\classIy}) {};
       \node[teachexam] () at ({\sdaXvictoria},{\classIIy}) {};
       \node[teachexam] () at ({\sdaXvictoria},{\classIIIy}) {};
       \node[teachexam] () at ({\sdaXvictoria},{\classIVy}) {};
+      \node[teachexam] () at ({\sdaXvictoria},{\classVy}) {};
       \node[teachexam] () at ({\sdaXnataliya},{\classIy}) {};
       \node[teachexam] () at ({\sdaXnataliya},{\classIIy}) {};
       \node[teachexam] () at ({\sdaXnataliya},{\classIIIy}) {};
       \node[teachexam] () at ({\sdaXnataliya},{\classIVy}) {};
+      \node[teachexam] () at ({\sdaXnataliya},{\classVy}) {};
       
       % supervisors
       \node[anchor=north] (superI)   at ({\proXsuperI}  ,{\belowY}) {\rotatebox{90}{Vejleder 1}};
       \node[anchor=north] (superII)  at ({\proXsuperII} ,{\belowY}) {\rotatebox{90}{Vejleder 2}};
       \node[anchor=north] (superIII) at ({\proXsuperIII},{\belowY}) {\rotatebox{90}{Vejleder 3}};
       \node[anchor=north] (superIV)  at ({\proXsuperIV} ,{\belowY}) {\rotatebox{90}{Vejleder 4}};
-      \node[anchor=north] (groups)   at ([xshift=\spacing/2] superII.south) {\scriptsize{\textsl{grupper af 6}}};
+      \node[anchor=north] (superV)   at ({\proXsuperV}  ,{\belowY}) {\rotatebox{90}{Vejleder 4}};
+      \node[anchor=north] (groups)   at ([yshift=-2mm] superIII.south) {\scriptsize{\textsl{grupper af 6}}};
       
       % people (south)
       \personSouth{{\oopXaslak},{\belowY}}{Aslak}{figs/people/aslak-johansen.png}
@@ -1510,15 +1681,26 @@ samarbejde, afrapportering og eksamen.
       [clockwise from=0]
       child[concept color=green!50!black] {%
          node[concept] {Læring}
-         [clockwise from=0*\majorangle+\nodeangle/2]
+         [clockwise from=0*\majorangle+\nodeangle]
          child {
            node[concept] {Hvordan lærer du?}
-           [clockwise from=0*\majorangle+\nodeangle/2]
+           [clockwise from=0*\majorangle+\nodeangle+\nodeangle]
+           child {node[concept] {Konsistent routine} }
+           child {
+             node[concept] {Priorite-\\ring af opgaver}
+             [clockwise from=0*\majorangle+\nodeangle]
+             child {node[concept] {Balan-\\ceret tids-\\alloke\\ring} }
+           }
+           child {node[concept] {Gruppe studier} }
+         }
+         child {
+           node[concept] {Struktur}
+           [clockwise from=0*\majorangle]
            child {node[concept] {Respekter det!} }
          }
          child {
            node[concept] {Fagsprog}
-           [clockwise from=0*\majorangle-\nodeangle/2]
+           [clockwise from=0*\majorangle-\nodeangle]
            child {node[concept] {Detaljer betyder noget!} }
          }
       }  
