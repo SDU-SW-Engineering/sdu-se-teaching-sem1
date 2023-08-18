@@ -11,6 +11,11 @@ def prettyfy_date (text):
   parts = text.split(" ")
   return "%s %s" % (parts[1][:3], parts[2])
 
+def filter_function (entry):
+  if not (entry["key"] in ["OOP", "COS", "SDA"]): return True
+  
+  return "fillcolor" in entry
+
 def build ():
   cols = [
 #    {
@@ -82,4 +87,4 @@ def build ():
       "fillcolor": headercolor,
     },
   ]
-  return cal.produce_table(cols, filterfun=None, filename=filename, headlines=headlines)
+  return cal.produce_table(cols, filterfun=filter_function, filename=filename, headlines=headlines)
