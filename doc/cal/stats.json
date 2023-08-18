@@ -1,14 +1,65 @@
 {
   "STAT": [
     {
-      "date": "2022 October 13",
+      "date": "2023 September 7",
+      "description": [
+        "Kursus introduktion",
+        "Deskriptiv statistik, part I"
+      ],
+    },
+    {
+      "date": "2023 September 14",
+      "description": ["Deskriptiv statistik, part II"],
+    },
+    {
+      "date": "2023 September 21",
+      "description": ["Sandsynlighedsdistributioner"],
+    },
+    {
+      "date": "2023 September 28",
+      "description": ["Hypotese testing: 1 eksempel"],
+    },
+    {
+      "date": "2023 October 5",
+      "description": ["Hypotese testing: 2 eksempler"],
+    },
+    {
+      "date": "2023 October 12",
+      "description": ["Envejs ANOVA"],
+    },
+    {
+      "date": "2023 October 26",
+      "description": ["Introduktion til R og deskriptiv statistik"],
+    },
+    {
+      "date": "2023 October 26",
       "description": ["Pointgivende Aktivitet 1"],
       "fillcolor": "orange",
     },
     {
-      "date": "2022 November 24",
+      "date": "2023 November 2",
+      "description": ["Hypotese test og ANOVA med R"],
+    },
+    {
+      "date": "2023 November 9",
+      "description": ["Tovejs ANOVA"],
+    },
+    {
+      "date": "2023 November 16",
+      "description": ["Simpel regressionsanalyse"],
+    },
+    {
+      "date": "2023 November 23",
+      "description": ["Eksperimentelt design og spørgsmål"],
+    },
+    {
+      "date": "2023 November 23",
       "description": ["Pointgivende Aktivitet 2"],
       "fillcolor": "orange",
+    },
+    {
+      "date": "2023 November 30",
+      "description": ["Multipel regressionsanalyse og spørgsmål"],
     },
   ],
 }
