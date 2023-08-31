@@ -10,4 +10,5 @@
 *.aux
 *.log
 *.out
+doc/tables/*.tex
 
