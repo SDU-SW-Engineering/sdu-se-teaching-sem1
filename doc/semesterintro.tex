@@ -790,10 +790,10 @@ mundtligt som skriftligt til forskellige målgrupper
       \newcommand{\classX}[0]{(\origoX-\spacing)}
       \newcommand{\classIy}[0]{(\origoY-\spacing)}
       \newcommand{\classIIy}[0]{(\classIy-\spacing)}
-      \newcommand{\classIIIy}[0]{(\classIIy-\spacing)}
-      \newcommand{\classIVy}[0]{(\classIIIy-3*\spacing)}
-      \newcommand{\classVy}[0]{(\classIVy-\spacing)}
-      \newcommand{\belowY}[0]{(\classIVy-2*\spacing)}
+      \newcommand{\classIIIy}[0]{(\classIIy-3*\spacing)}
+      \newcommand{\classIVy}[0]{(\classIIIy-\spacing)}
+      \newcommand{\classVy}[0]{(\classIIIy-2*\spacing)}
+      \newcommand{\belowY}[0]{(\classIIIy-3*\spacing)}
       \newcommand{\blockY}[0]{(\origoY+0*\spacing)}
       \newcommand{\projectX}[0]{(\origoX)}
       \newcommand{\oopX}[0]{(\projectX+7*\spacing+0*\imgsize)}
@@ -875,8 +875,8 @@ mundtligt som skriftligt til forskellige målgrupper
       \node[class] (classV)   at ({\classX},{\classVy})   {Klasse 5};
       
       % educations
-      \node[education] (eduSE) at ([yshift=0] classI.north)   {\textbf{SE}};
-      \node[education] (eduST) at ([yshift=0] classIV.north) {\textbf{ST}};
+      \node[education] (eduSE) at ([yshift=0] classI.north)   {\textbf{ST}};
+      \node[education] (eduST) at ([yshift=0] classIII.north) {\textbf{SE}};
       
       % blocks
       \buildBlock{{\projectX},{\blockY}}{\proWidth}{Projekt}
@@ -906,6 +906,7 @@ mundtligt som skriftligt til forskellige målgrupper
       \node[teachexam] () at ({\proXsuperII} ,{\classIIy}) {};
       \node[teachexam] () at ({\proXsuperIII},{\classIIIy}) {};
       \node[teachexam] () at ({\proXsuperIV} ,{\classIVy}) {};
+      \node[onlyteach] () at ({\proXsuperIV} ,{\classVy}) {};
       \node[teachexam] () at ({\proXsuperV} ,{\classVy}) {};
       \node[onlyteach] () at ({\oopXaslak},{\classIy}) {};
       \node[onlyteach] () at ({\oopXaslak},{\classIIy}) {};
@@ -938,7 +939,7 @@ mundtligt som skriftligt til forskellige målgrupper
       \node[anchor=north] (superII)  at ({\proXsuperII} ,{\belowY}) {\rotatebox{90}{Vejleder 2}};
       \node[anchor=north] (superIII) at ({\proXsuperIII},{\belowY}) {\rotatebox{90}{Vejleder 3}};
       \node[anchor=north] (superIV)  at ({\proXsuperIV} ,{\belowY}) {\rotatebox{90}{Vejleder 4}};
-      \node[anchor=north] (superV)   at ({\proXsuperV}  ,{\belowY}) {\rotatebox{90}{Vejleder 4}};
+      \node[anchor=north] (superV)   at ({\proXsuperV}  ,{\belowY}) {\rotatebox{90}{Vejleder 5}};
       \node[anchor=north] (groups)   at ([yshift=-2mm] superIII.south) {\scriptsize{\textsl{grupper af 6}}};
       
       % people (south)
