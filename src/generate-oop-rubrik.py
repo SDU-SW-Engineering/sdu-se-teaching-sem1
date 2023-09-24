@@ -4,14 +4,7 @@ from openpyxl import load_workbook, Workbook
 from openpyxl.comments import Comment
 from openpyxl.styles import PatternFill, Font
 
-#input_filename = "Lister SI1-OOP19 med klasser.xlsx"
 output_filename = "SDU SE OOP 2023 - Pointgivende Aktivitet %d.xlsx"
-
-#sheet_names = [
-#  "Software Engineering",
-#  "Software teknologi",
-#  "Spiludvikling og Læringsteknolo",
-#]
 
 classcount = 7
 author = "Aslak Johansen"
@@ -45,8 +38,6 @@ def generate_sheets (pa, owb, sheeti, rowi):
     
     sheet["A3"].font = Font(b=True)
     sheet["A3"].value = "Fornavn"
-#    sheet["B3"].font = Font(b=True)
-#    sheet["B3"].value = "Efternavn"
     sheet.merge_cells(range_string="B1:H1")
     sheet["B1"].font = Font(b=True)
     sheet["B1"].fill = PatternFill("solid", fgColor="AAFFAA")
@@ -147,7 +138,6 @@ def generate_pa (pa):
   rowi   = [4]*classcount
   sheeti = []
 
-#  iwb = load_workbook(filename=input_filename)
   owb = Workbook()
   
   # generate sheets
@@ -160,24 +150,7 @@ def generate_pa (pa):
     orow=4
     for student in studentlist:
       name = student
-    
-#  for sheet_name in sheet_names:
-#    sheet = iwb[sheet_name]
-#    
-#    for row in range(2, 200):
-#      if sheet["A%d"%row].value==None:
-#        break
-#      
-#      gname = sheet["B%d"%row].value
-#      fname = sheet["C%d"%row].value
-#      lname = sheet["C%d"%row].value
-#      clsname = sheet["E%d"%row].value
-#      grpname = sheet["F%d"%row].value
       i = tnumber
-      
-#      orow   = rowi[i]
-#      rowi[i] += 1
-#      orow = 5
       
       osheet["A%d"%orow].value = name
       osheet["B%d"%orow].fill = PatternFill("solid", fgColor="CCFF88")
