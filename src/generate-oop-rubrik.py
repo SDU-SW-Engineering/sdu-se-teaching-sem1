@@ -158,13 +158,13 @@ def generate_pa (pa):
         osheet["%s%d"%(letter, orow)].fill = PatternFill("solid", fgColor="88FFCC")
       osheet["G%d"%orow].value = "=sum(C%d:F%d)"%(orow, orow)
       osheet["H%d"%orow].fill = PatternFill("solid", fgColor="AAFFAA")
-      osheet["H%d"%orow].value = "=ceiling(((C%u*25)*0.5 + (H%u*25)*0.5)*15/100, 1)"%(orow, orow)
+      osheet["H%d"%orow].value = "=ceiling(((B%u*25)*0.5 + (G%u*25)*0.5)*15/100, 1)"%(orow, orow)
       osheet["I%d"%orow].fill = PatternFill("solid", fgColor="CC88FF")
       for letter in ["J", "K", "L", "M", "N"]:
         osheet["%s%d"%(letter, orow)].fill = PatternFill("solid", fgColor="88CCFF")
       osheet["N%d"%orow].value = "=sum(K%d:N%d)"%(orow, orow)
       osheet["O%d"%orow].fill = PatternFill("solid", fgColor="AAAAFF")
-      osheet["O%d"%orow].value = "=ceiling(((J%u*25)*0.5 + (O%u*25)*0.5)*15/100, 1)"%(orow, orow)
+      osheet["O%d"%orow].value = "=ceiling(((I%u*25)*0.5 + (N%u*25)*0.5)*15/100, 1)"%(orow, orow)
       orow += 1
   
   owb.save(output_filename % pa)
