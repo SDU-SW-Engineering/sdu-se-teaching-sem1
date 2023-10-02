@@ -57,29 +57,29 @@ document_names = {
   },
   "Book List": {
     "source": "bogliste.tex",
-  },  
+  },
   "Kontaktoplysninger": {
     "source": "contact.tex",
   },
-   "ProOnline Literature": {
+  "ProOnline Literature": {
     "source": "kursuslitteratur.tex",
   },
-   "Semester Project": {
+  "Semester Project": {
     "source": "semesterprojekt.tex",
   },
-   "Semester Project Fase 1 Projektstart": {
+  "Semester Project Fase 1 Projektstart": {
     "source": "project_phase1_start.tex",
     "dependencies": {
       project_phase1_start.filename: lambda: project_phase1_start.build(),
     },
   },
-   "Semester Project Fase 2 Problemanalyse": {
+  "Semester Project Fase 2 Problemanalyse": {
     "source": "project_phase2_analyse.tex",
     "dependencies": {
       project_phase2_analyse.filename: lambda: project_phase2_analyse.build(),
     },
   },
-   "Semester Project Fase 3 Programudvikling": {
+  "Semester Project Fase 3 Programudvikling": {
     "source": "project_phase3_programudvikling.tex",
     "dependencies": {
       project_phase3_programudvikling.filename: lambda: project_phase3_programudvikling.build(),
@@ -106,10 +106,10 @@ document_names = {
   "ProOnline Project Foundation": {
     "source": "projektgrundlag.tex",
   },
-   "ProOnline Reporting Technique": {
+  "ProOnline Reporting Technique": {
     "source": "referatteknik.tex",
   },
-   "ProOnline Rubric Example": {
+  "ProOnline Rubric Example": {
     "source": "rubriceksempel.tex",
   },
   "Plan for Midtvej Seminar": {
@@ -204,7 +204,6 @@ class RecipeTexDocument (Recipe):
       print(latexcode)
       print(latexcode.replace("\\\\", "\\"))
       print(" ".join(self.command_win))
-    
     
     return ["shared.tex", input_filename]+deps
 
