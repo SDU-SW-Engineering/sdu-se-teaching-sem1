@@ -1,0 +1,1239 @@
+<!-- livebook:{"file_entries":[{"name":"Pointgiven_Aktivitet_1_ny__export_2023_12_14__13_23.csv","type":"attachment"},{"name":"studentlist_oop.txt","type":"attachment"},{"name":"studentlist_sem.txt","type":"attachment"}]} -->
+
+# SDU 2023: Semester 1 Students
+
+```elixir
+Mix.install([
+  {:kino, "~> 0.11.0"},
+  {:elixlsx, "~> 0.5.1"},
+  {:xlsx_reader, "~> 0.7.0"},
+  {:vega_lite, "~> 0.1.8"},
+  {:kino_vega_lite, "~> 0.1.10"}
+])
+```
+
+## Introduction
+
+This is for exam coordination.
+
+## Load Data
+
+```elixir
+content_oop =
+  Kino.FS.file_path("studentlist_oop.txt")
+  |> File.read!()
+```
+
+```elixir
+content_sem =
+  Kino.FS.file_path("studentlist_sem.txt")
+  |> File.read!()
+```
+
+## Parse Pointgiving Activity Data
+
+```elixir
+data =
+  Kino.FS.file_path("Pointgiven_Aktivitet_1_ny__export_2023_12_14__13_23.csv")
+  |> File.read!()
+  |> String.split("\n")
+  |> Enum.map(fn line ->
+    elems = String.split(line, ";")
+    email = Enum.at(elems, 1)
+    score = Enum.at(elems, 4)
+    {email, score}
+  end)
+  |> Enum.filter(fn {key, _} -> not (key == nil) end)
+
+emails =
+  data
+  |> Enum.map(fn {email, _} -> email end)
+  |> Enum.filter(fn email -> String.contains?(email, "@") end)
+
+email2pa =
+  emails
+  |> Enum.map(fn email ->
+    score =
+      data
+      |> Enum.filter(fn {candidate, _} -> candidate == email end)
+      |> Enum.map(fn {_, score} ->
+        {score, _} =
+          score
+          |> Float.parse()
+
+        score
+      end)
+      |> Enum.max()
+
+    {email, score}
+  end)
+  |> Map.new()
+```
+
+<!-- livebook:{"reevaluate_automatically":true} -->
+
+```elixir
+data =
+  email2pa
+  |> Map.values()
+  |> Enum.map(fn score -> %{"score" => score} end)
+
+alias VegaLite, as: Vl
+
+Vl.new(width: 540, height: 400)
+|> Vl.data_from_values(data)
+|> Vl.transform(density: "score")
+|> Vl.mark(:line)
+|> Vl.encode_field(:x, "value",
+  type: :quantitative,
+  title: "PA1 score / [%]"
+)
+|> Vl.encode_field(:y, "density", type: :quantitative)
+```
+
+## Parse Student Data
+
+```elixir
+defmodule DataParser do
+  def parse_line(line) do
+    elems =
+      line
+      |> String.split("\t")
+
+    if length(elems) == 8 do
+      name = Enum.at(elems, 1) |> String.trim()
+      email = Enum.at(elems, 2) |> String.trim()
+      role = Enum.at(elems, 3) |> String.trim()
+      groups = Enum.at(elems, 4) |> String.trim() |> String.split(", ")
+      seen = Enum.at(elems, 5) |> String.trim()
+      %{name: name, email: email, role: role, groups: groups, last_seen: seen}
+    else
+      nil
+    end
+  end
+
+  def enrich_thold(entry) do
+    [thold] = entry.groups |> Enum.filter(fn group -> String.length(group) == 2 end)
+    Map.put(entry, :thold, thold)
+  end
+
+  def enrich_group(entry) do
+    filtered = entry.groups |> Enum.filter(fn group -> String.length(group) == 9 end)
+
+    case filtered do
+      [group] -> Map.put(entry, :group, group)
+      _ -> Map.put(entry, :group, "Groupless")
+    end
+  end
+
+  def enrich_edu(entry) do
+    edu =
+      case entry.thold do
+        "T1" ->
+          "Softwareteknologi"
+
+        "T2" ->
+          "Softwareteknologi"
+
+        "T3" ->
+          "Software Engineering"
+
+        "T4" ->
+          "Software Engineering"
+
+        "T5" ->
+          "Software Engineering"
+
+        "T6" ->
+          "Spiludvikling og læringsteknologi"
+
+        "T7" ->
+          "Spiludvikling og læringsteknologi"
+
+        _ ->
+          IO.puts("Warning: Unknown t-hold for student '#{entry.name}'")
+          "<unknown>"
+      end
+
+    Map.put(entry, :edu, edu)
+  end
+
+  def enrich_edutype(entry) do
+    edutype =
+      case entry.edu do
+        "Softwareteknologi" ->
+          "diplom"
+
+        "Software Engineering" ->
+          "civil"
+
+        "Spiludvikling og læringsteknologi" ->
+          "civil"
+
+        _ ->
+          IO.puts("Warning: Unknown edu for student '#{entry.name}'")
+          "<unknown>"
+      end
+
+    Map.put(entry, :edutype, edutype)
+  end
+
+  def parse(content) do
+    content
+    |> String.split("\n")
+    |> Enum.map(&parse_line/1)
+    |> Enum.filter(fn entry -> not (entry == nil) end)
+    |> Enum.filter(fn entry -> entry.role == "Studerende" end)
+    |> Enum.map(&enrich_thold/1)
+    |> Enum.map(&enrich_group/1)
+    |> Enum.map(&enrich_edu/1)
+    |> Enum.map(&enrich_edutype/1)
+  end
+
+  def pull_group(entries, group_entries) do
+    map =
+      group_entries
+      |> Enum.map(fn entry -> {entry.email, entry} end)
+      |> Enum.into(%{})
+
+    entries
+    |> Enum.map(fn entry ->
+      group =
+        case Map.get(map, entry.email) do
+          nil -> "No group"
+          group_entry -> Map.get(group_entry, :group)
+        end
+
+      entry = Map.put(entry, :group, group)
+      Map.put(entry, :name, entry.name)
+    end)
+  end
+
+  def add_pa1(entries, email2pa) do
+    entries
+    |> Enum.map(fn entry ->
+      pa1 = Map.get(email2pa, entry.email, 0)
+      Map.put(entry, :pa1, pa1)
+    end)
+  end
+end
+```
+
+<!-- livebook:{"reevaluate_automatically":true} -->
+
+```elixir
+entries_sem = DataParser.parse(content_sem)
+```
+
+<!-- livebook:{"reevaluate_automatically":true} -->
+
+```elixir
+entries_oop =
+  DataParser.parse(content_oop)
+  |> DataParser.pull_group(entries_sem)
+  |> DataParser.add_pa1(email2pa)
+  |> Enum.shuffle()
+  |> Enum.sort(fn a, b ->
+    case {a.group, b.group, a.thold, b.thold} do
+      {group, group, a, b} -> a >= b
+      {a, b, _, _} -> a >= b
+    end
+  end)
+```
+
+Distribution by education (0% encodes no participation):
+
+```elixir
+alias VegaLite, as: Vl
+
+Vl.new(width: 480, height: 400)
+|> Vl.data_from_values(entries_oop)
+|> Vl.transform(density: "pa1", groupby: ["edu"], extent: [0, 100.0], counts: false)
+|> Vl.mark(:line)
+|> Vl.encode_field(:x, "value",
+  type: :quantitative,
+  title: "PA1 score / [%]"
+)
+|> Vl.encode_field(:y, "density", type: :quantitative)
+|> Vl.encode_field(:color, "edu", type: :nominal, title: "Linje")
+```
+
+```elixir
+alias VegaLite, as: Vl
+
+Vl.new(width: 480, height: 400)
+|> Vl.data_from_values(entries_oop)
+|> Vl.transform(density: "pa1", groupby: ["thold"], extent: [0, 100.0], counts: false)
+|> Vl.mark(:line)
+|> Vl.encode_field(:x, "value",
+  type: :quantitative,
+  title: "PA1 score / [%]"
+)
+|> Vl.encode_field(:y, "density", type: :quantitative)
+|> Vl.encode_field(:color, "thold", type: :nominal, title: "T-Hold")
+```
+
+```elixir
+sem_super_groups = %{
+  "Henrik Lykkegaard Larsen (hlla@mmmi.sdu.dk)" => [
+    "Group 2.1",
+    "Group 2.2",
+    "Group 2.3",
+    "Group 2.4",
+    "Group 2.5",
+    "Group 5.2"
+  ],
+  "Jeppe Schmidt (jep@mmmi.sdu.dk)" => [
+    # by power of deduction:
+    "Group 1.1",
+    "Group 1.2",
+    "Group 1.3",
+    "Group 1.4"
+  ],
+  "Rune Kammersgaard Gregersen (rkgr@mmmi.sdu.dk)" => [
+    "Group 3.1",
+    "Group 3.2",
+    "Group 3.4",
+    "Group 3.5"
+  ],
+  "Henrik Lange (hela@mmmi.sdu.dk)" => [
+    "Group 4.1",
+    "Group 4.2",
+    "Group 4.3",
+    "Group 4.4",
+    "Group 4.5",
+    "Group 5.1"
+  ],
+  "Grzegorz Baczek (grba@mmmi.sdu.dk)" => [
+    "Group 5.3",
+    "Group 5.4",
+    "Group 5.5"
+  ]
+}
+```
+
+## Summaries
+
+Number of students per education:
+
+<!-- livebook:{"reevaluate_automatically":true} -->
+
+```elixir
+studentcount_oop =
+  entries_oop
+  |> Enum.map(fn entry -> entry.edu end)
+  |> Enum.frequencies()
+
+studentcount_sem =
+  entries_sem
+  |> Enum.map(fn entry -> entry.edu end)
+  |> Enum.frequencies()
+
+%{"OOP" => studentcount_oop, "SEM" => studentcount_sem}
+```
+
+Number of students per education type:
+
+<!-- livebook:{"reevaluate_automatically":true} -->
+
+```elixir
+edutypecount_oop =
+  entries_oop
+  |> Enum.map(fn entry -> entry.edutype end)
+  |> Enum.frequencies()
+
+edutypecount_sem =
+  entries_sem
+  |> Enum.map(fn entry -> entry.edutype end)
+  |> Enum.frequencies()
+
+%{"OOP" => edutypecount_oop, "SEM" => edutypecount_sem}
+```
+
+Groups sizes:
+
+```elixir
+group_sizes =
+  entries_sem
+  |> Enum.map(fn entry -> entry.group end)
+  |> Enum.frequencies()
+  |> Enum.filter(fn {k, _v} -> not (k == "Groupless") end)
+
+IO.puts(length(group_sizes))
+
+group2size =
+  group_sizes
+  |> Map.new()
+```
+
+## Sanity Checks
+
+Total number of students per course:
+
+<!-- livebook:{"reevaluate_automatically":true} -->
+
+```elixir
+edutypecount_oop_total =
+  edutypecount_oop
+  |> Map.values()
+  |> Enum.reduce(0, fn count, acc -> count + acc end)
+
+edutypecount_sem_total =
+  edutypecount_sem
+  |> Map.values()
+  |> Enum.reduce(0, fn count, acc -> count + acc end)
+
+%{"OOP" => edutypecount_oop_total, "SEM" => edutypecount_sem_total}
+```
+
+This matches itslearning.
+
+## Generate Schedule for OOP Exams
+
+Config:
+
+```elixir
+oop_room_A = "U146"
+oop_room_B = "U147"
+examiner_A = "Aslak Johansen <asjo@mmmi.sdu.dk>"
+examiner_B = "Peter Nellemann <pmn@mmmi.sdu.dk>"
+examiner_C = "Grzegorz Baczek <grba@mmmi.sdu.dk>"
+{oop_room_A, oop_room_B, examiner_A, examiner_B, examiner_C}
+```
+
+```elixir
+sheetconfig = [
+  {"Jan 15", "Mandag", examiner_A, oop_room_A, "Andrea Corradini (andrea.zagor@gmail.com)"},
+  {"Jan 15", "Mandag", examiner_B, oop_room_B, "Elmer Sandvad (elmer@sandvad.com)"},
+  {"Jan 16", "Tirsdag", examiner_B, oop_room_A, "Andrea Corradini (andrea.zagor@gmail.com)"},
+  {"Jan 16", "Tirsdag", examiner_A, oop_room_B, "Hugo Daniel Macedo (hugodsmacedo@gmail.com)"},
+  {"Jan 17", "Onsdag", examiner_A, oop_room_A, "Andrea Corradini (andrea.zagor@gmail.com)"},
+  {"Jan 17", "Onsdag", examiner_B, oop_room_B, "Klaus Kolle (klaus@kolle.dk)"},
+  {"Jan 18", "Torsdag", examiner_B, oop_room_A, "Andrea Corradini (andrea.zagor@gmail.com)"},
+  {"Jan 18", "Torsdag", examiner_A, oop_room_B, "Klaus Kolle (klaus@kolle.dk)"},
+  {"Jan 19", "Fredag", examiner_A, oop_room_A, "Andrea Corradini (andrea.zagor@gmail.com)"},
+  {"Jan 19", "Fredag", examiner_B, oop_room_B, "Elmer Sandvad (elmer@sandvad.com)"}
+]
+```
+
+```elixir
+students_st =
+  entries_oop
+  |> Enum.filter(fn entry -> entry.edu == "Softwareteknologi" end)
+
+students_se =
+  entries_oop
+  |> Enum.filter(fn entry -> entry.edu == "Software Engineering" end)
+
+students_spil =
+  entries_oop
+  |> Enum.filter(fn entry -> entry.edu == "Spiludvikling og læringsteknologi" end)
+  |> Enum.shuffle()
+  |> Enum.shuffle()
+
+students_st = Enum.chunk_every(students_st, ceil(length(students_st) / 4))
+students_spil = Enum.chunk_every(students_spil, ceil(length(students_spil) / 5))
+students_se1 = students_se |> Enum.slice(0..14)
+students_se2 = students_se |> Enum.slice(15..length(students_se))
+
+students_elmer = students_st |> Enum.slice(0..1) |> Enum.to_list()
+students_klaus = students_st |> Enum.slice(2..3)
+students_hugo = [students_se1]
+students_andrea_spil = students_spil
+students_andrea_se = Enum.chunk_every(students_se2, ceil(length(students_se2) / 5))
+
+%{
+  "elmer" => students_elmer |> Enum.map(fn entry -> length(entry) end) |> Enum.join(" "),
+  "klaus" => students_klaus |> Enum.map(fn entry -> length(entry) end) |> Enum.join(" "),
+  "hugo" => students_hugo |> Enum.map(fn entry -> length(entry) end) |> Enum.join(" "),
+  "andrea se" => students_andrea_se |> Enum.map(fn entry -> length(entry) end) |> Enum.join(" "),
+  "andrea spil" =>
+    students_andrea_spil |> Enum.map(fn entry -> length(entry) end) |> Enum.join(" ")
+}
+```
+
+Helpers:
+
+```elixir
+int2col = fn i ->
+  map = "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z" |> String.split(",")
+  Enum.index(map, i)
+end
+```
+
+Columns:
+
+```elixir
+colormap = %{
+  time: "#E6C1C1",
+  student: "#E6E6C1",
+  pa: "#C1E6C1",
+  oral: "#C1E6E6",
+  adjusted: "#C1C1E6",
+  final: "#E6C1E6",
+  examiner: "#E6C1E6"
+}
+```
+
+<!-- livebook:{"reevaluate_automatically":true} -->
+
+```elixir
+cols = %{
+  col_examinator: {1, 1, 1, colormap.examiner, "Eksaminator"},
+  col_time: {2, 3, 0, colormap.time, "Tidspunkt"},
+  col_time_meet: {2, 1, 1, colormap.time, "Møde"},
+  col_time_begin: {3, 1, 1, colormap.time, "Start"},
+  col_time_end: {4, 1, 1, colormap.time, "Slut"},
+  col_student: {5, 3, 0, colormap.student, "Studerende"},
+  col_student_name: {5, 1, 1, colormap.student, "Name"},
+  col_student_email: {6, 1, 1, colormap.student, "Email"},
+  col_student_study: {7, 1, 1, colormap.student, "Studieretning"},
+  col_pa: {8, 4, 0, colormap.pa, "Pointgivende Aktivitet"},
+  col_pa_1: {8, 1, 1, colormap.pa, "PA1"},
+  col_pa_2: {9, 1, 1, colormap.pa, "PA2"},
+  col_pa_3: {10, 1, 1, colormap.pa, "PA3"},
+  col_pa_total: {11, 1, 1, colormap.pa, "Total"},
+  col_oral: {12, 3, 0, colormap.oral, "Mundtlig Eksamen"},
+  col_oral_topic: {12, 1, 1, colormap.oral, "Emne"},
+  col_oral_exercise: {13, 1, 1, colormap.oral, "Øvelse"},
+  col_oral_grade: {14, 1, 1, colormap.oral, "Karakter"},
+  col_adjusted_top: {15, 1, 0, colormap.adjusted, "Justeret"},
+  col_adjusted_bottom: {15, 1, 1, colormap.adjusted, "Karakter"},
+  col_final_top: {16, 1, 0, colormap.final, "Endelig"},
+  col_final_bottom: {16, 1, 1, colormap.final, "Karakter"}
+}
+```
+
+<!-- livebook:{"reevaluate_automatically":true} -->
+
+```elixir
+defmodule OopSheet do
+  alias Elixlsx.{Sheet}
+
+  defp int2col(i) do
+    map =
+      "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z"
+      |> String.split(",")
+
+    Enum.fetch!(map, i - 1)
+  end
+
+  defp produce_timestamps() do
+    8..20
+    |> Enum.map(fn h -> ["#{h}:00", "#{h}:20", "#{h}:40"] end)
+    |> List.flatten()
+  end
+
+  defp add_entry(sheet, colormap, examiner, row, time, starttime, student) do
+    timestamps = produce_timestamps()
+
+    tstart = time
+    tend = tstart + 1
+
+    tmeet =
+      case time - 3 do
+        t when t > starttime -> t
+        _ -> starttime
+      end
+
+    sheet
+    |> Sheet.set_row_height(row, 16)
+    |> Sheet.set_cell("A#{row}", examiner, bg_color: colormap.examiner)
+    |> Sheet.set_cell("B#{row}", Enum.at(timestamps, tmeet), bg_color: colormap.time)
+    |> Sheet.set_cell("C#{row}", Enum.at(timestamps, tstart), bg_color: colormap.time)
+    |> Sheet.set_cell("D#{row}", Enum.at(timestamps, tend), bg_color: colormap.time)
+    |> Sheet.set_cell("E#{row}", student.name, bg_color: colormap.student)
+    |> Sheet.set_cell("F#{row}", student.email, bg_color: colormap.student)
+    |> Sheet.set_cell("G#{row}", student.edu, bg_color: colormap.student)
+    |> Sheet.set_cell("H#{row}", student.pa1, bg_color: colormap.pa)
+    |> Sheet.set_cell("I#{row}", "N/A", bg_color: colormap.pa)
+    |> Sheet.set_cell("J#{row}", "N/A", bg_color: colormap.pa)
+    |> Sheet.set_cell("K#{row}", {:formula, "H#{row}"}, bg_color: colormap.pa)
+    |> Sheet.set_cell("L#{row}", "", bg_color: colormap.oral)
+    |> Sheet.set_cell("M#{row}", "", bg_color: colormap.oral)
+    |> Sheet.set_cell("N#{row}", "", bg_color: colormap.oral)
+    |> Sheet.set_cell("O#{row}", {:formula, "N#{row}+(K#{row}/10)"}, bg_color: colormap.adjusted)
+    |> Sheet.set_cell(
+      "P#{row}",
+      {:formula,
+       "IF(O#{row}>U7,12,IF(O#{row}>U8,10,IF(O#{row}>U9,7,IF(O#{row}>U10,4,IF(O#{row}>U11,2,IF(O#{row}>U12,0,-3))))))"},
+      bg_color: colormap.final
+    )
+  end
+
+  def add_break(sheet, colormap, row, time, slotcount, title) do
+    timestamps = produce_timestamps()
+
+    sheet
+    |> Sheet.set_row_height(row, 16)
+    |> Sheet.set_cell("C#{row}", Enum.at(timestamps, time), bg_color: colormap.time)
+    |> Sheet.set_cell("D#{row}", Enum.at(timestamps, time + slotcount), bg_color: colormap.time)
+    |> Sheet.set_cell("E#{row}", title)
+  end
+
+  def add_entries(sheet, colormap, examiner, row, time, starttime, students, breaker) do
+    {sheet, _, _} =
+      students
+      |> List.foldl({sheet, row, time}, fn student, {sheet, row, time} ->
+        sheet =
+          sheet
+          |> add_entry(colormap, examiner, row, time, starttime, student)
+
+        {sheet, row, time} = {sheet, row + 1, time + 1}
+
+        case breaker.(time) do
+          {:no_break} ->
+            {sheet, row, time}
+
+          {:break, slotcount, title} ->
+            sheet = add_break(sheet, colormap, row, time, slotcount, title)
+            {sheet, row + 1, time + slotcount}
+        end
+      end)
+
+    sheet
+  end
+
+  defp add_header(sheet, date, weekday, room, censor_full_name) do
+    title = "#{weekday} (#{date}) i lokale #{room}"
+
+    sheet
+    |> Sheet.set_cell("A1", title, bold: true)
+    |> Sheet.set_cell("A2", "Censor: #{censor_full_name}", italic: true)
+    |> Sheet.set_row_height(1, 16)
+    |> Sheet.set_row_height(2, 16)
+    |> Sheet.set_row_height(3, 6)
+    |> Sheet.set_row_height(4, 16)
+    |> Sheet.set_row_height(5, 16)
+    |> Map.put(
+      :merge_cells,
+      [
+        {"A1", "O1"},
+        {"A2", "O2"}
+      ] ++ Map.get(sheet, :merge_cells)
+    )
+  end
+
+  defp add_cols(sheet, cols) do
+    cols
+    |> Map.keys()
+    |> List.foldl(sheet, fn key, sheet ->
+      {col, width, row, color, text} = Map.get(cols, key)
+
+      case width do
+        1 ->
+          sheet
+
+        w ->
+          Map.put(
+            sheet,
+            :merge_cells,
+            [{"#{int2col(col)}#{4 + row}", "#{int2col(col + w - 1)}#{4 + row}"}] ++
+              Map.get(sheet, :merge_cells)
+          )
+      end
+      |> Sheet.set_cell("#{int2col(col)}#{4 + row}", text, bold: true, bg_color: color)
+    end)
+    |> Sheet.set_col_width("B", 6)
+    |> Sheet.set_col_width("C", 6)
+    |> Sheet.set_col_width("D", 6)
+    |> Sheet.set_col_width("E", 36)
+    |> Sheet.set_col_width("F", 25)
+    |> Sheet.set_col_width("G", 30)
+    |> Sheet.set_col_width("H", 6)
+    |> Sheet.set_col_width("I", 6)
+    |> Sheet.set_col_width("J", 6)
+    |> Sheet.set_col_width("K", 6)
+    |> Sheet.set_col_width("L", 7)
+    |> Sheet.set_col_width("M", 8)
+    |> Sheet.set_col_width("N", 10)
+  end
+
+  defp add_scale(sheet, color \\ "#E6C1C1") do
+    defs = [
+      {"12", 92, 100},
+      {"10", 81, 91},
+      {"7", 66, 80},
+      {"4", 56, 65},
+      {"02", 50, 55},
+      {"00", 16, 49},
+      {"-3", 0, 15}
+    ]
+
+    {sheet, _} =
+      defs
+      |> List.foldl({sheet, 6}, fn {grade, min, max}, {sheet, row} ->
+        sheet =
+          sheet
+          |> Sheet.set_cell("R#{row}", grade, bg_color: color)
+          |> Sheet.set_cell("S#{row}", min, bg_color: color)
+          |> Sheet.set_cell("T#{row}", {:formula, "(S#{row}+U#{row})/2"}, bg_color: color)
+          |> Sheet.set_cell("U#{row}", max, bg_color: color)
+
+        {sheet, row + 1}
+      end)
+
+    sheet
+    |> Sheet.set_col_width("Q", 1)
+    |> Sheet.set_col_width("S", 6)
+    |> Sheet.set_col_width("T", 7)
+    |> Sheet.set_col_width("U", 6)
+    |> Sheet.set_cell("R5", "Karakter", bold: true, bg_color: color)
+    |> Sheet.set_cell("S5", "Min", bold: true, bg_color: color)
+    |> Sheet.set_cell("T5", "Mean", bold: true, bg_color: color)
+    |> Sheet.set_cell("U5", "Max", bold: true, bg_color: color)
+  end
+
+  def produce(date, weekday, _examiner, room, censor_full_name, cols) do
+    censor_first_name = censor_full_name |> String.split(" ") |> Enum.at(0)
+    sheet_name = "#{date} #{censor_first_name}"
+
+    _sheet =
+      Elixlsx.Sheet.with_name(sheet_name)
+      |> add_header(date, weekday, room, censor_full_name)
+      |> add_cols(cols)
+      |> add_scale()
+  end
+end
+```
+
+Export:
+
+<!-- livebook:{"reevaluate_automatically":true} -->
+
+```elixir
+sheets =
+  sheetconfig
+  |> Enum.map(fn {date, weekday, examiner, room, censor_full_name} ->
+    OopSheet.produce(date, weekday, examiner, room, censor_full_name, cols)
+  end)
+```
+
+Define breaks:
+
+```elixir
+breaker = fn tstart, tlunch, blocksize ->
+  fn time ->
+    lunchspan = 3
+    # toffset = if time>tlunch do tlunch else tstart end
+    case {time, tstart, tlunch} do
+      {time, _, time} ->
+        {:break, lunchspan, "Frokost"}
+
+      {time, _tstart, offset}
+      when time > offset and rem(time - offset - lunchspan, blocksize) == blocksize - 1 ->
+        {:break, 1, "pause"}
+
+      {time, offset, tlunch}
+      when time < tlunch and rem(time - offset, blocksize) == blocksize - 1 ->
+        {:break, 1, "pause"}
+
+      _ ->
+        {:no_break}
+    end
+  end
+end
+
+nobreaker = fn _time -> {:no_break} end
+```
+
+Inject entries:
+
+```elixir
+# add_entries(sheet, colormap, examiner, row, time, starttime, students, breaker)
+sheets = [
+  sheets
+  |> Enum.at(0)
+  |> OopSheet.add_entries(
+    colormap,
+    examiner_A,
+    6,
+    9,
+    9,
+    students_andrea_se |> Enum.at(0),
+    breaker.(9, 13, 5)
+  )
+  |> OopSheet.add_break(colormap, 19, 24, 1, "pause")
+  |> OopSheet.add_entries(
+    colormap,
+    examiner_C,
+    20,
+    25,
+    9,
+    students_andrea_spil |> Enum.at(0),
+    breaker.(25, 100, 6)
+  ),
+  sheets
+  |> Enum.at(1)
+  |> OopSheet.add_entries(
+    colormap,
+    examiner_B,
+    6,
+    5,
+    5,
+    students_elmer |> Enum.at(0),
+    breaker.(5, 13, 5)
+  ),
+  sheets
+  |> Enum.at(2)
+  |> OopSheet.add_entries(
+    colormap,
+    examiner_B,
+    6,
+    9,
+    9,
+    students_andrea_se |> Enum.at(1),
+    breaker.(9, 13, 5)
+  )
+  |> OopSheet.add_break(colormap, 19, 24, 1, "pause")
+  |> OopSheet.add_entries(
+    colormap,
+    examiner_C,
+    20,
+    25,
+    9,
+    students_andrea_spil |> Enum.at(1),
+    breaker.(25, 100, 6)
+  ),
+  sheets
+  |> Enum.at(3)
+  |> OopSheet.add_entries(
+    colormap,
+    examiner_A,
+    6,
+    5,
+    5,
+    students_hugo |> Enum.at(0),
+    breaker.(5, 13, 5)
+  ),
+  sheets
+  |> Enum.at(4)
+  |> OopSheet.add_entries(
+    colormap,
+    examiner_A,
+    6,
+    9,
+    9,
+    students_andrea_se |> Enum.at(2),
+    breaker.(9, 13, 5)
+  )
+  |> OopSheet.add_break(colormap, 19, 24, 1, "pause")
+  |> OopSheet.add_entries(
+    colormap,
+    examiner_C,
+    20,
+    25,
+    9,
+    students_andrea_spil |> Enum.at(2),
+    breaker.(25, 100, 6)
+  ),
+  sheets
+  |> Enum.at(5)
+  |> OopSheet.add_entries(
+    colormap,
+    examiner_B,
+    6,
+    5,
+    5,
+    students_klaus |> Enum.at(0),
+    breaker.(5, 13, 5)
+  ),
+  sheets
+  |> Enum.at(6)
+  |> OopSheet.add_entries(
+    colormap,
+    examiner_B,
+    6,
+    9,
+    9,
+    students_andrea_se |> Enum.at(3),
+    breaker.(9, 13, 5)
+  )
+  |> OopSheet.add_break(colormap, 19, 24, 1, "pause")
+  |> OopSheet.add_entries(
+    colormap,
+    examiner_C,
+    20,
+    25,
+    9,
+    students_andrea_spil |> Enum.at(3),
+    breaker.(25, 100, 6)
+  ),
+  sheets
+  |> Enum.at(7)
+  |> OopSheet.add_entries(
+    colormap,
+    examiner_A,
+    6,
+    5,
+    5,
+    students_klaus |> Enum.at(1),
+    breaker.(5, 13, 5)
+  ),
+  sheets
+  |> Enum.at(8)
+  |> OopSheet.add_entries(
+    colormap,
+    examiner_A,
+    6,
+    10,
+    10,
+    students_andrea_se |> Enum.at(4),
+    breaker.(10, 13, 4)
+  )
+  |> OopSheet.add_break(colormap, 17, 23, 1, "pause")
+  |> OopSheet.add_entries(
+    colormap,
+    examiner_C,
+    18,
+    24,
+    9,
+    students_andrea_spil |> Enum.at(4),
+    breaker.(24, 100, 6)
+  ),
+  sheets
+  |> Enum.at(9)
+  |> OopSheet.add_entries(
+    colormap,
+    examiner_B,
+    6,
+    5,
+    5,
+    students_elmer |> Enum.at(1),
+    breaker.(5, 13, 5)
+  )
+]
+
+# sheets = [
+#  Keyword.get(sheets, {"Jan 15", "Andrea Corradini"})
+# ]
+```
+
+<!-- livebook:{"reevaluate_automatically":true} -->
+
+```elixir
+%Elixlsx.Workbook{sheets: sheets}
+|> Elixlsx.write_to("/tmp/oop2023_exams.xlsx")
+```
+
+## Generate Schedule for SEM Exams
+
+Function to map sets (lists, really) of students to time needed for examination of a group of this size:
+
+```elixir
+students2time = fn students ->
+  case length(students) do
+    # 20+4*16
+    4 -> 85
+    # 20+5*16
+    5 -> 100
+    # 20+6*16
+    6 -> 120
+    # 20+7*16
+    7 -> 130
+  end
+end
+```
+
+```elixir
+supervisor_group_sizes =
+  sem_super_groups
+  |> Enum.map(fn {supervisor, groups} ->
+    {
+      supervisor,
+      groups
+      |> Enum.map(fn g ->
+        size = Map.get(group2size, g)
+        {g, size, students2time.(1..size |> Enum.to_list())}
+      end)
+    }
+  end)
+  |> Map.new()
+```
+
+Test:
+
+```elixir
+4..7
+|> Enum.map(fn i ->
+  1..i
+  |> Enum.to_list()
+  |> students2time.()
+end)
+```
+
+People:
+
+```elixir
+exam_rune = "Rune Kammersgaard Gregersen <rkgr@mmmi.sdu.dk>"
+exam_henriklange = "Henrik Lange <hela@mmmi.sdu.dk>"
+exam_greg = "Grzegorz Baczek <grba@mmmi.sdu.dk>"
+exam_jeppe = "Jeppe Schmidt <jep@mmmi.sdu.dk>"
+exam_henrik = "Henrik Lykkegaard Larsen <hlla@mmmi.sdu.dk>"
+censor_unknown = "Some censor (a@b.c)"
+censor_nicolaj = "Nicolaj Søndberg-Jeppesen <radiomus@gmail.com>"
+censor_jens = "Jens Bennedsen <jbb@ece.au.dk>"
+censor_troels = "Troels Højberg <troels.hoejberg@gmail.com>"
+censor_john = "John Larsen <jlbruntse@gmail.com>"
+{exam_rune, exam_henriklange, exam_greg, exam_jeppe, exam_henrik, censor_unknown}
+```
+
+Generator:
+
+```elixir
+defmodule SemSheet do
+  def produce_header(basis, title) do
+    basis <>
+      """
+      \\documentclass[a4paper]{article}
+      \\usepackage[T1]{fontenc}
+
+      \\begin{document}
+      \\title{#{title}}
+      \\maketitle
+
+      """
+  end
+
+  def produce_day(basis, day, room) do
+    basis <>
+      "\\section{#{day} i lokale #{room}}\n"
+  end
+
+  def produce_group(basis, students, group, examiner, censor, {tstart, tend} = _time) do
+    students =
+      students
+      |> Enum.filter(fn student -> student.group == group end)
+
+    group =
+      group
+      |> String.split(" ")
+      |> Enum.at(1)
+      |> (fn i -> "Gruppe #{i}" end).()
+
+    basis <>
+      """
+      \\subsection{[#{tstart}-#{tend}] #{group}}
+      \\begin{itemize}
+        \\item \\textbf{Eksaminator:} #{examiner}
+        \\item \\textbf{Censor:} #{censor}
+        \\item \\textbf{Studerende:}
+          \\begin{itemize}
+      """ <>
+      (students
+       |> Enum.map(fn student -> "      \\item #{student.name} (#{student.email})\n" end)
+       |> Enum.join()) <>
+      """
+          \\end{itemize}
+      \\end{itemize}
+      """
+  end
+
+  def produce_footer(basis) do
+    basis <>
+      "\\end{document}\n"
+  end
+
+  def store_file(basis, filename) do
+    {:ok, file} = File.open(filename, [:write, :utf8])
+    IO.write(file, basis)
+  end
+end
+```
+
+Produce some contents:
+
+```elixir
+text =
+  ""
+  |> SemSheet.produce_header("SDU 1. Semester Projekt 2023\\\\Mundtlige Eksamener")
+  |> SemSheet.produce_day("Torsdag den 25. Januar", "U174")
+  |> SemSheet.produce_group(
+    entries_sem,
+    "Group 1.1",
+    exam_jeppe,
+    censor_nicolaj,
+    {"9:00", "11:10"}
+  )
+  |> SemSheet.produce_group(
+    entries_sem,
+    "Group 1.2",
+    exam_jeppe,
+    censor_nicolaj,
+    {"12:10", "13:50"}
+  )
+  |> SemSheet.produce_group(
+    entries_sem,
+    "Group 1.3",
+    exam_jeppe,
+    censor_nicolaj,
+    {"14:10", "16:10"}
+  )
+  |> SemSheet.produce_group(
+    entries_sem,
+    "Group 1.4",
+    exam_jeppe,
+    censor_nicolaj,
+    {"16:30", "18:30"}
+  )
+  |> SemSheet.produce_day("Torsdag den 25. Januar", "U182")
+  |> SemSheet.produce_group(
+    entries_sem,
+    "Group 4.1",
+    exam_henriklange,
+    censor_troels,
+    {"9:00", "10:40"}
+  )
+  |> SemSheet.produce_group(
+    entries_sem,
+    "Group 4.2",
+    exam_henriklange,
+    censor_troels,
+    {"11:00", "12:40"}
+  )
+  |> SemSheet.produce_group(
+    entries_sem,
+    "Group 4.3",
+    exam_henriklange,
+    censor_troels,
+    {"13:40", "15:05"}
+  )
+  |> SemSheet.produce_group(
+    entries_sem,
+    "Group 4.4",
+    exam_henriklange,
+    censor_troels,
+    {"15:25", "16:50"}
+  )
+  |> SemSheet.produce_day("Fredag den 26. Januar", "U182")
+  |> SemSheet.produce_group(
+    entries_sem,
+    "Group 4.5",
+    exam_henriklange,
+    censor_troels,
+    {"11:20", "13:00"}
+  )
+  |> SemSheet.produce_group(
+    entries_sem,
+    "Group 5.1",
+    exam_henriklange,
+    censor_troels,
+    {"14:00", "15:40"}
+  )
+  |> SemSheet.produce_group(
+    entries_sem,
+    "Group 5.3",
+    exam_greg,
+    censor_troels,
+    {"16:00", "17:40"}
+  )
+  |> SemSheet.produce_day("Mandag den 29. Januar", "U182")
+  |> SemSheet.produce_group(entries_sem, "Group 3.1", exam_rune, censor_john, {"10:30", "12:40"})
+  |> SemSheet.produce_group(entries_sem, "Group 3.2", exam_rune, censor_john, {"13:40", "15:40"})
+  |> SemSheet.produce_group(
+    entries_sem,
+    "Group 5.4",
+    exam_greg,
+    censor_john,
+    {"16:00", "17:40"}
+  )
+  |> SemSheet.produce_day("Tirsdag den 30. Januar", "U182")
+  |> SemSheet.produce_group(entries_sem, "Group 2.1", exam_henrik, censor_jens, {"9:00", "11:10"})
+  |> SemSheet.produce_group(
+    entries_sem,
+    "Group 2.2",
+    exam_henrik,
+    censor_jens,
+    {"12:10", "13:50"}
+  )
+  |> SemSheet.produce_group(
+    entries_sem,
+    "Group 2.3",
+    exam_henrik,
+    censor_jens,
+    {"14:10", "15:50"}
+  )
+  |> SemSheet.produce_day("Onsdag den 31. Januar", "U182")
+  |> SemSheet.produce_group(entries_sem, "Group 3.4", exam_rune, censor_john, {"10:30", "12:40"})
+  |> SemSheet.produce_group(entries_sem, "Group 3.5", exam_rune, censor_john, {"13:40", "15:40"})
+  |> SemSheet.produce_group(
+    entries_sem,
+    "Group 5.5",
+    exam_greg,
+    censor_john,
+    {"16:00", "17:40"}
+  )
+  |> SemSheet.produce_day("Onsdag den 31. Januar", "U171")
+  |> SemSheet.produce_group(entries_sem, "Group 2.4", exam_henrik, censor_jens, {"9:00", "11:10"})
+  |> SemSheet.produce_group(
+    entries_sem,
+    "Group 2.5",
+    exam_henrik,
+    censor_jens,
+    {"12:10", "13:50"}
+  )
+  |> SemSheet.produce_group(
+    entries_sem,
+    "Group 5.2",
+    exam_henrik,
+    censor_jens,
+    {"14:10", "16:10"}
+  )
+  |> SemSheet.produce_footer()
+  |> SemSheet.store_file("/tmp/sem2023_exams.tex")
+```
+
+```elixir
+example = entries_sem |> Enum.at(4)
+
+{example.name, example.name <> <<0>>, is_bitstring(example.name), is_binary(example.name),
+ String.valid?(example.name)}
+```
+
+```elixir
+" " <> <<0>>
+```
+
+Now run:
+
+```shell
+/tmp$ pdflatex sem2023_exams.tex
+```
+
+## Export Semester Groups for Next Semester
+
+```elixir
+entries_sem =
+  DataParser.parse(content_sem)
+  |> Enum.sort(fn a, b ->
+    case {a.group, b.group, a.thold, b.thold} do
+      {group, group, a, b} -> a >= b
+      {a, b, _, _} -> a >= b
+    end
+  end)
+  |> Enum.reverse()
+```
+
+Write CSV file:
+
+```elixir
+lines =
+  entries_sem
+  |> List.foldl("", fn entry, acc ->
+    cols =
+      [
+        entry.name,
+        entry.email,
+        entry.edutype,
+        entry.edu,
+        entry.thold,
+        entry.group
+      ]
+      |> Enum.join(",")
+
+    acc <> cols <> "\n"
+  end)
+
+{:ok, file} = File.open("/tmp/studentlist.csv", [:write, :utf8])
+IO.write(file, lines)
+```
