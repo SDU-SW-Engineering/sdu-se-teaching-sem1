@@ -45,6 +45,9 @@ document_names = {
   "Krav til Projektaflevering": {
     "source": "project_handin_requirements.tex",
   },
+  "Krav til Projektgenaflevering": {
+    "source": "project_rehandin_requirements.tex",
+  },
   "Semester Plan": {
     "source": "semesterplan.tex",
     "dependencies": {
