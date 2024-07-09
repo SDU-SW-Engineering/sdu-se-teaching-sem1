@@ -34,7 +34,7 @@ def systempipe (command, logfile='makeish.log'):
     return_code = p.wait()
     return return_code
 
-document_prefix = "SDU SEST 2023 Semester 1"
+document_prefix = "SDU SEST 2024 Semester 1"
 document_names = {
   "Project Description": {
     "source": "projectdescription.tex",
