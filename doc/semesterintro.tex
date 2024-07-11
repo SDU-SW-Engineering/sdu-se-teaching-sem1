@@ -755,8 +755,8 @@ mundtligt som skriftligt til forskellige målgrupper
 \subsection{Undervisere}
 \begin{frame}[fragile]
   \frametitle{Undervisere}
-  \vspace{1mm}
-  \scalebox{0.82}{
+  \vspace{3mm}
+  \scalebox{0.72}{
     \begin{tikzpicture}[remember picture, overlay]
       % variables
       \newcommand{\spacing}[0]{4mm}
@@ -798,13 +798,13 @@ mundtligt som skriftligt til forskellige målgrupper
       \newcommand{\projectX}[0]{(\origoX)}
       \newcommand{\oopX}[0]{(\projectX+7*\spacing+0*\imgsize)}
       \newcommand{\cosX}[0]{(\oopX+4*\spacing+2*\imgsize)}
-      \newcommand{\sdaX}[0]{(\cosX+3*\spacing+1*\imgsize)}
-      \newcommand{\sdaXeast}[0]{(\sdaX+3*\spacing+2*\imgsize)}
+      \newcommand{\matX}[0]{(\cosX+3*\spacing+1*\imgsize)}
+      \newcommand{\matXeast}[0]{(\matX+4*\spacing+3*\imgsize)}
       
       \newcommand{\proWidth}[0]{(6*\spacing+0*\imgsize)}
       \newcommand{\oopWidth}[0]{(3*\spacing+2*\imgsize)}
       \newcommand{\cosWidth}[0]{(2*\spacing+1*\imgsize)}
-      \newcommand{\sdaWidth}[0]{(3*\spacing+2*\imgsize)}
+      \newcommand{\matWidth}[0]{(4*\spacing+3*\imgsize)}
       
       \newcommand{\proXsuperI}[0]{(  \projectX+1*\spacing)}
       \newcommand{\proXsuperII}[0]{( \projectX+2*\spacing)}
@@ -815,12 +815,13 @@ mundtligt som skriftligt til forskellige målgrupper
       \newcommand{\oopXaslak}[0]{(\oopX+\spacing+\imgsize/2)}
       \newcommand{\oopXpeter}[0]{(\oopXaslak+\spacing+\imgsize)}
       \newcommand{\cosXmorten}[0]{(\cosX+\spacing+\imgsize/2)}
-      \newcommand{\sdaXvictoria}[0]{(\sdaX+\spacing+\imgsize/2)}
-      \newcommand{\sdaXnataliya}[0]{(\sdaXvictoria+\spacing+\imgsize)}
-      \newcommand{\eolX}[0]{(\sdaXnataliya+\imgsize/2)}
+      \newcommand{\matXjonas}[0]{(\matX+\spacing+\imgsize/2)}
+      \newcommand{\matXhenrik}[0]{(\matXjonas+\spacing+\imgsize)}
+      \newcommand{\matXellen}[0]{(\matXhenrik+\spacing+\imgsize)}
+      \newcommand{\eolX}[0]{(\matXellen+\imgsize/2)}
       
       \coordinate (northwest) at ({\projectX}, {\blockY+\headerheight+\spacing});
-      \coordinate (northeast) at ({\sdaXeast}, {\blockY+\headerheight+\spacing});
+      \coordinate (northeast) at ({\matXeast}, {\blockY+\headerheight+\spacing});
       
       % styles
       \tikzstyle{day}  = [
@@ -882,7 +883,7 @@ mundtligt som skriftligt til forskellige målgrupper
       \buildBlock{{\projectX},{\blockY}}{\proWidth}{Projekt}
       \buildBlock{{\oopX},{\blockY}}{\oopWidth}{OOP}
       \buildBlock{{\cosX},{\blockY}}{\cosWidth}{COS | CPS}
-      \buildBlock{{\sdaX},{\blockY}}{\sdaWidth}{SDA}
+      \buildBlock{{\matX},{\blockY}}{\matWidth}{MAT1}
       
       % lines
       \draw[gridline] ({\classX},{\classIy})   -- ({\eolX},{\classIy});
@@ -898,15 +899,16 @@ mundtligt som skriftligt til forskellige målgrupper
       \draw[gridline] ({\oopXaslak},{\classIy})    -- ({\oopXaslak},{\belowY});
       \draw[gridline] ({\oopXpeter},{\classIy})    -- ({\oopXpeter},{\belowY});
       \draw[gridline] ({\cosXmorten},{\classIy})   -- ({\cosXmorten},{\belowY});
-      \draw[gridline] ({\sdaXvictoria},{\classIy}) -- ({\sdaXvictoria},{\belowY});
-      \draw[gridline] ({\sdaXnataliya},{\classIy}) -- ({\sdaXnataliya},{\belowY});
+      \draw[gridline] ({\matXjonas},{\classIy}) -- ({\matXjonas},{\belowY});
+      \draw[gridline] ({\matXhenrik},{\classIy}) -- ({\matXhenrik},{\belowY});
+      \draw[gridline] ({\matXellen},{\classIy}) -- ({\matXellen},{\belowY});
       
       % crossings
       \node[teachexam] () at ({\proXsuperI}  ,{\classIy}) {};
       \node[teachexam] () at ({\proXsuperII} ,{\classIIy}) {};
       \node[teachexam] () at ({\proXsuperIII},{\classIIIy}) {};
       \node[teachexam] () at ({\proXsuperIV} ,{\classIVy}) {};
-      \node[onlyteach] () at ({\proXsuperIV} ,{\classVy}) {};
+%      \node[onlyteach] () at ({\proXsuperIV} ,{\classVy}) {};
       \node[teachexam] () at ({\proXsuperV} ,{\classVy}) {};
       \node[onlyteach] () at ({\oopXaslak},{\classIy}) {};
       \node[onlyteach] () at ({\oopXaslak},{\classIIy}) {};
@@ -923,16 +925,14 @@ mundtligt som skriftligt til forskellige målgrupper
       \node[teachexam] () at ({\cosXmorten},{\classIIIy}) {};
       \node[teachexam] () at ({\cosXmorten},{\classIVy}) {};
       \node[teachexam] () at ({\cosXmorten},{\classVy}) {};
-      \node[teachexam] () at ({\sdaXvictoria},{\classIy}) {};
-      \node[teachexam] () at ({\sdaXvictoria},{\classIIy}) {};
-      \node[teachexam] () at ({\sdaXvictoria},{\classIIIy}) {};
-      \node[teachexam] () at ({\sdaXvictoria},{\classIVy}) {};
-      \node[teachexam] () at ({\sdaXvictoria},{\classVy}) {};
-      \node[teachexam] () at ({\sdaXnataliya},{\classIy}) {};
-      \node[teachexam] () at ({\sdaXnataliya},{\classIIy}) {};
-      \node[teachexam] () at ({\sdaXnataliya},{\classIIIy}) {};
-      \node[teachexam] () at ({\sdaXnataliya},{\classIVy}) {};
-      \node[teachexam] () at ({\sdaXnataliya},{\classVy}) {};
+      \node[teachexam] () at ({\matXjonas},{\classIy}) {};
+      \node[teachexam] () at ({\matXjonas},{\classIIy}) {};
+      \node[onlyteach] () at ({\matXhenrik},{\classIIIy}) {};
+      \node[onlyteach] () at ({\matXhenrik},{\classIVy}) {};
+      \node[onlyteach] () at ({\matXhenrik},{\classVy}) {};
+      \node[onlyteach] () at ({\matXellen},{\classIIIy}) {};
+      \node[onlyteach] () at ({\matXellen},{\classIVy}) {};
+      \node[onlyteach] () at ({\matXellen},{\classVy}) {};
       
       % supervisors
       \node[anchor=north] (superI)   at ({\proXsuperI}  ,{\belowY}) {\rotatebox{90}{Vejleder 1}};
@@ -946,8 +946,9 @@ mundtligt som skriftligt til forskellige målgrupper
       \personSouth{{\oopXaslak},{\belowY}}{Aslak}{figs/people/aslak-johansen.png}
       \personSouth{{\oopXpeter},{\belowY}}{Peter}{figs/people/peter-nellemann.jpeg}
       \personSouth{{\cosXmorten},{\belowY}}{Morten}{figs/people/morten-hansen.jpeg}
-      \personSouth{{\sdaXnataliya},{\belowY}}{Nataliya}{figs/people/nataliya-chukhrova.jpeg}
-      \personSouth{{\sdaXvictoria},{\belowY}}{Victoria}{figs/people/victoria-blanes-vidal.jpeg}
+      \personSouth{{\matXjonas},{\belowY}}{Jonas}{figs/people/jonas-beermann-kristiansen.jpeg}
+      \personSouth{{\matXhenrik},{\belowY}}{Henrik}{figs/people/henrik-skov-midtiby.jpeg}
+      \personSouth{{\matXellen},{\belowY}}{Ellen}{figs/people/ellen-raben-pedersen.jpeg}
       
       % embrace
       \draw[thick, rounded corners, draw=black] (northwest) |- ++(\spacing,\spacing/2) -- ([xshift=-\spacing, yshift=\spacing/2] northeast) -| ++(\spacing,-\spacing/2);
