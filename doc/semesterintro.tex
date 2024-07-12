@@ -600,7 +600,7 @@ mundtligt som skriftligt til forskellige målgrupper
   \scalebox{0.82}{
     \begin{tikzpicture}[remember picture, overlay]
       \newcommand{\ydist}[0]{12mm}
-      \newcommand{\holddist}[0]{28mm}
+      \newcommand{\linedist}[0]{28mm}
       \newcommand{\classdist}[0]{18mm}
       \newcommand{\groupdist}[0]{3mm}
       \newcommand{\studentdist}[0]{2mm}
@@ -614,7 +614,7 @@ mundtligt som skriftligt til forskellige målgrupper
         very thick,
         inner sep=4mm,
       ]
-      \tikzstyle{hold}  = [
+      \tikzstyle{line}  = [
         circle,
         draw,
         very thick,
@@ -653,9 +653,9 @@ mundtligt som skriftligt til forskellige målgrupper
       
       \node[semester] (semester) at (origo) {1. Semester};
       
-      \node[hold, anchor=north] (se) at ([yshift=-\ydist] semester.south) {SE};
-      \node[hold, anchor=east] (st) at ([xshift=-\holddist] se.west) {ST};
-      \node[hold, anchor=west, draw=gray, text=gray] (spiltek) at ([xshift=\holddist] se.east) {SpilTek};
+      \node[line, anchor=north] (se) at ([yshift=-\ydist] semester.south) {SE};
+      \node[line, anchor=east] (st) at ([xshift=-\linedist] se.west) {ST};
+      \node[line, anchor=west, draw=gray, text=gray] (spiltek) at ([xshift=\linedist] se.east) {SpilTek};
       
       \node[class, anchor=north] (se1) at ([yshift=-\ydist, xshift=-1*\classdist] se.south) {};
       \node[class, anchor=north] (se2) at ([yshift=-\ydist, xshift= 0*\classdist] se.south) {};
@@ -739,12 +739,12 @@ mundtligt som skriftligt til forskellige målgrupper
       \draw[->, edge, semithick] (se14) -- (se145);
       
       \node[descriptor] (desc semester) at (semester-|labels) {\textsl{Semester}};
-      \node[descriptor] (desc hold)     at (spiltek-|labels)  {\textsl{Hold}};
+      \node[descriptor] (desc line)     at (spiltek-|labels)  {\textsl{Uddannelse}};
       \node[descriptor] (desc class)    at (spiltek2-|labels) {\textsl{Klasser}};
       \node[descriptor] (desc group)    at (se35-|labels)     {\textsl{Grupper}};
       \node[descriptor] (desc student)  at (se145-|labels)    {\textsl{Studerende}};
       \draw[->, edge, draw=blue] (desc semester) -- ([xshift=6mm] semester.east);
-      \draw[->, edge, draw=blue] (desc hold)     -- ([xshift=6mm] spiltek.east);
+      \draw[->, edge, draw=blue] (desc line)     -- ([xshift=6mm] spiltek.east);
       \draw[->, edge, draw=blue] (desc class)    -- ([xshift=6mm] spiltek2.east);
       \draw[->, edge, draw=blue] (desc group)    -- ([xshift=6mm] se35.east);
       \draw[->, edge, draw=blue] (desc student)  -- ([xshift=6mm] se145.east);
