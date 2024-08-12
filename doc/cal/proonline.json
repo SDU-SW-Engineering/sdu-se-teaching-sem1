@@ -1,7 +1,7 @@
 {
   "ProOnline": [
     {
-      "date": "2023 September 4",
+      "date": "2024 September 2",
       "description": [
         "\\begin{itemize}[noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt]",
         "  \\item 01 Introduktion til online kursus i problemorienteret projektarbejde",
@@ -10,7 +10,7 @@
       ],
     },
     {
-      "date": "2023 September 8",
+      "date": "2024 September 9",
       "description": [
         "\\begin{itemize}[noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt]",
         "  \\item 03 Samarbejde",
@@ -18,7 +18,7 @@
       ],
     },
     {
-      "date": "2023 September 15",
+      "date": "2024 September 16",
       "description": [
         "\\begin{itemize}[noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt]",
         "  \\item 04 Problemorienteret projektarbejde",
@@ -27,7 +27,7 @@
       ],
     },
     {
-      "date": "2023 September 22",
+      "date": "2024 September 23",
       "description": [
         "\\begin{itemize}[noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt]",
         "  \\item 06 Projektets faglige vidensgrundlag",
@@ -36,7 +36,7 @@
       ],
     },
     {
-      "date": "2023 September 29",
+      "date": "2024 September 30",
       "description": [
         "\\begin{itemize}[noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt]",
         "  \\item 08 Skrivning og Feedback",
@@ -44,7 +44,12 @@
       ],
     },
     {
-      "date": "2023 October 13",
+      "date": "2024 October 7",
+      "description.summary": ["\\textbf{ProOnline arbejde}"],
+      "description": ["ProOnline arbejde uden vejleder"],
+    },
+    {
+      "date": "2024 October 21",
       "description": [
         "\\begin{itemize}[noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt]",
         "  \\item 09 Projektrapporten og professionel formidling",
@@ -52,12 +57,38 @@
       ],
     },
     {
-      "date": "2023 November 24",
+      "date": "2024 October 28",
+      "description.summary": ["\\textbf{ProOnline arbejde}"],
+      "description": ["ProOnline arbejde uden vejleder"],
+    },
+    {
+      "date": "2024 November 4",
+      "description.summary": ["\\textbf{ProOnline arbejde}"],
+      "description": ["ProOnline arbejde uden vejleder"],
+    },
+    {
+      "date": "2024 November 11",
+      "description.summary": ["\\textbf{ProOnline arbejde}"],
+      "description": ["ProOnline arbejde uden vejleder"],
+    },
+    {
+      "date": "2024 November 18",
+      "description.summary": ["\\textbf{ProOnline arbejde}"],
+      "description": ["ProOnline arbejde uden vejleder"],
+    },
+    {
+      "date": "2024 November 25",
       "description": [
         "\\begin{itemize}[noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt]",
         "  \\item 10 Projekteksamen",
         "\\end{itemize}",
       ],
+    },
+    {
+      "date": "2024 November 29",
+      "description.summary": ["\\textbf{ProOnline deadline}"],
+      "description": ["ProOnline deadline"],
+      "fillcolor": "orange",
     },
   ],
 }

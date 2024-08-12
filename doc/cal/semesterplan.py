@@ -62,27 +62,27 @@ def build ():
 #      "fillcolor": headercolor,
 #    },
     {
-      "date":  "2023 August 28",
-      "title": "Projektstart (uge 35-38)",
+      "date":  "2024 August 31",
+      "title": "Projektstart (uge 36-38)",
       "fillcolor": headercolor,
     },
     {
-      "date":  "2023 September 25",
+      "date":  "2024 September 23",
       "title": "Problemanalysefase (Uge 39-40)",
       "fillcolor": headercolor,
     },
     {
-      "date":  "2023 October 9",
+      "date":  "2024 October 6",
       "title": "Gennemførselsfase - programudvikling (41-48)",
       "fillcolor": headercolor,
     },
     {
-      "date":  "2023 December 4",
+      "date":  "2024 December 1",
       "title": "Afleveringsfase (49-50)",
       "fillcolor": headercolor,
     },
     {
-      "date":  "2024 January 1",
+      "date":  "2025 January 1",
       "title": "Eksamen og refleksion",
       "fillcolor": headercolor,
     },
