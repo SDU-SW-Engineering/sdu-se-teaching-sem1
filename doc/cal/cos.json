@@ -1,23 +1,23 @@
 {
   "COS": [
     {
-      "date": "2023 September 1",
+      "date": "2024 September 5",
       "description": ["Introduktion: kurset, bits, gates, flip-flops"],
     },
     {
-      "date": "2023 September 15",
+      "date": "2024 September 12",
       "description": ["Digital repræsentation: Bits, gates, flip-flips, memory, bit patterns, og binære tal"],
     },
     {
-      "date": "2023 September 22",
+      "date": "2024 September 19",
       "description": ["Programmering i Python"],
     },
     {
-      "date": "2023 September 29",
+      "date": "2024 October 3",
       "description": ["Udførelse: Computer arkitektur, maskin-sprog, program eksekvering"],
     },
     {
-      "date": "2023 October 6",
+      "date": "2024 October 10",
       "description": ["CPU: Aritmetik/logik, perifere enheder, datamanipulation"],
     },
     {
@@ -26,31 +26,31 @@
       "fillcolor": "orange",
     },
     {
-      "date": "2023 October 13",
+      "date": "2024 October 24",
       "description": ["Operativsystemer (python eksempel)"],
     },
     {
-      "date": "2023 November 10",
+      "date": "2024 October 31",
       "description": ["Netværk intro"],
     },
     {
-      "date": "2023 November 17",
+      "date": "2024 November 7",
       "description": ["Netværk: OSI modellen, TCP/IP, sockets, client/server eksempel, security"],
     },
     {
-      "date": "2023 November 24",
+      "date": "2024 November 14",
       "description": ["Algoritmer"],
     },
     {
-      "date": "2023 December 1",
+      "date": "2024 November 21",
       "description": ["\\textbf{SE:} Algoritmer", "\\textbf{ST:} Internet of Things"],
     },
     {
-      "date": "2023 December 8",
+      "date": "2024 November 28",
       "description": ["\\textbf{SE:} Algoritmer", "\\textbf{ST:} Internet of Things"],
     },
     {
-      "date": "2023 December 15",
+      "date": "2024 December 5",
       "description": ["Opsamling og eksamensforberedelse"],
     },
     {
