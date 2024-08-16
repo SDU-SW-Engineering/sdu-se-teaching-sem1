@@ -1,0 +1,93 @@
+# Itslearning2Polleverywhere
+
+```elixir
+Mix.install([
+  {:kino, "~> 0.13.2"}
+])
+```
+
+## Introduction
+
+This workbook implements a convenient way of importing course participants from itslearning to polleverywhere.
+
+* Input should be copy-pasted from the participants (da: Deltagere) page on itslearning. Make sure to keep the format (every `\t` and `\n` matter)!
+* Output is produced as a CSV file that can be uploaded [here](https://www.polleverywhere.com/participants/imports).
+
+## Input Data
+
+Paste in from itslearning "Deltagere" using your browser.
+
+```elixir
+input = """
+"""
+```
+
+## Parsing
+
+<!-- livebook:{"reevaluate_automatically":true} -->
+
+```elixir
+data = input
+  |> String.slice(5..-1//1)
+  |> String.split("\t\nVælg ")
+  |> Enum.map(fn line ->
+    [name, _, email, _groups, role] =
+      line
+      |> String.split("\t")
+      |> Enum.map(&String.trim/1)
+    names = String.split(name, " ")
+    gname = names |> Enum.at(0)
+    fname = names |> tl() |> Enum.join(" ")
+    %{name: name, gname: gname, fname: fname, email: email, role: role}
+    end)
+```
+
+## Filtering
+
+<!-- livebook:{"reevaluate_automatically":true} -->
+
+```elixir
+Kino.Markdown.new("There are **#{length(data)}** participants before filtering")
+```
+
+```elixir
+data =
+  data
+  |> Enum.filter(fn entry -> entry.role=="Studerende" end)
+```
+
+<!-- livebook:{"reevaluate_automatically":true} -->
+
+```elixir
+Kino.Markdown.new("There are **#{length(data)}** participants after filtering")
+```
+
+## Produce Output
+
+<!-- livebook:{"reevaluate_automatically":true} -->
+
+```elixir
+linesep = "\n"
+output =
+  data
+  |> Enum.map(fn entry ->
+    email = entry.email
+    fname = entry.gname
+    lname = entry.fname
+    pwd = ""
+    phone = ""
+    id = ""
+    private = ""
+    cols = [email, fname, lname, pwd, phone, id, private]
+    "#{Enum.join(cols, ",")}#{linesep}"
+    end)
+  |> Enum.join()
+```
+
+## Present Download Option
+
+<!-- livebook:{"reevaluate_automatically":true} -->
+
+```elixir
+Kino.Download.new(fn -> output end, filename: "user_list.csv")
+```
