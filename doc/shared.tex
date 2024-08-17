@@ -9,9 +9,13 @@
 \usepackage{longtable} % for tabular environment that spans multiple pages and supports footnotes
 \usepackage{colortbl} % for cell coloring
 \usepackage{multirow} % for \multicolumn
+\usepackage{dirtytalk} % for \say quotation
 
 % https://github.com/latex3/babel/issues/51
 \makeatletter\AtBeginDocument{\let\@elt\relax}\makeatother
+
+% https://tex.stackexchange.com/questions/7325/memoir-without-chapters
+\counterwithout{section}{chapter}
 
 % styling
 \setsecnumdepth{subsubsection} % how deep to number sections
