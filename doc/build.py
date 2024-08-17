@@ -159,7 +159,7 @@ class RecipeTexDocument (Recipe):
     super(RecipeTexDocument, self).__init__(target)
   
   def build_linux (self):
-    for _ in range(2):
+    for _ in range(3):
       retcode = system(self.command_linux)
       if retcode==0:
         shutil.move(self.build_filename, self.target_filename)
@@ -167,7 +167,7 @@ class RecipeTexDocument (Recipe):
     return "new"
   
   def build_windows (self):
-    for _ in range(2):
+    for _ in range(3):
       try:
        retcode = system_win(self.command_win)
        #print(self.command_win)
