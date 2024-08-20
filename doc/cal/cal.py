@@ -3,6 +3,9 @@ import json5
 from datetime import datetime
 from functools import cmp_to_key
 
+json_filename_blacklist = [
+  "stats.json"
+]
 datadir = "cal"
 data = []
 
@@ -85,7 +88,7 @@ def produce_table (cols, filterfun=None, filename=None, headlines=None):
 def init ():
   global data
   
-  filenames = list(filter(lambda f: f.endswith(".json"), listdir(datadir)))
+  filenames = list(filter(lambda f: f.endswith(".json") and not f in json_filename_blacklist, listdir(datadir)))
   
   for filename in filenames:
     full_filename = "%s/%s"%(datadir, filename)
