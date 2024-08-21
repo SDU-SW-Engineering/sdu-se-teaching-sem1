@@ -1,111 +1,115 @@
 {
   "OOP": [
     {
-      "date": "2023 September 4",
+      "date": "2024 September 4",
       "description": ["Introduktion"],
     },
     {
-      "date": "2023 September 6",
+      "date": "2024 September 6",
+      "description": ["Introduktion til GIT"],
+    },
+    {
+      "date": "2024 September 11",
       "description": ["Primitive Typer"],
     },
     {
-      "date": "2023 September 11",
+      "date": "2024 September 13",
       "description": ["Kontrol Flow"],
     },
     {
-      "date": "2023 September 13",
-      "description": ["Arrays"],
+      "date": "2024 September 18",
+      "description": ["Datastrukturer"],
     },
     {
-      "date": "2023 September 18",
-      "description": ["Metoder"],
+      "date": "2024 September 20",
+      "description": ["Funktioner"],
     },
     {
-      "date": "2023 September 20",
-      "description": ["Pointgivende Aktivitet 1"],
-      "fillcolor": "orange",
-    },
-    {
-      "date": "2023 September 25",
-      "description": ["Objekter og Klasser"],
-    },
-    {
-      "date": "2023 September 27",
-      "description": ["Arv"],
-    },
-    {
-      "date": "2023 October 2",
-      "description": ["Naming"],
-    },
-    {
-      "date": "2023 October 4",
-      "description": ["Objektorienteret Programudvikling"],
-    },
-    {
-      "date": "2023 October 9",
-      "description": ["Polymorfi"],
-    },
-    {
-      "date": "2023 October 11",
-      "description": ["Abstrakte Klasser og Interfaces"],
-    },
-    {
-      "date": "2023 October 23",
-      "description": ["Pointgivende Aktivitet 2"],
-      "fillcolor": "orange",
-    },
-    {
-      "date": "2023 October 25",
+      "date": "2024 September 25",
       "description": ["Exceptions"],
     },
     {
-      "date": "2023 October 30",
-      "description": ["Collections og Sortering"],
+      "date": "2024 September 27",
+      "description": ["Problemløsning"],
     },
     {
-      "date": "2023 November 1",
-      "description": ["Input og Output"],
-    },
-    {
-      "date": "2023 November 6",
-      "description": ["Softwarearkitektur"],
-    },
-    {
-      "date": "2023 November 8",
-      "description": ["Refactoring"],
-    },
-    {
-      "date": "2023 November 13",
-      "description": ["GUI 1/2"],
-    },
-    {
-      "date": "2023 November 15",
-      "description": ["GUI 2/2"],
-    },
-    {
-      "date": "2023 November 20",
-      "description": ["Workshop 1/2"],
-    },
-    {
-      "date": "2023 November 22",
-      "description": ["Workshop 2/2"],
-    },
-    {
-      "date": "2023 November 27",
-      "description": ["Pointgivende Aktivitet 3"],
+      "date": "2024 September 27",
+      "description": ["Pointgivende Aktivitet 1 (1 uges varighed)"],
       "fillcolor": "orange",
     },
     {
-      "date": "2023 November 29",
+      "date": "2024 October 2",
+      "description": ["Klasser og Objekter"],
+    },
+    {
+      "date": "2024 October 4",
+      "description": ["Arv"],
+    },
+    {
+      "date": "2024 October 9",
+      "description": ["Objektorienteret Programudvikling"],
+    },
+    {
+      "date": "2024 October 11",
+      "description": ["Naming"],
+    },
+    {
+      "date": "2024 October 23",
+      "description": ["Polymorfi"],
+    },
+    {
+      "date": "2024 November 1",
+      "description": ["Abstrakte Klasser og Interfaces"],
+    },
+    {
+      "date": "2024 November 1",
+      "description": ["Pointgivende Aktivitet 2 (1 uges varighed)"],
+      "fillcolor": "orange",
+    },
+    {
+      "date": "2024 November 6",
+      "description": ["Parameteriserede Typer"],
+    },
+    {
+      "date": "2024 November 8",
+      "description": ["Collections og Sortering"],
+    },
+    {
+      "date": "2024 November 13",
+      "description": ["Input og Output"],
+    },
+    {
+      "date": "2024 November 15",
+      "description": ["Tooling"],
+    },
+    {
+      "date": "2024 November 20",
+      "description": ["Test"],
+    },
+    {
+      "date": "2024 November 22",
+      "description": ["Software Arkitektur"],
+    },
+    {
+      "date": "2024 November 27",
+      "description": ["Workshop 1/2"],
+    },
+    {
+      "date": "2024 November 29",
+      "description": ["Workshop 2/2"],
+    },
+    {
+      "date": "2024 November 29",
+      "description": ["Pointgivende Aktivitet 3 (1 uges varighed)"],
+      "fillcolor": "orange",
+    },
+    {
+      "date": "2024 December 4",
+      "description": ["Paradigmer"],
+    },
+    {
+      "date": "2024 December 6",
       "description": ["Afslutning"],
-    },
-    {
-      "date": "2023 December 4",
-      "description": ["Not scheduled!"],
-    },
-    {
-      "date": "2023 December 6",
-      "description": ["Not scheduled!"],
     },
   ],
 }
