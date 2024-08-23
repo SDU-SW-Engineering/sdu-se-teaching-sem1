@@ -113,11 +113,12 @@
     {
       "date": "2024 November 27",
       "description": ["Workshop 1/2"],
-      "presenter": ["Peter?"],
+      "presenter": ["Peter?+TAs"],
     },
     {
       "date": "2024 November 29",
       "description": ["Workshop 2/2"],
+      "presenter": ["TAs"],
     },
     {
       "date": "2024 November 29",
