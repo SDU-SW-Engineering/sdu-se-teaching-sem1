@@ -7,6 +7,7 @@ import cal.semesterintro as semesterintro
 import cal.project_phase1_start as project_phase1_start
 import cal.project_phase2_analyse as project_phase2_analyse
 import cal.project_phase3_programudvikling as project_phase3_programudvikling
+import cal.oop_schedule as oop_schedule
 
 from subprocess import Popen, STDOUT, PIPE, run
 import shutil
@@ -86,6 +87,12 @@ document_names = {
     "source": "project_phase3_programudvikling.tex",
     "dependencies": {
       project_phase3_programudvikling.filename: lambda: project_phase3_programudvikling.build(),
+    },
+  },
+  "OOP Schedule": {
+    "source": "oop_schedule.tex",
+    "dependencies": {
+      oop_schedule.filename: lambda: oop_schedule.build(),
     },
   },
   "ProOnline Course Material": {

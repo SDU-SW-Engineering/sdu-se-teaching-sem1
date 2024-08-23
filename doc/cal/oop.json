@@ -3,34 +3,42 @@
     {
       "date": "2024 September 4",
       "description": ["Introduktion"],
+      "presenter": ["Aslak", "Peter"],
     },
     {
       "date": "2024 September 6",
       "description": ["Introduktion til GIT"],
+      "presenter": ["Aslak"],
     },
     {
       "date": "2024 September 11",
       "description": ["Primitive Typer"],
+      "presenter": ["Peter"],
     },
     {
       "date": "2024 September 13",
       "description": ["Kontrol Flow"],
+      "presenter": ["Aslak"],
     },
     {
       "date": "2024 September 18",
       "description": ["Datastrukturer"],
+      "presenter": ["Peter"],
     },
     {
       "date": "2024 September 20",
       "description": ["Funktioner"],
+      "presenter": ["Aslak"],
     },
     {
       "date": "2024 September 25",
       "description": ["Exceptions"],
+      "presenter": ["Peter"],
     },
     {
       "date": "2024 September 27",
       "description": ["Problemløsning"],
+      "presenter": ["Aslak"],
     },
     {
       "date": "2024 September 27",
@@ -40,26 +48,32 @@
     {
       "date": "2024 October 2",
       "description": ["Klasser og Objekter"],
+      "presenter": ["Peter"],
     },
     {
       "date": "2024 October 4",
       "description": ["Arv"],
+      "presenter": ["Aslak"],
     },
     {
       "date": "2024 October 9",
       "description": ["Objektorienteret Programudvikling"],
+      "presenter": ["Peter"],
     },
     {
       "date": "2024 October 11",
       "description": ["Naming"],
+      "presenter": ["Aslak"],
     },
     {
       "date": "2024 October 23",
       "description": ["Polymorfi"],
+      "presenter": ["Peter"],
     },
     {
       "date": "2024 November 1",
       "description": ["Abstrakte Klasser og Interfaces"],
+      "presenter": ["Aslak"],
     },
     {
       "date": "2024 November 1",
@@ -69,30 +83,37 @@
     {
       "date": "2024 November 6",
       "description": ["Parameteriserede Typer"],
+      "presenter": ["Peter"],
     },
     {
       "date": "2024 November 8",
       "description": ["Collections og Sortering"],
+      "presenter": ["Aslak"],
     },
     {
       "date": "2024 November 13",
       "description": ["Input og Output"],
+      "presenter": ["Peter"],
     },
     {
       "date": "2024 November 15",
       "description": ["Tooling"],
+      "presenter": ["Aslak"],
     },
     {
       "date": "2024 November 20",
       "description": ["Test"],
+      "presenter": ["Peter"],
     },
     {
       "date": "2024 November 22",
       "description": ["Software Arkitektur"],
+      "presenter": ["Aslak"],
     },
     {
       "date": "2024 November 27",
       "description": ["Workshop 1/2"],
+      "presenter": ["Peter?"],
     },
     {
       "date": "2024 November 29",
@@ -106,10 +127,12 @@
     {
       "date": "2024 December 4",
       "description": ["Paradigmer"],
+      "presenter": ["Aslak"],
     },
     {
       "date": "2024 December 6",
       "description": ["Afslutning"],
+      "presenter": ["Aslak", "Peter"],
     },
   ],
 }
