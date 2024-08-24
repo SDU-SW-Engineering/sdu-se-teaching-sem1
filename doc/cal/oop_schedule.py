@@ -40,7 +40,7 @@ def build ():
       "blank":     "",
     },
     {
-      "alignment": "r",
+      "alignment": "c",
       "title":     "Forelæser",
       "extractor": lambda e: "+".join(e["presenter"]) if "presenter" in e else None,
       "blank":     "",
