@@ -9,7 +9,6 @@
       "date": "2024 September 6",
       "description": ["Introduktion til GIT"],
       "presenter": ["Aslak"],
-      "fillcolor": "teal!30",
     },
     {
       "date": "2024 September 11",
@@ -40,7 +39,6 @@
       "date": "2024 September 27",
       "description": ["Problemløsning"],
       "presenter": ["Aslak"],
-      "fillcolor": "teal!30",
     },
     {
       "date": "2024 September 27",
@@ -86,7 +84,6 @@
       "date": "2024 November 6",
       "description": ["Parameteriserede Typer"],
       "presenter": ["Peter"],
-      "fillcolor": "teal!30",
     },
     {
       "date": "2024 November 8",
@@ -107,13 +104,11 @@
       "date": "2024 November 20",
       "description": ["Test"],
       "presenter": ["Peter"],
-      "fillcolor": "teal!30",
     },
     {
       "date": "2024 November 22",
       "description": ["Software Arkitektur"],
       "presenter": ["Aslak"],
-      "fillcolor": "teal!30",
     },
     {
       "date": "2024 November 27",
@@ -134,7 +129,6 @@
       "date": "2024 December 4",
       "description": ["Paradigmer"],
       "presenter": ["Aslak"],
-      "fillcolor": "teal!30",
     },
     {
       "date": "2024 December 6",
