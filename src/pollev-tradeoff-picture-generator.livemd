@@ -1,0 +1,133 @@
+# PollEverywhere Tradeoff Image Generator
+
+```elixir
+Mix.install([
+  {:kino, "~> 0.13.2"},
+  {:resvg, "~> 0.3.3"}
+])
+```
+
+## Introduction
+
+
+
+## Configuration
+
+```elixir
+kinos = [
+  Kino.Input.text("Quality #1", default: "Knowledge"),
+  Kino.Input.text("Quality #2", default: "Grade")
+]
+
+Kino.Layout.grid(kinos)
+```
+
+<!-- livebook:{"reevaluate_automatically":true} -->
+
+```elixir
+[quality1, quality2] = Enum.map(kinos, fn kino -> Kino.Input.read(kino) end)
+```
+
+## Generator
+
+<!-- livebook:{"reevaluate_automatically":true} -->
+
+```elixir
+defmodule Generator do
+  @width  1920
+  @height 1080
+  @head 40
+  @thickness 4
+
+  defp generate_text(text, x, y, fontsize\\56) do
+    """
+    <text x="#{x}"
+          y="#{y}"
+          text-anchor="middle" dominant-baseline="central" font-size="#{fontsize}">#{text}</text>
+    """
+  end
+
+  def generate_markers(border, fontsize\\32) do
+    west = border
+    east = @width-border
+    0..10
+    |> Enum.map(fn i ->
+      x = west+(east-west)*i/10
+      y1 = @height/2-@head
+      y2 = @height/2+@head
+      """
+      <text x="#{x}"
+          y="#{y1-@head/2}"
+          text-anchor="middle" dominant-baseline="central" font-size="#{fontsize}">#{i*10}%</text>
+      <line x1="#{x}"
+            y1="#{y1}"
+            x2="#{x}"
+            y2="#{y2}"
+            stroke="black" />
+      <text x="#{x}"
+          y="#{y2+@head/2}"
+          text-anchor="middle" dominant-baseline="central" font-size="#{fontsize}">#{(10-i)*10}%</text>
+      """
+      end)
+    |> Enum.join()
+  end
+  
+  def generate(q1, q2, border\\200) do
+    x1 = border
+    x2 = @width-border
+    y = @height/2
+    """
+    <svg width="#{@width}" height="#{@height}" xmlns="http://www.w3.org/2000/svg">
+      <line x1="#{x1}"
+            y1="#{y}"
+            x2="#{x2}"
+            y2="#{y}"
+            stroke-width="#{@thickness}"
+            stroke="black" />
+       <polyline points="#{x1+@head},#{y+@head/2} #{x1},#{y} #{x1+@head},#{y-@head/2}"
+                 stroke-width="#{@thickness}"
+                 fill="none"
+                 stroke="black" />
+       <polyline points="#{x2-@head},#{y+@head/2} #{x2},#{y} #{x2-@head},#{y-@head/2}"
+                 stroke-width="#{@thickness}"
+                 fill="none"
+                 stroke="black" />
+
+      #{generate_markers(border)}
+
+      #{generate_text(q1, @width/2, 2*@height/6)}
+      #{generate_text(q2, @width/2, 4*@height/6)}
+    </svg>
+    """
+  end
+end
+```
+
+## Execute
+
+<!-- livebook:{"reevaluate_automatically":true} -->
+
+```elixir
+svg = Generator.generate(quality1, quality2)
+```
+
+<!-- livebook:{"reevaluate_automatically":true} -->
+
+```elixir
+Kino.Image.new(svg, :svg)
+```
+
+<!-- livebook:{"reevaluate_automatically":true} -->
+
+```elixir
+{:ok, buffer} = Resvg.svg_string_to_png_buffer(svg, resources_dir: "/tmp")
+png = :erlang.list_to_binary(buffer)
+```
+
+## Present Download Option
+
+<!-- livebook:{"reevaluate_automatically":true} -->
+
+```elixir
+Kino.Download.new(fn -> svg end, filename: "#{quality1} #{quality2} tradeoff.svg")
+```
