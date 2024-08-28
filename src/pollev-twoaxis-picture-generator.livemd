@@ -1,0 +1,178 @@
+# PollEverywhere TwoAxis Image Generator
+
+```elixir
+Mix.install([
+  {:kino, "~> 0.13.2"},
+  {:resvg, "~> 0.3.3"}
+])
+```
+
+## Introduction
+
+
+
+## Configuration
+
+```elixir
+kinos = [
+  Kino.Input.text("Quality #1", default: "I have to think in order to talk"),
+  Kino.Input.text("Quality #2", default: "I have to talk in order to think")
+]
+
+Kino.Layout.grid(kinos)
+```
+
+<!-- livebook:{"reevaluate_automatically":true} -->
+
+```elixir
+[quality1, quality2] = Enum.map(kinos, fn kino -> Kino.Input.read(kino) end)
+```
+
+## Generator
+
+<!-- livebook:{"reevaluate_automatically":true} -->
+
+```elixir
+defmodule Generator do
+  @width  1920
+  @height 1080
+  @thickness 4
+
+  defp generate_text(text, x, y, angle, fontsize\\42) do
+    r = case angle do
+      :horizontal -> 0
+      :vertical -> -90
+    end
+    """
+    <text transform="translate(#{x}, #{y}) rotate(#{r})"
+          text-anchor="middle"
+          dominant-baseline="central"
+          font-size="#{fontsize}">
+      #{text}
+    </text>
+    """
+  end
+
+  def generate_markers(cx, cy, side_length) do
+    west  = cx-side_length/2
+    east  = cx+side_length/2
+    south = cy-side_length/2
+    north = cy+side_length/2
+    line_spacing = side_length/10
+    1..9
+    |> Enum.map(fn i ->
+      hline_y = south+i*line_spacing
+      hline_x1 = west
+      hline_x2 = east
+      vline_x = west+i*line_spacing
+      vline_y1 = north
+      vline_y2 = south
+      """
+      <line x1="#{hline_x1}"
+            y1="#{hline_y}"
+            x2="#{hline_x2}"
+            y2="#{hline_y}"
+            stroke-width="#{@thickness/4}"
+            stroke="black" />
+      <line x1="#{vline_x}"
+            y1="#{vline_y1}"
+            x2="#{vline_x}"
+            y2="#{vline_y2}"
+            stroke-width="#{@thickness/4}"
+            stroke="black" />
+      """
+      end)
+    |> Enum.join()
+  end
+  
+  def generate(q1, q2, border\\200) do
+    side_length = min(@width, @height) - 2*border
+    west = @width/2-side_length/2
+    east = @width/2+side_length/2
+    north = @height/2-side_length/2
+    south = @height/2+side_length/2
+    """
+    <svg width="#{@width}" height="#{@height}" xmlns="http://www.w3.org/2000/svg">
+      <rect x="#{west}"
+            y="#{north}"
+            width="#{side_length}"
+            height="#{side_length}"
+            fill="none"
+            stroke-width="#{@thickness}"
+            stroke="black" />
+      <line x1="#{@width/2}"
+            y1="#{north}"
+            x2="#{@width/2}"
+            y2="#{south}"
+            stroke-width="#{@thickness/2}"
+            stroke="black" />
+      <line x1="#{west}"
+            y1="#{@height/2}"
+            x2="#{east}"
+            y2="#{@height/2}"
+            stroke-width="#{@thickness/2}"
+            stroke="black" />
+
+      #{generate_markers(@width/2, @height/2, side_length)}
+      
+      <text x="#{west}" y="#{south+40}"
+            text-anchor="middle"
+            dominant-baseline="central"
+            font-size="30px">
+        0%
+      </text>
+      <text x="#{east}" y="#{south+40}"
+            text-anchor="middle"
+            dominant-baseline="central"
+            font-size="30px">
+        100%
+      </text>
+      <text x="#{west-30}" y="#{south}"
+            text-anchor="end"
+            dominant-baseline="central"
+            font-size="30px">
+        0%
+      </text>
+      <text x="#{west-30}" y="#{north}"
+            text-anchor="end"
+            dominant-baseline="central"
+            font-size="30px">
+        100%
+      </text>
+      
+      #{generate_text(q1, @width/2, @height/2+side_length/2+border/2, :horizontal)}
+      #{generate_text(q2, @width/2-side_length/2-border*0.7, @height/2, :vertical)}
+    </svg>
+    """
+  end
+end
+```
+
+## Execute
+
+<!-- livebook:{"reevaluate_automatically":true} -->
+
+```elixir
+svg = Generator.generate(quality1, quality2)
+```
+
+<!-- livebook:{"reevaluate_automatically":true} -->
+
+```elixir
+Kino.Image.new(svg, :svg)
+```
+
+<!-- livebook:{"reevaluate_automatically":true} -->
+
+```elixir
+{:ok, buffer} = Resvg.svg_string_to_png_buffer(svg, resources_dir: "/tmp")
+png = :erlang.list_to_binary(buffer)
+```
+
+## Present Download Option
+
+<!-- livebook:{"reevaluate_automatically":true} -->
+
+```elixir
+Kino.Download.new(fn -> svg end, filename: "#{quality1} #{quality2} tradeoff.svg")
+```
