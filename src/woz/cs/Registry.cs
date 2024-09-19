@@ -1,7 +1,6 @@
 /* Command registry
  */
 
-
 class Registry {
   Context context;
   ICommand fallback;
